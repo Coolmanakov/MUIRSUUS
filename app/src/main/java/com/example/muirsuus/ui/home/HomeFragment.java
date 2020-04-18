@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muirsuus.CardClass;
-import com.example.muirsuus.InformationActivity;
 import com.example.muirsuus.R;
 import com.example.muirsuus.TTH;
 import com.example.muirsuus.adapters.StartAdapter;
