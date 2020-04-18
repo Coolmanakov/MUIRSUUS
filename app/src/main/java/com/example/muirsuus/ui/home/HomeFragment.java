@@ -37,6 +37,8 @@ public class HomeFragment extends Fragment {
         SCHEMES.add(new CardClass(R.drawable.ic_3,"Документы ОТС"));
         SCHEMES.add(new CardClass(R.drawable.ic_4,"История"));
 
+
+
         mRecyclerView = (RecyclerView)root.findViewById(R.id.news_list);
         mRecyclerView.setHasFixedSize(true);
         // use a linear layout manager

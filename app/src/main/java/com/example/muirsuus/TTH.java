@@ -26,10 +26,15 @@ public class TTH extends AppCompatActivity  implements TTHAdapter.OnTthListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tth_activity);
 
-        SCHEMES.add(new CardClass(R.drawable.ic_1,"Средства связи"));
-        SCHEMES.add(new CardClass(R.drawable.ic_2,"Аппаратные"));
-        SCHEMES.add(new CardClass(R.drawable.ic_3,"Документы ОТС"));
-        SCHEMES.add(new CardClass(R.drawable.ic_4,"История"));
+        SCHEMES.add(new CardClass(R.drawable.ic_1,"ТТХ средств связи"));
+        SCHEMES.add(new CardClass(R.drawable.ic_2,"ТТХ вооружения"));
+        SCHEMES.add(new CardClass(R.drawable.ic_3,"ТТХ АВ и БТ техники"));
+        SCHEMES.add(new CardClass(R.drawable.ic_4,"ТТХ средств РХБЗ"));
+        SCHEMES.add(new CardClass(R.drawable.ic_1,"ТТХ инженерных средств"));
+        SCHEMES.add(new CardClass(R.drawable.ic_2,"Оперативно-техническая служба"));
+        SCHEMES.add(new CardClass(R.drawable.ic_3,"Сетевой инженер"));
+        SCHEMES.add(new CardClass(R.drawable.ic_4,"Подготовка"));
+        SCHEMES.add(new CardClass(R.drawable.ic_1,"Нормативно-правовая база"));
 
         mRecyclerView = (RecyclerView)findViewById(R.id.point_recycler);
         mRecyclerView.setHasFixedSize(true);
