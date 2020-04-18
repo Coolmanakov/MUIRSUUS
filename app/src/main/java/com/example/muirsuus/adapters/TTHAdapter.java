@@ -20,9 +20,12 @@ import java.util.List;
 public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
 
     private List<CardClass> mLinks;
-    IRecyclerViewClickListener clickListener;
+    private  OnTthListener mOnTthListener;
 
-    public TTHAdapter(List<CardClass> mLinks){this.mLinks = mLinks;}
+    public TTHAdapter(List<CardClass> mLinks, OnTthListener onTthListener){
+        this.mLinks = mLinks;
+        this.mOnTthListener = onTthListener;
+    }
 
 
 
@@ -32,9 +35,10 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
         ViewGroup viewGroup;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.item_tth,parent,false);
-        MyViewHolder vh = new MyViewHolder(v);
+        MyViewHolder vh = new MyViewHolder(v, mOnTthListener);
         return vh;
     }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
@@ -47,16 +51,29 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
         return mLinks.size();
     }
 
-    public static class  MyViewHolder extends RecyclerView.ViewHolder{
+    public static class  MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView image;
         public TextView text;
-        public View layout;
+        OnTthListener onTthListener;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, OnTthListener onTthListener) {
             super(itemView);
             image = (ImageView)itemView.findViewById(R.id.tth_image);
             text = (TextView)itemView.findViewById(R.id.tth_text);
+            this.onTthListener = onTthListener;
+
+            itemView.setOnClickListener(this);
 
         }
+
+        @Override
+        public void onClick(View v) {
+            onTthListener.onTthCLick(getAdapterPosition());
+        }
     }
+
+    public interface OnTthListener{
+        void onTthCLick(int position);
+    }
+
 }
