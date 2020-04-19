@@ -58,7 +58,7 @@ public class TTH extends AppCompatActivity  implements TTHAdapter.OnTthListener 
     public void onTthCLick(int position) {
 
         Intent intent = new Intent(TTH.this, MeansOfCommunication.class);
-        intent.putExtra("Kek", SCHEMES.get(position));
+        intent.putExtra("Kek", position);
         startActivity(intent);
     }
 }

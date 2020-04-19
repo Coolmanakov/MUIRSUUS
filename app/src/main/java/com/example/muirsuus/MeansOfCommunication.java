@@ -28,9 +28,9 @@ public class MeansOfCommunication extends AppCompatActivity implements TTHAdapte
         RecyclerView recyclerView = findViewById(R.id.point_recycler);
 
         Intent intent = getIntent();
-        CardClass cardClass= intent.getParcelableExtra("Kek");
 
-        int name = intent.getIntExtra("name", 0);
+
+        int name = intent.getIntExtra("Kek", 0);
 
         switch (name){
             case 0:
@@ -48,23 +48,28 @@ public class MeansOfCommunication extends AppCompatActivity implements TTHAdapte
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Кабели связи"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Другие средства связи"));
                 break;
+
             case 1:
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Пистолеты"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Автоматы"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Гранотомёты"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Гранаты"));
                 break;
+
             case 2:
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Автомобильная техника"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Бронированная техника"));
                 break;
             case 3:
                 break;
+
             case 4:
                 break;
+
             case 5:
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Руководящая документация"));
                 break;
+
             case 6:
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Инструменты для монтажа"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Монтажные работы"));
