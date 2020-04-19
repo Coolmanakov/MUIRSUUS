@@ -89,6 +89,7 @@ public class MeansOfCommunication extends AppCompatActivity implements TTHAdapte
                 break;
             case 8:
                 break;
+                //something new
         }
 
         mRecyclerView = (RecyclerView)findViewById(R.id.point_recycler);
