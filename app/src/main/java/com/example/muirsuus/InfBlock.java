@@ -12,7 +12,7 @@ import com.example.muirsuus.adapters.TTHAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TTH extends AppCompatActivity  implements TTHAdapter.OnTthListener {
+public class InfBlock extends AppCompatActivity  implements TTHAdapter.OnTthListener {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -57,7 +57,7 @@ public class TTH extends AppCompatActivity  implements TTHAdapter.OnTthListener 
     @Override
     public void onTthCLick(int position) {
 
-        Intent intent = new Intent(TTH.this, MeansOfCommunication.class);
+        Intent intent = new Intent(InfBlock.this, FirstLevel0fNesting.class);
         intent.putExtra("Kek", position);
         startActivity(intent);
     }

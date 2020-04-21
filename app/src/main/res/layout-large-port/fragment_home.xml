@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,7 +10,17 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="419dp"
+        android:layout_height="383dp"
+        android:layout_alignStart="@+id/profile_icon"
+        android:layout_alignLeft="@+id/profile_icon"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-24dp"
+        android:layout_marginLeft="-24dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="7dp"
         android:background="@drawable/buttons_background"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,17 +63,37 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_list"
-        android:layout_width="472dp"
-        android:layout_height="167dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="-221dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.733"
-        tools:layout_editor_absoluteX="-8dp" />
+        app:layout_constraintVertical_bias="0.742"
+        tools:layout_editor_absoluteX="8dp" />
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="225dp"
         android:layout_height="38dp"
+        android:layout_above="@+id/profile_icon"
+        android:layout_alignStart="@+id/profile_icon"
+        android:layout_alignLeft="@+id/profile_icon"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="167dp"
+        android:layout_marginLeft="167dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginRight="38dp"
+        android:layout_marginBottom="-65dp"
         android:background="@drawable/icasrch_style"
         android:ems="10"
         android:hint="   Поиск"
@@ -79,6 +109,12 @@
         android:id="@+id/profile_icon"
         android:layout_width="80dp"
         android:layout_height="78dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="376dp"
+        android:layout_marginRight="376dp"
+        android:layout_marginBottom="658dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.092"
@@ -88,4 +124,4 @@
         app:srcCompat="@drawable/profile_icon"
         tools:srcCompat="@drawable/profile_icon" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

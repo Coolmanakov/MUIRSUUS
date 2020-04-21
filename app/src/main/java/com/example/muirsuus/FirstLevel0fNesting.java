@@ -12,7 +12,7 @@ import com.example.muirsuus.adapters.TTHAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeansOfCommunication extends AppCompatActivity implements TTHAdapter.OnTthListener {
+public class FirstLevel0fNesting extends AppCompatActivity implements TTHAdapter.OnTthListener {
 
     final List<CardClass> SCHEMES = new ArrayList<CardClass>();
     private RecyclerView mRecyclerView;
@@ -110,7 +110,7 @@ public class MeansOfCommunication extends AppCompatActivity implements TTHAdapte
 
     @Override
     public void onTthCLick(int position) {
-        Intent intent = new Intent(MeansOfCommunication.this, PointsActivity.class);
+        Intent intent = new Intent(FirstLevel0fNesting.this, SecondLevelOfNesting.class);
         intent.putExtra("Kek", SCHEMES.get(position));
         startActivity(intent);
 

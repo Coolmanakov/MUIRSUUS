@@ -11,20 +11,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".TTH"></activity>
-        <activity android:name=".MeansOfCommunication" />
-        <activity android:name=".PointsActivity" />
+
+        <activity android:name=".InfBlock"
+            android:label="Информацинный блок">
+        </activity>
+
+        <activity android:name=".FirstLevel0fNesting"
+            android:label="Информацинный блок"/>
+        <activity android:name=".SecondLevelOfNesting" />
+
         <activity
-            android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".WebActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".SplashActivity" />
     </application>
 
 </manifest>
