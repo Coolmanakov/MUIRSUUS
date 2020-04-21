@@ -18,7 +18,8 @@
 
         <activity android:name=".FirstLevel0fNesting"
             android:label="Информацинный блок"/>
-        <activity android:name=".SecondLevelOfNesting" />
+        <activity android:name=".SecondLevelOfNesting"
+            android:label="Информацинный блок"/>
 
         <activity
             android:name=".MainActivity">

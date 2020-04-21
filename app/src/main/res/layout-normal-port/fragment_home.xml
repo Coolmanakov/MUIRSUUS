@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#843c10"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment"
+    android:background="@color/lightGreenBackground">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -81,7 +81,7 @@
         android:layout_marginEnd="22dp"
         android:layout_marginRight="22dp"
         android:layout_marginBottom="-54dp"
-        android:background="@drawable/icasrch_style"
+        android:background="@drawable/search_style"
         android:ems="10"
         android:hint="   Поиск"
         android:inputType="textPersonName"
@@ -94,7 +94,7 @@
 
     <ImageView
         android:id="@+id/profile_icon"
-        android:layout_width="122dp"
+        android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
@@ -108,7 +108,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.103"
-        app:srcCompat="@drawable/profile_icon"
-        tools:srcCompat="@drawable/profile_icon" />
+        android:background="@drawable/avatar_style" />
 
 </RelativeLayout>

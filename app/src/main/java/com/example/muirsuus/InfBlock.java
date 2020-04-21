@@ -26,6 +26,8 @@ public class InfBlock extends AppCompatActivity  implements TTHAdapter.OnTthList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tth_activity);
 
+
+
         SCHEMES.add(new CardClass(R.drawable.ic_1,"ТТХ средств связи"));
         SCHEMES.add(new CardClass(R.drawable.ic_2,"ТТХ вооружения"));
         SCHEMES.add(new CardClass(R.drawable.ic_3,"ТТХ АВ и БТ техники"));
@@ -60,6 +62,7 @@ public class InfBlock extends AppCompatActivity  implements TTHAdapter.OnTthList
         Intent intent = new Intent(InfBlock.this, FirstLevel0fNesting.class);
         intent.putExtra("Kek", position);
         startActivity(intent);
+
     }
 }
 

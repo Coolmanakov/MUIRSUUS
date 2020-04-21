@@ -44,10 +44,7 @@ public class HomeFragment extends Fragment {
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        //--------------------------------------------
-        //------------------------------------
-        //title = (TextView)findViewById(R.id.tvStartActivity);
-        //------------------------------------
+
         adapter = new StartAdapter(SCHEMES);
         mRecyclerView.setAdapter(adapter);
 

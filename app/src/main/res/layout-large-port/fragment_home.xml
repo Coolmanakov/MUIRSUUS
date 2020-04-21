@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#843c10"
-    tools:context=".ui.home.HomeFragment">
+    android:background="@color/lightGreenBackground"
+    tools:context=".ui.home.HomeFragment"
+    tools:ignore="MissingDefaultResource">
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="383dp"
@@ -30,11 +31,13 @@
         <Button
             android:id="@+id/inf_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
             android:layout_weight="33"
             android:background="@drawable/button_inf_style"
             android:text="@string/inf_btn"
-            android:textColor="#ed7d31"
+            android:textColor="#FFC107"
             android:textSize="30sp"
             android:visibility="visible"
             tools:visibility="visible" />
@@ -42,7 +45,9 @@
         <Button
             android:id="@+id/calc_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
             android:layout_weight="33"
             android:background="@drawable/button_calc_style"
             android:text="@string/calc_btn"
@@ -54,12 +59,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="33"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
             android:background="@drawable/button_manage_style"
             android:text="@string/manage_btn"
             android:textColor="#e1d966"
             android:textSize="30sp" />
 
-    </LinearLayout>
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_list"
