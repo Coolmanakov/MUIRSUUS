@@ -8,20 +8,16 @@
     tools:context=".ui.home.HomeFragment"
     tools:ignore="MissingDefaultResource">
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="383dp"
-        android:layout_alignStart="@+id/profile_icon"
-        android:layout_alignLeft="@+id/profile_icon"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_height="320dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="-24dp"
-        android:layout_marginLeft="-24dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="1dp"
         android:background="@drawable/buttons_background"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,42 +27,36 @@
         <Button
             android:id="@+id/inf_btn"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
+            android:layout_height="wrap_content"
             android:layout_weight="33"
             android:background="@drawable/button_inf_style"
             android:text="@string/inf_btn"
-            android:textColor="#FFC107"
-            android:textSize="30sp"
+            android:textColor="#ed7d31"
+            android:textSize="15sp"
             android:visibility="visible"
             tools:visibility="visible" />
 
         <Button
             android:id="@+id/calc_btn"
             android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginBottom="1dp"
+            android:layout_height="wrap_content"
             android:layout_weight="33"
             android:background="@drawable/button_calc_style"
             android:text="@string/calc_btn"
             android:textColor="#00b050"
-            android:textSize="30sp" />
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/manage_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="33"
-            android:layout_marginBottom="1dp"
-            android:layout_marginTop="1dp"
             android:background="@drawable/button_manage_style"
             android:text="@string/manage_btn"
             android:textColor="#e1d966"
-            android:textSize="30sp" />
+            android:textSize="15sp" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_list"
@@ -101,7 +91,7 @@
         android:layout_marginEnd="38dp"
         android:layout_marginRight="38dp"
         android:layout_marginBottom="-65dp"
-        android:background="@drawable/icasrch_style"
+        android:background="@drawable/search_style"
         android:ems="10"
         android:hint="   Поиск"
         android:inputType="textPersonName"
@@ -128,7 +118,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.058"
-        app:srcCompat="@drawable/profile_icon"
-        tools:srcCompat="@drawable/profile_icon" />
+        android:background="@drawable/avatar_style" />
 
 </RelativeLayout>

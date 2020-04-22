@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightGreenBackground"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment"
+    tools:ignore="MissingDefaultResource">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -78,7 +79,7 @@
         android:layout_marginStart="370dp"
         android:layout_marginLeft="370dp"
         android:layout_marginBottom="-126dp"
-        android:background="@drawable/icasrch_style"
+        android:background="@drawable/search_style"
         android:ems="10"
         android:hint="   Поиск"
         android:inputType="textPersonName"
@@ -105,7 +106,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.15"
-        app:srcCompat="@drawable/profile_icon"
-        tools:srcCompat="@drawable/profile_icon" />
+        android:background="@drawable/avatar_style"/>
 
 </RelativeLayout>
