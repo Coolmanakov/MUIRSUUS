@@ -1,4 +1,4 @@
-package com.example.muirsuus;
+package com.example.muirsuus.classes;
 
 import android.os.Parcel;
 import android.os.Parcelable;

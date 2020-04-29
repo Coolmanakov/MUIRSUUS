@@ -1,5 +1,6 @@
 package com.example.muirsuus.adapters;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.muirsuus.CardClass;
-import com.example.muirsuus.IRecyclerViewClickListener;
+import com.example.muirsuus.classes.CardClass;
 import com.example.muirsuus.R;
 
 import java.util.List;
@@ -21,6 +21,7 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
 
     private List<CardClass> mLinks;
     private  OnTthListener mOnTthListener;
+    boolean[] selects = new boolean[20];
 
     public TTHAdapter(List<CardClass> mLinks, OnTthListener onTthListener){
         this.mLinks = mLinks;
@@ -44,6 +45,12 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.text.setText(mLinks.get(position).getTitle());
         holder.image.setImageResource(mLinks.get(position).getImage());
+
+
+        if(selects[position]){
+            holder.itemView.setBackgroundColor(Color.LTGRAY);}
+        else{
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT);}
     }
 
     @Override
@@ -74,6 +81,7 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
 
     public interface OnTthListener{
         void onTthCLick(int position);
+
     }
 
 }

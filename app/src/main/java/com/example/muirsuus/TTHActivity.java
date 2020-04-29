@@ -5,14 +5,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.muirsuus.adapters.TTHAdapter;
+import com.example.muirsuus.classes.CardClass;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfBlock extends AppCompatActivity  implements TTHAdapter.OnTthListener {
+public class TTHActivity extends AppCompatActivity  implements TTHAdapter.OnTthListener {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -59,7 +61,7 @@ public class InfBlock extends AppCompatActivity  implements TTHAdapter.OnTthList
     @Override
     public void onTthCLick(int position) {
 
-        Intent intent = new Intent(InfBlock.this, FirstLevel0fNesting.class);
+        Intent intent = new Intent(TTHActivity.this, FirstLevel0fNesting.class);
         intent.putExtra("Kek", position);
         startActivity(intent);
 

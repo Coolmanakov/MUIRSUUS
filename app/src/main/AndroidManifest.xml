@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".InfBlock"
+        <activity android:name=".TTHActivity"
             android:label="Информацинный блок">
         </activity>
 
@@ -22,7 +22,8 @@
             android:label="Информацинный блок"/>
 
         <activity
-            android:name=".MainActivity">
+            android:name=".MainActivity"
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.muirsuus.CardClass;
+import com.example.muirsuus.classes.CardClass;
 import com.example.muirsuus.R;
-import com.example.muirsuus.InfBlock;
+import com.example.muirsuus.TTHActivity;
 import com.example.muirsuus.adapters.StartAdapter;
 import com.example.muirsuus.WebActivity;
 
@@ -48,22 +48,29 @@ public class HomeFragment extends Fragment {
         adapter = new StartAdapter(SCHEMES);
         mRecyclerView.setAdapter(adapter);
 
-        manage_btn = (Button)root.findViewById(R.id.manage_btn);
+
+
+
+        manage_btn = (Button)root.findViewById(R.id.manage_btn); //кнопка
+        manage_btn.setBackgroundResource(R.drawable.button_pressed); //изменение цвета кнопки при нажатии
+
         View.OnClickListener onMBtn = new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), WebActivity.class);
+            public void onClick(View v) { //метод,который реализует нажатие на кнопку
+                Intent intent = new Intent(getContext(), WebActivity.class); //переход по кнопке с помощью intent
                 startActivity(intent);
             }
         };
 
         manage_btn.setOnClickListener(onMBtn);
 
-        inf_btn = (Button)root.findViewById(R.id.inf_btn);
+        inf_btn = (Button)root.findViewById(R.id.inf_btn); //кнопка
+        inf_btn.setBackgroundResource(R.drawable.button_pressed); //изменение цвета кнопки при нажатии
+
         View.OnClickListener onInfBtn = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), InfBlock.class);
+                Intent intent = new Intent(getContext(), TTHActivity.class);
                 startActivity(intent);
             }
         };

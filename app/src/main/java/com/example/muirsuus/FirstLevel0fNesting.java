@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muirsuus.adapters.TTHAdapter;
+import com.example.muirsuus.classes.CardClass;
+import com.example.muirsuus.classes.MyObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ public class FirstLevel0fNesting extends AppCompatActivity implements TTHAdapter
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private TTHAdapter adapter;
+    private MyObject myObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +31,6 @@ public class FirstLevel0fNesting extends AppCompatActivity implements TTHAdapter
         RecyclerView recyclerView = findViewById(R.id.point_recycler);
 
         Intent intent = getIntent();
-
-
-
         int name = intent.getIntExtra("Kek", 0);
 
         switch (name){
@@ -48,6 +48,7 @@ public class FirstLevel0fNesting extends AppCompatActivity implements TTHAdapter
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Аппаратные электропитания"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Кабели связи"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Другие средства связи"));
+                myObject = new MyObject(0, 0);
                 break;
 
             case 1:
@@ -55,20 +56,25 @@ public class FirstLevel0fNesting extends AppCompatActivity implements TTHAdapter
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Автоматы"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Гранотомёты"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Гранаты"));
+                myObject = new MyObject(1, 0);
                 break;
 
             case 2:
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Автомобильная техника"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Бронированная техника"));
+                myObject = new MyObject(2, 0);
                 break;
             case 3:
+                myObject = new MyObject(3, 0);
                 break;
 
             case 4:
+                myObject = new MyObject(4, 0);
                 break;
 
             case 5:
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Руководящая документация"));
+                myObject = new MyObject(5, 0);
                 break;
 
             case 6:
@@ -80,6 +86,7 @@ public class FirstLevel0fNesting extends AppCompatActivity implements TTHAdapter
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Сетевое оборудование"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Электрика"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Электроника"));
+                myObject = new MyObject(6, 0);
                 break;
             case 7:
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"ТСП"));
@@ -87,8 +94,10 @@ public class FirstLevel0fNesting extends AppCompatActivity implements TTHAdapter
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Огневая"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Медицинская"));
                 SCHEMES.add(new CardClass(R.drawable.ic_1,"Инженерная"));
+                myObject = new MyObject(7, 0);
                 break;
             case 8:
+                myObject = new MyObject(8, 0);
                 break;
                 //something new
         }
@@ -111,8 +120,9 @@ public class FirstLevel0fNesting extends AppCompatActivity implements TTHAdapter
 
     @Override
     public void onTthCLick(int position) {
+        myObject.i = position;
         Intent intent = new Intent(FirstLevel0fNesting.this, SecondLevelOfNesting.class);
-        intent.putExtra("Kek", SCHEMES.get(position));
+        intent.putExtra(MyObject.class.getCanonicalName(), myObject);
         startActivity(intent);
 
     }

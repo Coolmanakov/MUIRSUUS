@@ -11,4 +11,7 @@
     <string name="inf_btn">ИНФОРМАЦИОННЫЙ БЛОК</string>
     <string name="calc_btn">РАССЧЁТНЫЙ БЛОК</string>
     <string name="manage_btn">БЛОК УПРАВЛЕНИЯ</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.muirsuus.CardClass;
+import com.example.muirsuus.classes.CardClass;
 import com.example.muirsuus.IRecyclerViewClickListener;
 import com.example.muirsuus.R;
 
