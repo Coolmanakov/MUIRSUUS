@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
 
 
         manage_btn = (Button)root.findViewById(R.id.manage_btn); //кнопка
-        manage_btn.setBackgroundResource(R.drawable.button_pressed); //изменение цвета кнопки при нажатии
+        manage_btn.setBackgroundResource(R.drawable.button_const); //изменение цвета кнопки при нажатии
 
         View.OnClickListener onMBtn = new View.OnClickListener() {
             @Override
@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
         manage_btn.setOnClickListener(onMBtn);
 
         inf_btn = (Button)root.findViewById(R.id.inf_btn); //кнопка
-        inf_btn.setBackgroundResource(R.drawable.button_pressed); //изменение цвета кнопки при нажатии
+        inf_btn.setBackgroundResource(R.drawable.button_const); //изменение цвета кнопки при нажатии
 
         View.OnClickListener onInfBtn = new View.OnClickListener() {
             @Override

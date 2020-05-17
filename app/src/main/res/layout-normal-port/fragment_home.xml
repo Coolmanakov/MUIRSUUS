@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="315dp"
+        android:layout_height="368dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
@@ -33,8 +33,7 @@
             android:text="@string/inf_btn"
             android:textColor="@color/lightGreenBackground"
             android:textSize="20sp"
-            android:visibility="visible"
-            tools:visibility="visible" />
+             />
 
         <Button
             android:id="@+id/calc_btn"
@@ -61,9 +60,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_list"
         android:layout_width="match_parent"
-        android:layout_height="104dp"
+        android:layout_height="117dp"
         android:layout_alignTop="@+id/linearLayout"
-        android:layout_marginTop="-184dp"
+        android:layout_marginTop="-135dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,13 +95,13 @@
     <ImageView
         android:id="@+id/profile_icon"
         android:layout_width="56dp"
-        android:layout_height="53dp"
+        android:layout_height="56dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="31dp"
-        android:layout_marginLeft="31dp"
-        android:layout_marginBottom="510dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginBottom="509dp"
         android:background="@drawable/avatar_style"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

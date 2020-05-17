@@ -6,5 +6,6 @@
     <color name="white">#FFFFFF</color>
     <color name="greenFon">#A8D08D</color>
     <color name="lightGreenBackground">#7BBEF3</color>
-    <color name="button_pressed">#00BCD4</color>
+    <color name="button_pressed">#03EFFB</color>
+    <color name="Black">#000000</color>
 </resources>

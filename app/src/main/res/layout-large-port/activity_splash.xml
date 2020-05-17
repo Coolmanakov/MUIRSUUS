@@ -15,10 +15,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="147dp"
-        android:layout_marginRight="147dp"
+        android:layout_marginEnd="196dp"
+        android:layout_marginRight="196dp"
         android:layout_marginBottom="19dp"
-        android:src="@drawable/splash_vs">
+        android:src="@drawable/splash_vs"
+        android:layout_centerHorizontal="true">
 
     </ImageView>
 

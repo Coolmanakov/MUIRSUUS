@@ -35,27 +35,27 @@ public class FirstLevel0fNesting extends AppCompatActivity implements TTHAdapter
 
         switch (name){
             case 0:
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"КШМ"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"КАС"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"Аппаратные КО"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"РРС"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"ТРС"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"ССС"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"РС"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"Аппаратные ТОС и АСУ"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"Аппаратные ФПС"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"Аппаратные управления"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"Аппаратные электропитания"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"Кабели связи"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"Другие средства связи"));
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"КШМ"));//0
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"КАС"));//1
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"Аппаратные КО"));//2
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"РРС"));//3
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"ТРС"));//4
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"ССС"));//5
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"РС"));//6
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"Аппаратные ТОС и АСУ"));//7
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"Аппаратные ФПС"));//8
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"Аппаратные управления"));//9
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"Аппаратные электропитания"));//10
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"Кабели связи"));//11
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"Другие средства связи"));//12
                 myObject = new MyObject(0, 0);
                 break;
 
             case 1:
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"Пистолеты"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"Автоматы"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"Гранотомёты"));
-                SCHEMES.add(new CardClass(R.drawable.ic_1,"Гранаты"));
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"Пистолеты"));//13
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"Автоматы"));//14
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"Гранотомёты"));//15
+                SCHEMES.add(new CardClass(R.drawable.ic_1,"Гранаты"));//16
                 myObject = new MyObject(1, 0);
                 break;
 
@@ -121,6 +121,10 @@ public class FirstLevel0fNesting extends AppCompatActivity implements TTHAdapter
     @Override
     public void onTthCLick(int position) {
         myObject.i = position;
+
+        if (myObject.s  == 1){
+            myObject.i+=13;
+        }
         Intent intent = new Intent(FirstLevel0fNesting.this, SecondLevelOfNesting.class);
         intent.putExtra(MyObject.class.getCanonicalName(), myObject);
         startActivity(intent);

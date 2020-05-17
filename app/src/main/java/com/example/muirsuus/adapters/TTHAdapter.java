@@ -47,10 +47,7 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
         holder.image.setImageResource(mLinks.get(position).getImage());
 
 
-        if(selects[position]){
-            holder.itemView.setBackgroundColor(Color.LTGRAY);}
-        else{
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT);}
+
     }
 
     @Override

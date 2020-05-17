@@ -1,9 +1,15 @@
 package com.example.muirsuus;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.view.View;
 import android.view.Window;
@@ -17,15 +23,16 @@ import java.util.Timer;
 
 public class MainActivity extends AppCompatActivity {
     Button btnHuge;
-    ProgressBar startPogressBar;
+    ProgressBar startProgressBar;
     TextView continueText;
     Intent intent;
+
 
     Handler handler;
 
     int progress;
-    boolean canSwipe;
-    boolean isWorking;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,22 +42,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         progress = 0;
-        canSwipe = false;
-        isWorking = false;
 
-        btnHuge = (Button) findViewById(R.id.huge_btn);
-        startPogressBar = (ProgressBar) findViewById(R.id.start_progress_bar);
-        continueText = (TextView) findViewById(R.id.continueText);
+        startProgressBar = (ProgressBar) findViewById(R.id.start_progress_bar);
 
         intent = new Intent(MainActivity.this, FirstActivity.class);
 
-        startPogressBar.setVisibility(ProgressBar.VISIBLE);
-        startPogressBar.setMax(100);
-
-        continueText.setVisibility(TextView.INVISIBLE);
+        startProgressBar.setVisibility(ProgressBar.VISIBLE);
+        startProgressBar.setMax(100);
 
         handler = new Handler();
-
 
         new Thread(new Runnable() {
             @Override
@@ -66,21 +66,20 @@ public class MainActivity extends AppCompatActivity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            startPogressBar.setProgress(progress);
+                            startProgressBar.setProgress(progress);
                         }
                     });
 
                 }
-                startPogressBar.setVisibility(ProgressBar.INVISIBLE);
-                canSwipe = true;
+                ///startProgressBar.setVisibility(ProgressBar.INVISIBLE);
 
                 startActivity(intent);
-
                 MainActivity.this.finish();
 
-                isWorking = true;
             }
         }).start();
+
+
     }
 
 }

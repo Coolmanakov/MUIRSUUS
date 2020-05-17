@@ -19,21 +19,13 @@ import com.example.muirsuus.R;
 public class TthFragment extends Fragment {
 
 
-    private TthViewModel TthViewModel;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TthViewModel =
-                ViewModelProviders.of(this).get(TthViewModel.class);
         View root = inflater.inflate(R.layout.fragment_layout_tth,container,false);
-        final TextView textView = root.findViewById(R.id.text_tth);
-        TthViewModel.getText().observe(getViewLifecycleOwner(),new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 }

@@ -11,6 +11,7 @@ public class CardClass implements Parcelable {
         this.title = title;
     }
 
+
     protected CardClass(Parcel in) {
         image = in.readInt();
         title = in.readString();

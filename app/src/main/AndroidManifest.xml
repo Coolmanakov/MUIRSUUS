@@ -3,6 +3,9 @@
     package="com.example.muirsuus">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +35,7 @@
         </activity>
 
         <activity android:name=".WebActivity" />
+        <activity android:name=".FullScreenActivity" />
         <activity android:name=".FirstActivity" />
     </application>
 
