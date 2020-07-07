@@ -8,20 +8,21 @@
     android:background="@drawable/green_fon">
 
 
-    <ImageView
+    <TextView
         android:id="@+id/splash_vs"
-        android:layout_width="121dp"
-        android:layout_height="63dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="196dp"
-        android:layout_marginRight="196dp"
-        android:layout_marginBottom="19dp"
-        android:src="@drawable/splash_vs"
-        android:layout_centerHorizontal="true">
+        android:layout_marginEnd="125dp"
+        android:layout_marginRight="125dp"
+        android:layout_marginBottom="31dp"
+        android:text="Версия 1.0.1"
+        android:textSize="30sp"
+        android:textColor="@color/colorPrimary">
 
-    </ImageView>
+    </TextView>
 
     <ImageView
         android:id="@+id/spalsh_text"

@@ -6,9 +6,22 @@ import android.os.Parcelable;
 public class CardClass implements Parcelable {
     private int image;
     private String title;
+    private int id;
+
+
+    public CardClass(int image, String title,int id) {
+        this.image = image;
+        this.title = title;
+        this.id = id;
+
+
+    }
     public CardClass(int image, String title) {
         this.image = image;
         this.title = title;
+
+
+
     }
 
 
@@ -51,5 +64,8 @@ public class CardClass implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(image);
         dest.writeString(title);
+    }
+    public int getId(){
+        return id;
     }
 }

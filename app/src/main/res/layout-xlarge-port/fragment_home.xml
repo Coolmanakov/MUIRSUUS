@@ -4,108 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightGreenBackground"
     tools:context=".ui.home.HomeFragment"
+    android:background="@color/lightGreenBackground"
     tools:ignore="MissingDefaultResource">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="0dp"
-        android:background="@color/white"
-        android:orientation="vertical"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/inf_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_weight="33"
             android:background="@drawable/button_inf_style"
             android:text="@string/inf_btn"
-            android:textColor="#ed7d31"
-            android:textSize="30sp"
-            android:visibility="visible"
-            tools:visibility="visible" />
+            android:textColor="@color/lightGreenBackground"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/calc_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_weight="33"
-            android:background="@drawable/button_inf_style"
+            android:background="@drawable/button_calc_style"
             android:text="@string/calc_btn"
-            android:textColor="#00b050"
-            android:textSize="30sp" />
+            android:textColor="@color/lightGreenBackground"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/manage_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             android:layout_weight="33"
-            android:background="@drawable/button_inf_style"
+            android:background="@drawable/button_manage_style"
             android:text="@string/manage_btn"
-            android:textColor="#e1d966"
-            android:textSize="30sp" />
+            android:textColor="@color/lightGreenBackground"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_list"
-        android:layout_width="797dp"
-        android:layout_height="168dp"
-        android:layout_alignTop="@+id/linearLayout"
-        android:layout_marginTop="-179dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="3dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+
+        android:layout_marginBottom="247dp" />
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="340dp"
-        android:layout_height="92dp"
-        android:layout_above="@+id/profile_icon"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginStart="370dp"
-        android:layout_marginLeft="370dp"
-        android:layout_marginBottom="-126dp"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+
+        android:layout_alignTop="@+id/profile_icon"
+
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginBottom="-38dp"
+
         android:background="@drawable/search_style"
         android:ems="10"
         android:hint="   Поиск"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.741"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.168" />
+        android:inputType="textPersonName" />
 
     <ImageView
         android:id="@+id/profile_icon"
-        android:layout_width="172dp"
-        android:layout_height="130dp"
-        android:layout_above="@+id/linearLayout"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="590dp"
-        android:layout_marginRight="590dp"
-        android:layout_marginBottom="351dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15"
-        android:background="@drawable/avatar_style"/>
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+
+        android:layout_marginStart="121dp"
+        android:layout_marginLeft="121dp"
+        android:layout_marginBottom="1051dp"
+
+        android:background="@drawable/avatar_style"
+
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </RelativeLayout>

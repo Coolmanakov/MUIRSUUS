@@ -16,9 +16,7 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_lit"
             app:destination="@id/navigation_lit" />
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_net"
-            app:destination="@id/navigation_net" />
+
         <action
             android:id="@+id/action_navigation_home_to_navigation_settings"
             app:destination="@id/navigation_settings" />
@@ -27,7 +25,7 @@
     <fragment
         android:id="@+id/navigation_portfel"
         android:name="com.example.muirsuus.ui.portfel.PortfelFragment"
-        android:label="@string/title_portfel"
+        android:label="Портфель"
         tools:layout="@layout/fragment_portfel" />
 
     <fragment
@@ -40,9 +38,5 @@
         android:name="com.example.muirsuus.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
-    <fragment
-        android:id="@+id/navigation_net"
-        android:name="com.example.muirsuus.ui.net.NetFragment"
-        android:label="@string/title_net"
-        tools:layout="@layout/fragment_net" />
+
 </navigation>

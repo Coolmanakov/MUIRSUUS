@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.muirsuus.adapters.TTHAdapter;
@@ -14,7 +13,7 @@ import com.example.muirsuus.classes.CardClass;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TTHActivity extends AppCompatActivity  implements TTHAdapter.OnTthListener {
+public class TTHActivity extends AppCompatActivity   {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -26,45 +25,45 @@ public class TTHActivity extends AppCompatActivity  implements TTHAdapter.OnTthL
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tth_activity);
+        setContentView(R.layout.recycler);
 
 
 
-        SCHEMES.add(new CardClass(R.drawable.ic_1,"ТТХ средств связи"));
-        SCHEMES.add(new CardClass(R.drawable.ic_2,"ТТХ вооружения"));
-        SCHEMES.add(new CardClass(R.drawable.ic_3,"ТТХ АВ и БТ техники"));
-        SCHEMES.add(new CardClass(R.drawable.ic_4,"ТТХ средств РХБЗ"));
-        SCHEMES.add(new CardClass(R.drawable.ic_1,"ТТХ инженерных средств"));
-        SCHEMES.add(new CardClass(R.drawable.ic_2,"Оперативно-техническая служба"));
-        SCHEMES.add(new CardClass(R.drawable.ic_3,"Сетевой инженер"));
-        SCHEMES.add(new CardClass(R.drawable.ic_4,"Подготовка"));
-        SCHEMES.add(new CardClass(R.drawable.ic_1,"Нормативно-правовая база"));
+        SCHEMES.add(new CardClass(R.drawable.ratsia,"Cредства связи"));
+        SCHEMES.add(new CardClass(R.drawable.kalash,"Вооружение"));
+        SCHEMES.add(new CardClass(R.drawable.tank,"АВ и БТ техника"));
+        SCHEMES.add(new CardClass(R.drawable.radiatsia,"Средств РХБЗ"));
+        SCHEMES.add(new CardClass(R.drawable.lopata,"Инженерные средства"));
+        SCHEMES.add(new CardClass(R.drawable.gaechny_klyuch,"Оперативно-техническая служба"));
+        SCHEMES.add(new CardClass(R.drawable.kompyuter,"Сетевой инженер"));
+        SCHEMES.add(new CardClass(R.drawable.palatka,"Подготовка"));
+        SCHEMES.add(new CardClass(R.drawable.kniga,"Нормативно-правовая база"));
 
         mRecyclerView = (RecyclerView)findViewById(R.id.point_recycler);
+
         mRecyclerView.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 
+        adapter = new TTHAdapter(SCHEMES);
 
-        StartAdapter();
 
-
-    }
-
-    public void StartAdapter(){
-        adapter = new TTHAdapter(SCHEMES,this);
+        adapter.SetOnItemClickListener(new TTHAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                SCHEMES.get(position);
+                Intent intent = new Intent(TTHActivity.this, FirstLevel0fNesting.class);
+                intent.putExtra("Kek", position);
+                startActivity(intent);
+            }
+        });
         mRecyclerView.setAdapter(adapter);
-        //mRecyclerView.scrollToPosition(1);
-    }
 
-    @Override
-    public void onTthCLick(int position) {
-
-        Intent intent = new Intent(TTHActivity.this, FirstLevel0fNesting.class);
-        intent.putExtra("Kek", position);
-        startActivity(intent);
 
     }
+
+
+
 }
 

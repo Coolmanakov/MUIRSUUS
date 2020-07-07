@@ -19,16 +19,9 @@ public class NetFragment extends Fragment {
     private NetViewModel netViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        netViewModel =
-                ViewModelProviders.of(this).get(NetViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_net,container,false);
-        final TextView textView = root.findViewById(R.id.text_net);
-        netViewModel.getText().observe(getViewLifecycleOwner(),new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+        View root = inflater.inflate(R.layout.fragment_portfel,container,false);
+
         return root;
     }
 }

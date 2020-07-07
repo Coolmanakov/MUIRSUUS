@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.muirsuus">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,18 +13,19 @@
         android:icon="@mipmap/icon"
         android:label="МИРСУ УС"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-
-        <activity android:name=".TTHActivity"
-            android:label="Информацинный блок">
-        </activity>
-
-        <activity android:name=".FirstLevel0fNesting"
-            android:label="Информацинный блок"/>
-        <activity android:name=".SecondLevelOfNesting"
-            android:label="Информацинный блок"/>
-
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".CalculationActivity"
+            android:label="Рассчётный блок" />
+        <activity
+            android:name=".TTHActivity"
+            android:label="Информацинный блок" />
+        <activity
+            android:name=".FirstLevel0fNesting"
+            android:label="Информацинный блок" />
+        <activity
+            android:name=".SecondLevelOfNesting"
+            android:label="Информацинный блок" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/NoActionBar">
@@ -33,10 +35,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".WebActivity" />
         <activity android:name=".FullScreenActivity" />
         <activity android:name=".FirstActivity" />
+
     </application>
 
 </manifest>

@@ -10,12 +10,19 @@ import android.view.ViewGroup;
 import com.example.muirsuus.R;
 
 public class HistoryFragment extends Fragment {
+    int a;
+    //создание конструктора класса для получение нужного ID
+    public HistoryFragment(int a){
+        this.a = a;
+    }
+    public HistoryFragment(){
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_layout_history,container,false);
+        View root = inflater.inflate(R.layout.fragment_portfel,container,false);
 
         return root;
     }

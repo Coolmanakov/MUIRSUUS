@@ -8,21 +8,30 @@
         android:id="@+id/tth_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/item_pressed" />
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"/>
 
     <TextView
         android:id="@+id/tth_text"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+
         android:layout_toRightOf="@+id/tth_image"
-        android:background="@drawable/item_pressed"
-        android:gravity="center" />
+        android:layout_toEndOf="@+id/tth_image"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="15dp"
+
+        android:textSize="16sp"
+        android:textColor="@color/Black"
+        android:textStyle="bold"
+        />
 
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorGray">
-
-    </View>
+        android:background="@color/colorGray"/>
 </RelativeLayout>

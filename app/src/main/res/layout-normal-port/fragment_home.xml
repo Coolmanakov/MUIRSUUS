@@ -11,34 +11,32 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="368dp"
-        android:layout_alignParentStart="true"
+        android:layout_height="wrap_content"
+
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginBottom="1dp"
-        android:background="@color/white"
-        android:orientation="vertical"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/inf_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_weight="33"
             android:background="@drawable/button_inf_style"
             android:text="@string/inf_btn"
             android:textColor="@color/lightGreenBackground"
-            android:textSize="20sp"
-             />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/calc_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_weight="33"
             android:background="@drawable/button_calc_style"
             android:text="@string/calc_btn"
@@ -48,7 +46,7 @@
         <Button
             android:id="@+id/manage_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_weight="33"
             android:background="@drawable/button_manage_style"
             android:text="@string/manage_btn"
@@ -60,54 +58,51 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/news_list"
         android:layout_width="match_parent"
-        android:layout_height="117dp"
-        android:layout_alignTop="@+id/linearLayout"
-        android:layout_marginTop="-135dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.967" />
+        android:layout_height="wrap_content"
+
+        android:layout_above="@+id/linearLayout"
+        android:layout_marginBottom="70dp"
+
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
 
     <EditText
-        android:id="@+id/editText"
-        android:layout_width="190dp"
-        android:layout_height="29dp"
-        android:layout_above="@+id/profile_icon"
-        android:layout_alignTop="@+id/profile_icon"
+        android:id="@+id/findText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="9dp"
         android:layout_marginEnd="27dp"
         android:layout_marginRight="27dp"
-        android:layout_marginBottom="-38dp"
-        android:background="@drawable/search_style"
+
+
         android:ems="10"
-        android:hint="   Поиск"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.797"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.132" />
+        android:hint="Поиск"/>
 
     <ImageView
         android:id="@+id/profile_icon"
         android:layout_width="56dp"
         android:layout_height="56dp"
+
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="17dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginBottom="509dp"
+
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginBottom="586dp"
+
         android:background="@drawable/avatar_style"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.103" />
+
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
 
 </RelativeLayout>

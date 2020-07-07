@@ -27,13 +27,16 @@ import com.example.muirsuus.classes.Army;
 
 import java.io.IOException;
 import java.util.List;
+import com.example.muirsuus.SecondLevelOfNesting;
+
 
 import static com.example.muirsuus.classes.IndependentMethods.GetLinkImages;
 import static com.example.muirsuus.classes.IndependentMethods.loadImageFromData;
 import static com.example.muirsuus.classes.Particular.UUID_INT;
 
 
-public class DescriptionFragment extends Fragment {
+public class DescriptionFragment extends Fragment{
+    SecondLevelOfNesting sln = new SecondLevelOfNesting();
     TextView title;
     TextView subtitle;
     TextView description;
@@ -48,10 +51,22 @@ public class DescriptionFragment extends Fragment {
     private SQLiteDatabase mDb;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    int a;
+    //создание конструктора класса для получение нужного ID
+    public DescriptionFragment(int a){
+        this.a = a;
+    }
+    public DescriptionFragment(){
+    }
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_layout_description,container,false);
+
+
 
 
 
@@ -70,24 +85,23 @@ public class DescriptionFragment extends Fragment {
 
 
 
-        populaterecyclerView(0);
+        populaterecyclerView(a);
 
         return root;
     }
+
+
     public void populaterecyclerView(int id){
         mDBHelper = new DataBaseHelper(getActivity());
 
         try {
-            mDBHelper.updateDataBase();
-        } catch (IOException mIOException) {
-            throw new Error("UnableToUpdateDatabase");
+            mDBHelper.checkAndCopyDatabase();
+            mDBHelper.openDataBase();
+        } catch (SQLiteException e) {
+            e.printStackTrace();
         }
+        mDBHelper.close();
 
-        try {
-            mDb = mDBHelper.getWritableDatabase();
-        } catch (SQLException mSQLException) {
-            throw mSQLException;
-        }
 
         DataBaseInfo = mDBHelper.exMainList(id);
 
@@ -100,7 +114,7 @@ public class DescriptionFragment extends Fragment {
 
         String linksPhoto = DataBaseInfo.getAllImage();
         List<String> photoLinks = GetLinkImages(linksPhoto);
-        final String photoLinksStr[] = photoLinks.toArray(new String[0]);
+        //final String photoLinksStr[] = photoLinks.toArray(new String[0]);
 /*//-----------------------------------------------------------------------------
         final IRecyclerViewClickListener listener = new IRecyclerViewClickListener() {
             @Override

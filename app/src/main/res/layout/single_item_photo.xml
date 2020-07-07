@@ -6,17 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="198dp">
 
-        <ImageView
-            android:id="@+id/All_Image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<ImageView
+    android:id="@+id/All_Image"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-        </ImageView>
-    </androidx.cardview.widget.CardView>
+</ImageView>
+
 </LinearLayout>

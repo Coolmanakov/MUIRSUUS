@@ -25,5 +25,5 @@
     <fragment
         android:id="@+id/descriptionFragment"
         android:name="com.example.muirsuus.ui.layouts.DescriptionFragment"
-        tools:layout="@layout/fragment_layout_description" />
+        tools:layout="@layout/fragment_layout_description"/>
 </navigation>

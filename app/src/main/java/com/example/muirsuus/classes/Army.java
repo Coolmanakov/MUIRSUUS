@@ -10,6 +10,7 @@ public class Army {
     private String description;
     private String allImage;
     private String groupName;
+    private String tth;
 
     public String getGroupName() {
         return groupName;
@@ -59,6 +60,8 @@ public class Army {
         this.groupName = groupName;
     }
 
+
+
     public String getSubtitle() {
         return subtitle;
     }
@@ -71,23 +74,36 @@ public class Army {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+
+        this.title = title;
     }
 
     public String getImage() {
         return image;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public void setImage(String image) {
         this.image = image;
     }
+
+    public void setTTH(String tth) {
+        this.tth = tth;
+    }
+
+    public String getTTH() {
+        return tth;
+    }
+
+
+
+
 }
