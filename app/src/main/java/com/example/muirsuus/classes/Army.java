@@ -4,23 +4,49 @@ package com.example.muirsuus.classes;
 public class Army {
 
     private int id;
-    private String title;
-    private String subtitle;
-    private String image;
+    private CharSequence section;
+    private String subsection;
+    private String point;
+    private String photo_ids;
     private String description;
-    private String allImage;
-    private String groupName;
     private String tth;
 
-    public String getGroupName() {
-        return groupName;
+
+
+
+
+
+
+
+
+
+    public Army(){
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public Army(CharSequence section, String subsection, String point) {
+        this.section = section;
+        this.subsection = subsection;
+        this.point = point;
+    }
+    public Army(String title, String subsection, String description, String tth) {
+        this.section = title;
+        this.subsection = subsection;
+        this.description = description;
+        this.tth = tth;
     }
 
-    public String getDescription() {
+
+
+
+    public String getSubsection() {
+        return subsection;
+    }
+
+    public void setSubsection(String subsection) {
+        this.subsection = subsection;
+    }
+
+    public String get_description() {
         return description;
     }
 
@@ -28,71 +54,30 @@ public class Army {
         this.description = description;
     }
 
-    public String getAllImage() {
-        return allImage;
+
+    public CharSequence getSection() {
+        return section;
     }
 
-    public void setAllImage(String allImage) {
-        this.allImage = allImage;
+    public void setSection(String section) {
+
+        this.section = section;
     }
 
-    public Army(){
+    public String get_photo_subsection() {
+        return photo_ids;
     }
 
-    public Army(String title, String subtitle, String image) {
-        this.title = title;
-        this.subtitle = subtitle;
-        this.image = image;
-    }
-    public Army(String title, String subtitle, String image, String description, String allImage) {
-        this.title = title;
-        this.subtitle = subtitle;
-        this.image = image;
-        this.description = description;
-        this.allImage = allImage;
-    }
-    public Army(String title, String subtitle, String image, String description, String allImage,String groupName) {
-        this.title = title;
-        this.subtitle = subtitle;
-        this.image = image;
-        this.description = description;
-        this.allImage = allImage;
-        this.groupName = groupName;
+    public void set_photo_subsection(String photo_ids) {
+        this.photo_ids = photo_ids;
     }
 
-
-
-    public String getSubtitle() {
-        return subtitle;
+    public String get_photo_point() {
+        return point;
     }
 
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-
-        this.title = title;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
+    public void set_photo_point(String point) {
+        this.point = point;
     }
 
     public void setTTH(String tth) {
@@ -101,6 +86,14 @@ public class Army {
 
     public String getTTH() {
         return tth;
+    }
+
+    public void setPoint(String point) {
+        this.point = point;
+    }
+
+    public String getPoint() {
+        return point;
     }
 
 

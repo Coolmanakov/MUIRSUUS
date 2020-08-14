@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/tthFragment"
-        android:name="com.example.muirsuus.ui.layouts.TthFragment"
+        android:name="com.example.muirsuus.ui.fragments.TthFragment"
         tools:layout="@layout/fragment_layout_tth">
         <action
             android:id="@+id/action_navigation_second_level_of_nesting_to_navigation_Description"
@@ -20,10 +20,10 @@
 
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.example.muirsuus.ui.layouts.HistoryFragment"
+        android:name="com.example.muirsuus.ui.fragments.HistoryFragment"
         tools:layout="@layout/fragment_layout_history" />
     <fragment
         android:id="@+id/descriptionFragment"
-        android:name="com.example.muirsuus.ui.layouts.DescriptionFragment"
+        android:name="com.example.muirsuus.ui.fragments.DescriptionFragment"
         tools:layout="@layout/fragment_layout_description"/>
 </navigation>

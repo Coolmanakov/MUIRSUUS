@@ -4,14 +4,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FilterQueryProvider;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -24,7 +21,7 @@ import com.example.muirsuus.CalculationActivity;
 import com.example.muirsuus.DataBaseHelper;
 import com.example.muirsuus.classes.CardClass;
 import com.example.muirsuus.R;
-import com.example.muirsuus.TTHActivity;
+import com.example.muirsuus.SectionActivity;
 import com.example.muirsuus.adapters.StartAdapter;
 import com.example.muirsuus.WebActivity;
 
@@ -90,7 +87,7 @@ public class HomeFragment extends Fragment {
         View.OnClickListener onInfBtn = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), TTHActivity.class);
+                Intent intent = new Intent(getContext(), SectionActivity.class);
                 startActivity(intent);
             }
         };

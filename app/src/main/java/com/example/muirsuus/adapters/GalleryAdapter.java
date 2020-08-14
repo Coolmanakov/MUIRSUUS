@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.muirsuus.IRecyclerViewClickListener;
+import com.example.muirsuus.classes.IRecyclerViewClickListener;
 import com.example.muirsuus.R;
 
 import java.util.List;

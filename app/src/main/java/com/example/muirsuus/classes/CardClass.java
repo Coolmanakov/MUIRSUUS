@@ -5,24 +5,27 @@ import android.os.Parcelable;
 
 public class CardClass implements Parcelable {
     private int image;
+    private String photo;
     private String title;
     private int id;
+
+
 
 
     public CardClass(int image, String title,int id) {
         this.image = image;
         this.title = title;
         this.id = id;
-
-
     }
     public CardClass(int image, String title) {
         this.image = image;
         this.title = title;
-
-
-
     }
+    public CardClass(String photo, String title) {
+        this.photo = photo;
+        this.title = title;
+    }
+
 
 
     protected CardClass(Parcel in) {
@@ -55,6 +58,13 @@ public class CardClass implements Parcelable {
         return title;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -68,4 +78,5 @@ public class CardClass implements Parcelable {
     public int getId(){
         return id;
     }
+
 }

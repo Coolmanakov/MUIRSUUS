@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.muirsuus.R;
-import com.example.muirsuus.ui.layouts.DescriptionFragment;
+import com.example.muirsuus.ui.fragments.DescriptionFragment;
 
 
 public class Particular extends AppCompatActivity {

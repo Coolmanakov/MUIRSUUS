@@ -1,19 +1,15 @@
 package com.example.muirsuus;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.muirsuus.ui.home.HomeFragment;
-import com.example.muirsuus.ui.layouts.TthFragment;
 import com.example.muirsuus.ui.portfel.PortfelFragment;
 import com.example.muirsuus.ui.settings.SettingsFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
@@ -24,10 +20,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import static com.example.muirsuus.R.id.nav_host_fragment;
 

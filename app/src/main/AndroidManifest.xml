@@ -14,17 +14,21 @@
         android:label="МИРСУ УС"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".CalculationActivity"
             android:label="Рассчётный блок" />
         <activity
-            android:name=".TTHActivity"
+            android:name=".SectionActivity"
             android:label="Информацинный блок" />
         <activity
-            android:name=".FirstLevel0fNesting"
+            android:name=".PointsActivity"
             android:label="Информацинный блок" />
         <activity
-            android:name=".SecondLevelOfNesting"
+            android:name=".SubsectionActivity"
+            android:label="Информацинный блок" />
+        <activity
+            android:name=".InformActivity"
             android:label="Информацинный блок" />
         <activity
             android:name=".MainActivity"
@@ -38,7 +42,6 @@
         <activity android:name=".WebActivity" />
         <activity android:name=".FullScreenActivity" />
         <activity android:name=".FirstActivity" />
-
     </application>
 
 </manifest>

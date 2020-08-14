@@ -2,7 +2,9 @@ package com.example.muirsuus.adapters;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,16 +27,13 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
     private List<CardClass> mLinks;
     private  OnItemClickListener mListener; //обычный слушатель нажатия
     private  OnLongItemClickListener onLongClickListener;//слушатель долгого нажатия
-    private int id;
-    DataBaseHelper dataBaseHelper;
+
 
 
 
 
     public TTHAdapter(List<CardClass> mLinks){
         this.mLinks = mLinks;
-
-
     }
     //-------------------методы и интерфейсы слушателей--------------
     public  interface  OnItemClickListener{
@@ -73,8 +72,20 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.text.setText(mLinks.get(position).getTitle());
-        holder.image.setImageResource(mLinks.get(position).getImage());
+        //holder.image.setImageResource(mLinks.get(position).getImage());
+// проверяем есть ли фото в БД для данного элемента recyclerview
+        if( mLinks.get(position).getPhoto() != null ){
+        loadImageFromData(mLinks.get(position).getPhoto(), holder.image);
+        Log.d("mLog", "photo for " + mLinks.get(position).getTitle() + "is" + mLinks.get(position).getPhoto());
+        }
+        else {
+            holder.image.setImageResource(mLinks.get(position).getImage());
+            Log.d("mLog", " no photo for" + mLinks.get(position).getTitle());
+        }
     }
+
+
+
 
     @Override
     public int getItemCount() {
@@ -130,5 +141,12 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
         int id = mLinks.get(position).getId();
         return  id;
     }
+
+    public static void loadImageFromData(String namePhoto, ImageView imageView1) {
+        String path = Environment.getExternalStorageDirectory().toString();
+        String imagePath = path + "/AudioArmy/PhotoForDB/"+namePhoto+".jpg";
+        imageView1.setImageURI(Uri.parse(imagePath));
+    }
+
 
 }
