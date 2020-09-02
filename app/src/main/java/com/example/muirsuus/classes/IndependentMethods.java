@@ -15,7 +15,7 @@ public class IndependentMethods {
         imageView1.setImageURI(Uri.parse(imagePath));
     }
 
-    public static List<String> GetLinkImages(String links){
+    public static List<String> get_list_images(String links){
         List<String> temp = new ArrayList<String>();
         char[] charLinks = links.toCharArray();
         char findСomma = 44;
@@ -37,5 +37,6 @@ public class IndependentMethods {
         }
         return temp;
     }
+
 
 }

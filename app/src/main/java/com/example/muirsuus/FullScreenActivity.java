@@ -2,14 +2,15 @@ package com.example.muirsuus;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.muirsuus.adapters.FullSizeAdapter;
-import com.example.muirsuus.classes.HackyViewPager;
 
 public class FullScreenActivity extends AppCompatActivity {
 
-    HackyViewPager viewPager;
+    MyViewPager viewPager;
     String[] images;
     int position;
 
@@ -18,15 +19,17 @@ public class FullScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_screen);
 
-        if(savedInstanceState==null){
+        viewPager = (MyViewPager)findViewById(R.id.viewPager);
+
+        if(savedInstanceState == null){
             Intent i = getIntent();
             images = i.getStringArrayExtra("IMAGES");
             position = i.getIntExtra("POSITION",0);
         }
 
-        viewPager = (HackyViewPager)findViewById(R.id.viewPager);
-
+        Log.d("mLog", "get string array of images " + images);
         FullSizeAdapter fullSizeAdapter =  new FullSizeAdapter(this,images);
+
         viewPager.setAdapter(fullSizeAdapter);
         viewPager.setCurrentItem(position,true);
     }

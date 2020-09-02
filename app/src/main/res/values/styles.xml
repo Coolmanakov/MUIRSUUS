@@ -1,10 +1,23 @@
 <resources>
 
-    <!-- Light/day theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Light/white theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="textcolor">@color/colorPrimary</item>
+        <item name="maintextcolor">@color/Black</item>
+
+
+    </style>
+    <!-- Night/dark theme. -->
+    <style name="NightTheme" parent="Theme.AppCompat.DayNight">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/Black</item>
+        <item name="colorPrimaryDark">@color/Black</item>
+        <item name="textcolor">@color/colorPrimary</item>
+        <item name="maintextcolor">@color/white</item>
+
 
 
     </style>

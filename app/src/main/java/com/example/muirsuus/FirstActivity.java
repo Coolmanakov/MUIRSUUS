@@ -1,10 +1,19 @@
 package com.example.muirsuus;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.muirsuus.ui.home.HomeFragment;
@@ -15,17 +24,27 @@ import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.io.IOException;
+
+import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
 import static com.example.muirsuus.R.id.nav_host_fragment;
 
 public class FirstActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 100;
-    Fragment fragment = null;
+    private  Fragment fragment = null;
+    private  int oldversion, newversion;
+    private SQLiteDatabase db;
+    SpaceNavigationView spaceNavigationView;
+    Context context;
+
+    private SharedPreferences myPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +54,37 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SpaceNavigationView spaceNavigationView = (SpaceNavigationView) findViewById(R.id.space);
+        spaceNavigationView = (SpaceNavigationView) findViewById(R.id.space);
         spaceNavigationView.initWithSaveInstanceState(savedInstanceState);
+
+
+
+
+//---------------------------------------------------------------------------------------------------
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
+        newversion = dataBaseHelper.getVersion();
+//---------------------------------------------------------------------------------------------------
+        SharedPreferences myPreferences  = PreferenceManager.getDefaultSharedPreferences(FirstActivity.this);
+        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor myEditor = myPreferences.edit();
+
+        if(myPreferences.getInt("VERSION",0) != 0){ // проверка, что в preferences есть какая-то запись
+            Log.d("mLog","FIRST ACTIVITY:   OLD VERSION     " + oldversion );
+            oldversion = myPreferences.getInt("VERSION",0); // получаем номер старой версии
+        }
+        myEditor.putInt("VERSION",newversion); // меняем номер версии на новый
+        myEditor.commit(); //сохраняем изменения
+//---------------------------------------------------------------------------------------------------
+        if(newversion > oldversion) { // если версия изменилась, значит перезапишем файл с БД
+            try {
+                Log.d("mLog","FIRST ACTIVITY:   NEW VERSION OF DATABASE" );
+                dataBaseHelper.copyDataBase();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            Log.d("mLog", "FIRST ACTIVITY:   NO CHANGES IN DATABASE");
+        }
 
 
 //---------------------------------------------------------------------------------------------------
@@ -65,7 +113,7 @@ public class FirstActivity extends AppCompatActivity {
 
 
 
-
+        context = this;
         spaceNavigationView.setSpaceOnClickListener(new SpaceOnClickListener() {
             @Override
             public void onCentreButtonClick() {
@@ -78,6 +126,8 @@ public class FirstActivity extends AppCompatActivity {
                 transaction.replace(nav_host_fragment, fragment);
                 transaction.commit();
                 setTitle("Дом");
+                Log.d("mLog", "FIRST ACTIVITY:   CLICK ON CENTRE BUTTON:    ДОМ");
+                spaceNavigationView.setActiveSpaceItemColor(ContextCompat.getColor(context, R.color.colorGray));
             }
 
             @Override
@@ -91,6 +141,7 @@ public class FirstActivity extends AppCompatActivity {
                 changeFragment(itemIndex);
             }
         });
+
 
     }
 //-------------------------------------нужно для того, чтобы подгружать картнки с БД--------------------------------
@@ -111,15 +162,17 @@ public class FirstActivity extends AppCompatActivity {
     }
 //--------------------------------------- нужно для того, чтобы подгружать картнки с БД--------------------------------
 
-    private void changeFragment(int itemIndex){
+    public void changeFragment(int itemIndex){
 
         if (itemIndex == 0){
             setTitle("Портфель");
             fragment = new PortfelFragment();
+            Log.d("mLog", "FIRST ACTIVITY:   CLICK ON LEFT BUTTON:    ПОРТФЕЛЬ");
         }
         else {
             fragment = new SettingsFragment();
             setTitle("Настройки");
+            Log.d("mLog", "FIRST ACTIVITY:   CLICK ON RIGHT BUTTON:    НАСТРОЙКИ");
 
         }
         FragmentManager manager = getSupportFragmentManager();
@@ -131,6 +184,7 @@ public class FirstActivity extends AppCompatActivity {
         transaction.commit();
 
     }
+
 
 
 }

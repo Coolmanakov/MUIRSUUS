@@ -28,7 +28,7 @@ import java.util.List;
 
 public class PortfelFragment extends Fragment {
 
-    DataBaseHelper mDBHelper;
+    DataBaseHelper dataBaseHelper;
     Army DataBaseInfo;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -36,22 +36,22 @@ public class PortfelFragment extends Fragment {
     final List<CardClass> favorites = new ArrayList<CardClass>();
     private ArrayList<String> list_of_ids = new ArrayList<>();
     private MyObject myObject;
-
+    private Army subsection_photo = new Army();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_portfel, container, false);
         setHasOptionsMenu(true);//включаем режим вывода элементов фрагмента в ActionBar.
-        mDBHelper = new DataBaseHelper(getActivity());
+        dataBaseHelper = new DataBaseHelper(getActivity());
 
 
         //mDBHelper.deleteTable();
-        list_of_ids = mDBHelper.createFavoriteList();
+        list_of_ids = dataBaseHelper.createFavoriteList(); //получаем список тех аппаратных, которые добавили в закладки
 
 
-        for (String personal_id : list_of_ids) {
-            favorites.add(new CardClass(R.drawable.ikonka_svyaz, personal_id));
-            Log.d("mLog", " run with such personal_id " + personal_id);
+        for (String favorite : list_of_ids) {
+            subsection_photo = dataBaseHelper.get_point_photo(favorite); //получаем объект Army с заполненным полем для фотографии
+            favorites.add(new CardClass(subsection_photo.get_photo_point(), favorite));
         }
 
 
@@ -67,27 +67,25 @@ public class PortfelFragment extends Fragment {
         adapter = new TTHAdapter(favorites);
 
 //--------------создание subsection_activity view--------------------
-        mRecyclerView.setAdapter(adapter);
 
         adapter.SetOnLongItemClickListener(new TTHAdapter.OnLongItemClickListener() {
             @Override
             public void onLongItemClick(int position) {
-                Log.d("mLog","position = " + position);
-                int id = adapter.removeById(position);
-                mDBHelper.deleteRow(id);
-
+                String delete_record = favorites.get(position).title; // получаем название item, на который нажали
+                dataBaseHelper.deleteRow(delete_record);
+                adapter.removeById(position);
             }
         });
         adapter.SetOnItemClickListener(new TTHAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(PortfelFragment.this.getActivity(), InformActivity.class);
-                int id = adapter.findById(position);
-                myObject = new MyObject(0,id);
-                intent.putExtra(MyObject.class.getCanonicalName(), myObject);
+                intent.putExtra("Build points", favorites.get(position).title);
+                Log.d("mLog", "PORTFEL FRAGMENT:    INTENT FROM PORTFEL FRAGMENT TO INFORM ACTIVITY");
                 startActivity(intent);
             }
         });
+        mRecyclerView.setAdapter(adapter);
         return root;
     }
 
@@ -100,7 +98,7 @@ public class PortfelFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete:
-            mDBHelper.deleteTable();
+            dataBaseHelper.deleteTable();
 
             default:
                 return super.onOptionsItemSelected(item);

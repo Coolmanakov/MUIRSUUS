@@ -25,7 +25,6 @@
         android:layout_centerHorizontal="true"
 
         android:text="Item Title"
-        android:textColor="@android:color/background_light"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"/>
 </RelativeLayout>

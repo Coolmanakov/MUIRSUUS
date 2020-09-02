@@ -17,6 +17,7 @@ import com.example.muirsuus.classes.MParcelable;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,8 +27,7 @@ public class PointsActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private TTHAdapter adapter;
-    private HashMap<String,List<String>> subsection_list;
-    private List<String> list_points;
+    private List<String> list_points = new ArrayList<>();
     private Army point_photo = new Army();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +45,15 @@ public class PointsActivity extends AppCompatActivity {
 
 //---------------------------Проверяем обновления в базе данных---------------------------
         DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
-        try {
-            dataBaseHelper.updateDataBase();
-            dataBaseHelper.checkAndCopyDatabase();
-            dataBaseHelper.openDataBase();
-        } catch (SQLiteException | IOException e) {
-            e.printStackTrace();
-        }
+
 //---------------------------Проверяем обновления в базе данных---------------------------
 
-        for( String point : string_name.getList()){ // в recyclerview добавляем значения из словаря, который передали с помощь intent
-            point_photo = dataBaseHelper.get_point_photo(point);
-            SCHEMES.add(new CardClass(point_photo.get_photo_point(), point));
+
+        list_points = string_name.getList();//сортируем лист ключей
+        Collections.sort(list_points);
+        for( String point : list_points){ // в recyclerview добавляем значения из словаря, который передали с помощь intent
+            point_photo = dataBaseHelper.get_point_photo(point);//поиск в бд  названия фото
+            SCHEMES.add(new CardClass(point_photo.get_photo_point(), point));//добавляем фото и title
         }
 
 //----------------------------Создание и заполнение recyclerview---------------------------------------

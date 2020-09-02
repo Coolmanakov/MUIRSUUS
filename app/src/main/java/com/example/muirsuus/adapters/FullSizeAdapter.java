@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.example.muirsuus.MyViewPager;
 import com.example.muirsuus.R;
-import com.example.muirsuus.classes.HackyViewPager;
 
 import static com.example.muirsuus.classes.IndependentMethods.loadImageFromData;
 
@@ -44,7 +44,7 @@ public class FullSizeAdapter extends PagerAdapter {
         ImageView imageView = (ImageView)v.findViewById(R.id.img);
         //Glide.with(context).load(images[position]).apply(new RequestOptions().centerInside()).into(imageView);
         loadImageFromData(images[position],imageView);
-        HackyViewPager vp = (HackyViewPager)container;
+        MyViewPager vp = (MyViewPager)container;
         vp.addView(v,0);
         return v;
     }
@@ -52,7 +52,7 @@ public class FullSizeAdapter extends PagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         //super.destroyItem(container, position, object);
-        HackyViewPager viewPager = (HackyViewPager)container;
+        MyViewPager viewPager = (MyViewPager)container;
         View v = (View)object;
         viewPager.removeView(v);
     }

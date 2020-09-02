@@ -20,7 +20,7 @@ public class Particular extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_khm);
+        setContentView(R.layout.inform_layout);
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_managed_by_buttons);

@@ -22,9 +22,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     private Context mContext;
     IRecyclerViewClickListener clickListener;
 
-    public GalleryAdapter(List<String> mLinks, Context mContext) {
+    public GalleryAdapter(List<String> mLinks, IRecyclerViewClickListener clickListener) {
         this.mLinks = mLinks;
-        this.mContext = mContext;
+        this.clickListener = clickListener;
+
         //this.clickListener = clickListener;
     }
 
@@ -57,7 +58,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
             galleryImage= (ImageView)itemView.findViewById(R.id.All_Image);
-            //itemView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
         @Override

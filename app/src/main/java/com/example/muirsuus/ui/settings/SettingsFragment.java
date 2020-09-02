@@ -21,14 +21,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.muirsuus.FirstActivity;
 import com.example.muirsuus.R;
 import com.example.muirsuus.ui.lit.LitViewModel;
 
+import java.io.IOException;
+
 import static android.content.Context.MODE_PRIVATE;
 import static android.content.Context.POWER_SERVICE;
+import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
+import static com.example.muirsuus.R.id.nav_host_fragment;
 
 public class SettingsFragment extends Fragment {
     final float start_value = 0.7f; //начальное значение размера шрифта
@@ -45,40 +53,32 @@ public class SettingsFragment extends Fragment {
         final View root = inflater.inflate(R.layout.fragment_settings,container,false);
 
         // create ContextThemeWrapper from the original Activity Context with the custom theme
-        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppTheme);
+        /*final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppTheme);
 
 
 
 
 
-        /*if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
 
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
             // create ContextThemeWrapper from the original Activity Context with the custom theme
-            contextThemeWrapper.setTheme(R.style.darkTheme);
+            contextThemeWrapper.setTheme(R.style.NightTheme);
         }
-        else
-            mySwitch = (Switch) root.findViewById(R.id.mySwitch);
-            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-                mySwitch.setChecked(true);
-            }
-            mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean isCheked) {
-                    if(isCheked){
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                        restartApp();
-                    }
-                    else {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                        restartApp();
-                    }
-                    
-                }
+        else contextThemeWrapper.setTheme(R.style.AppTheme);
 
-                public void restartApp() {
-                    Intent i = new Intent(getActivity().getApplicationContext(), Setting.class);
-                }
-            });
+        mySwitch = (Switch) root.findViewById(R.id.mySwitch);
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            mySwitch.setChecked(true);
+        }
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+
+            }
+
+        });
+
 
         // clone the inflater using the ContextThemeWrapper
         LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);*/
@@ -137,5 +137,5 @@ public class SettingsFragment extends Fragment {
         return  root;
     }
 
-    
+
 }

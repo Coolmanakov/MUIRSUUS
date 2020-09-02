@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment"
-    android:background="@color/lightGreenBackground"
+    android:background="?attr/colorPrimaryDark"
     tools:ignore="MissingDefaultResource">
 
     <LinearLayout
@@ -20,7 +20,7 @@
         android:layout_alignParentEnd="true"
         app:layout_constraintBottom_toBottomOf="parent"
 
-        android:background="@color/white"
+        android:background="?attr/colorPrimaryDark"
         android:orientation="vertical">
 
         <Button
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_weight="33"
-            android:background="@drawable/button_calc_style"
+            android:background="@drawable/button_inf_style"
             android:text="@string/calc_btn"
             android:textColor="@color/lightGreenBackground"
             android:textSize="20sp" />
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_weight="33"
-            android:background="@drawable/button_manage_style"
+            android:background="@drawable/button_inf_style"
             android:text="@string/manage_btn"
             android:textColor="@color/lightGreenBackground"
             android:textSize="20sp" />

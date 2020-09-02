@@ -75,12 +75,12 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
         //holder.image.setImageResource(mLinks.get(position).getImage());
 // проверяем есть ли фото в БД для данного элемента recyclerview
         if( mLinks.get(position).getPhoto() != null ){
-        loadImageFromData(mLinks.get(position).getPhoto(), holder.image);
-        Log.d("mLog", "photo for " + mLinks.get(position).getTitle() + "is" + mLinks.get(position).getPhoto());
+            loadImageFromData(mLinks.get(position).getPhoto(), holder.image);
+            Log.d("mLog", "BIND VIEW HOLDER in TTH ADAPTER: photo for   " + mLinks.get(position).getTitle() + " is  " + mLinks.get(position).getPhoto());
         }
         else {
             holder.image.setImageResource(mLinks.get(position).getImage());
-            Log.d("mLog", " no photo for" + mLinks.get(position).getTitle());
+            Log.d("mLog", "BIND VIEW HOLDER in TTH ADAPTER: no photo for    " + mLinks.get(position).getTitle());
         }
     }
 
@@ -134,7 +134,7 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
         int id = mLinks.get(position).getId();
         mLinks.remove(position);
         notifyDataSetChanged();
-        Log.d("mLog", "deleted item with id = " + id);
+        Log.d("mLog", "TTHADAPTER removeByID:   ");
         return  id;
     }
     public int findById(int position) {

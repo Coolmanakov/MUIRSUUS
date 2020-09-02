@@ -7,11 +7,13 @@
     android:orientation="vertical">
 
 
-<ImageView
-    android:id="@+id/All_Image"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/All_Image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill"
+        android:adjustViewBounds="true">
 
-</ImageView>
+    </ImageView>
 
 </LinearLayout>

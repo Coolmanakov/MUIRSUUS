@@ -14,6 +14,7 @@ import android.widget.SimpleCursorAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +41,7 @@ public class HomeFragment extends Fragment {
     SQLiteDatabase db;
     Cursor userCursor;
     ListView userList;
+    NavController navController;
 
     final public List<CardClass> SCHEMES = new ArrayList<CardClass>();
 
@@ -67,7 +69,6 @@ public class HomeFragment extends Fragment {
 
 
         manage_btn = (Button)root.findViewById(R.id.manage_btn); //кнопка
-        manage_btn.setBackgroundResource(R.drawable.button_const); //изменение цвета кнопки при нажатии
 
         View.OnClickListener onMBtn = new View.OnClickListener() {
             @Override
@@ -82,7 +83,6 @@ public class HomeFragment extends Fragment {
 
 
         inf_btn = (Button)root.findViewById(R.id.inf_btn); //кнопка
-        inf_btn.setBackgroundResource(R.drawable.button_const); //изменение цвета кнопки при нажатии
 
         View.OnClickListener onInfBtn = new View.OnClickListener() {
             @Override
@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
 
 
         calc_btn = (Button) root.findViewById(R.id.calc_btn);
-        calc_btn.setBackgroundResource(R.drawable.button_const);
+
 
         View.OnClickListener onCalcBtn = new View.OnClickListener() {
             @Override

@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,9 +29,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final int DB_VERSION = 34;
     public static final String FILE_DIR ="AudioArmy";
     //-----------------names of columns in database------------------------------
-    public static final String TABLE_NAME = "table_ex";
+    public static final String TABLE_EX = "table_ex";
+
     public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_FAVORITE_ID = "id";
     public static final String COLUMN_SECTION = "section";
     public static final String COLUMN_SUBSECTION= "subsection";
     public static final String COLUMN_TTH = "tth";
@@ -43,9 +42,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PHOTO_POINT= "point_photo";
 
 
-    public  static final String COLUMN_PERSON_IS_FAVORITE="IsFavorite";
-    //----------------------------------------------------------------------
+//----------------------------------------------------------------------
     public static final String TABLE_NAME_FAVORITE = "favorite";
+//----------------------------------------------------------------------
+    public static final String TABLE_NAME_VERSION = "version_control";
+    public  static final String COLUMN_VERSION = "version";
+//----------------------------------------------------------------------
+    public  static final  int id = 0;
+    public static int versionControl = 0;
 
 
     private SQLiteDatabase mDataBase;
@@ -60,6 +64,33 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         this.mContext = context;
     }
 
+    public void create_db(){
+        InputStream myInput = null;
+        OutputStream myOutput = null;
+        try {
+            File file = new File(DB_PATH + DB_NAME);
+            if (!file.exists()) {
+                this.getReadableDatabase();
+                myInput = mContext.getAssets().open(DB_NAME);
+                String outFileName = DB_PATH + DB_NAME;
+                myOutput = new FileOutputStream(outFileName);
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = myInput.read(buffer)) > 0) {
+                    myOutput.write(buffer, 0, length);
+
+                }
+                myOutput.flush();
+                myOutput.close();
+                myInput.close();
+            }
+
+        }
+        catch(IOException ex){
+
+        }
+    }
+
     public void checkAndCopyDatabase(){
         boolean dbExist = checkDataBase();
         if (dbExist){
@@ -69,14 +100,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         try{
             copyDataBase();
+            Log.d("mLog", " try to copy db");
         }catch (IOException e){
             e.printStackTrace();
             Log.d("mLog","error db");
         }
     }
 
-    public void updateDataBase() throws IOException { // проверяем обновлена ли бд
+   /* public void updateDataBase() throws IOException { // проверяем обновлена ли бд
         if (mNeedUpdate) {
+            Log.d("mLog","mNeedUpdate = " + mNeedUpdate);
             File dbFile = new File(DB_PATH + DB_NAME);
             if (dbFile.exists())
                 dbFile.delete();
@@ -85,7 +118,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
             mNeedUpdate = false;
         }
-    }
+        else{
+            Log.d("mLog","mNeedUpdate = " + mNeedUpdate);
+
+        }
+    }*/
 
     private boolean checkDataBase() {  // создаём файл, в котором будет храниться бд
         SQLiteDatabase checkDB = null;
@@ -101,12 +138,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void copyDataBase() throws IOException{
-
+        versionControl +=1;
+        Log.d("mLog", "versionControl = " +versionControl);
         InputStream myInput = new FileInputStream(Environment.getExternalStorageDirectory()  //убрать метод  getExternalStorageDirectory() в api 29 его нет
                 + File.separator + FILE_DIR
                 + File.separator + DB_NAME);
-        String outFileName = DB_PATH + DB_NAME;
-        OutputStream myOutput = new FileOutputStream(outFileName);
+        OutputStream myOutput = new FileOutputStream(DB_PATH + DB_NAME);
         byte[] buffer = new byte[1024];
         int length;
         while ((length = myInput.read(buffer))>0){
@@ -117,7 +154,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         myInput.close();
     }
 
-    private void copyDBFile() throws IOException {
+   /* private void copyDBFile() throws IOException {
         InputStream mInput = mContext.getAssets().open(DB_NAME);
         //InputStream mInput = mContext.getResources().openRawResource(R.raw.info);
         OutputStream mOutput = new FileOutputStream(DB_PATH + DB_NAME);
@@ -128,7 +165,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         mOutput.flush();
         mOutput.close();
         mInput.close();
-    }
+    }*/
 
     public boolean openDataBase() throws SQLException {
         mDataBase = SQLiteDatabase.openDatabase(DB_PATH + DB_NAME, null, SQLiteDatabase.CREATE_IF_NECESSARY);
@@ -144,19 +181,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        Log.d("mLog", "onCreate");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (newVersion > oldVersion)
+        if (newVersion > oldVersion){
             mNeedUpdate = true;
+        }
+
     }
     //получаем описание из БД
     public Army getDescriptionFromDB(String point){
         SQLiteDatabase db = this.getReadableDatabase();
         @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_PERSON_DESCRIPTION  +
-                " FROM " + TABLE_NAME + " WHERE " + COLUMN_POINT + " LIKE ?  ", new String[]   {point});
+                " FROM " + TABLE_EX + " WHERE " + COLUMN_POINT + " LIKE ?  ", new String[]   {point});
         Army description = new Army();
         if(cursor != null && cursor.moveToFirst()){
             do{
@@ -175,7 +214,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public Army getTTHFromDB(String point){
         SQLiteDatabase db = this.getReadableDatabase();
         @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_TTH  +
-                " FROM " + TABLE_NAME + " WHERE " + COLUMN_POINT + " LIKE ?  ", new String[]   {point});
+                " FROM " + TABLE_EX + " WHERE " + COLUMN_POINT + " LIKE ?  ", new String[]   {point});
         Army tth = new Army();
         if(cursor != null && cursor.moveToFirst()){
             do{
@@ -194,25 +233,29 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     // метод, в котором реализовано добавление в список "Избранное"
     public void addToFavoriteList(String text_id){
-        SQLiteDatabase db = this.getReadableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DataBaseHelper.COLUMN_FAVORITE_ID, text_id);
-        db.insert(DataBaseHelper.TABLE_NAME_FAVORITE,null,contentValues);
-
-        Log.d("mLog","add  text Id=" + text_id);
+        SQLiteDatabase db = this.getReadableDatabase();
+        contentValues.put(DataBaseHelper.COLUMN_ID,  text_id);
+        Log.d("mLog", "contentValues   " + contentValues);
+        long a = db.insert(DataBaseHelper.TABLE_NAME_FAVORITE,null, contentValues);
+        // long b = db.update(DataBaseHelper.TABLE_NAME_FAVORITE, contentValues, DataBaseHelper.COLUMN_FAVORITE_ID + " LIKE ? ", new String[] {text_id});
+        Log.d("mLog", "db insert =  " + a);
+       // Log.d("mLog", "db update =  " + b);
+        Log.d("mLog", "Add to Favorite list " + text_id);
     }
 // метод, в котором реализовано создание списка избранного
     public ArrayList<String> createFavoriteList(){
         ArrayList<String> idList = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
-        @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_FAVORITE_ID + " FROM " + TABLE_NAME_FAVORITE,null);
+        @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_ID + " FROM " + TABLE_NAME_FAVORITE,null);
         if(cursor != null && cursor.moveToFirst()){
             do {
-                idList.add(cursor.getString(cursor.getColumnIndex(COLUMN_FAVORITE_ID)));
+                idList.add(cursor.getString(cursor.getColumnIndex(COLUMN_ID)));
+                Log.d("mLog","CREATE FAVORITE LIST WITH:    " +idList );
             } while (cursor.moveToNext());
         }
         else
-            Log.d("mLog","without  favorite id" );
+            Log.d("mLog","NO OBJECTS IN FAVORITE LIST" );
         cursor.close();
         return idList;
 
@@ -224,10 +267,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Log.d("mLog","Table has been deleted");
     }
 // метод, удаляющий строчку из "Избранного" по id
-    public  void deleteRow(int id){
+    public  void deleteRow(String delete_record){
         SQLiteDatabase mDataBase = this.getReadableDatabase();
-        delCount = mDataBase.delete(DataBaseHelper.TABLE_NAME_FAVORITE, DataBaseHelper.COLUMN_ID + " = " + id, null);
-        Log.d("mLog", "deleted rows count = " + delCount);
+        delCount = mDataBase.delete(DataBaseHelper.TABLE_NAME_FAVORITE, DataBaseHelper.COLUMN_ID + " LIKE ? ", new String[]{delete_record});
+        Log.d("mLog", "DATABASEHELPER deleteROW:   " +  delete_record);
         mDataBase.close();
     }
 //метод получения названий картинок из БД для subsection
@@ -235,17 +278,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Army photo = new Army();
         SQLiteDatabase db = this.getReadableDatabase();
         @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_PHOTO_SUBSECTION +
-                " FROM " + TABLE_NAME + " WHERE " + COLUMN_SUBSECTION + " LIKE ?  ", new String[]   {subsection});
+                " FROM " + TABLE_EX + " WHERE " + COLUMN_SUBSECTION + " LIKE ?  ", new String[]   {subsection});
+
         if(cursor != null && cursor.moveToFirst()){
             do {
                 if(cursor.getString(cursor.getColumnIndex(COLUMN_PHOTO_SUBSECTION)) != null){
-                photo.set_photo_subsection(cursor.getString(cursor.getColumnIndex(COLUMN_PHOTO_SUBSECTION)));
+                    photo.set_photo_subsection(cursor.getString(cursor.getColumnIndex(COLUMN_PHOTO_SUBSECTION)));
                 }
 
             } while (cursor.moveToNext());
         }
-        else
-            Log.d("mLog","did not find photo for subsection" );
+        else {
+            Log.d("mLog", "did not find photo for  " + subsection);
+        }
+
         cursor.close();
         return photo;
     }
@@ -254,7 +300,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Army photo = new Army();
         SQLiteDatabase db = this.getReadableDatabase();
         @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_PHOTO_POINT +
-                " FROM " + TABLE_NAME + " WHERE " + COLUMN_POINT + " LIKE ?  ", new String[]   {point});
+                " FROM " + TABLE_EX + " WHERE " + COLUMN_POINT + " LIKE ?  ", new String[]   {point});
         if(cursor != null && cursor.moveToFirst()){
             do {
                 if(cursor.getString(cursor.getColumnIndex(COLUMN_PHOTO_POINT)) != null){
@@ -264,7 +310,30 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         else
-            Log.d("mLog","did not find photo for point" );
+            Log.d("mLog","POINT PHOTO для   " + point + " не найдено");
+        cursor.close();
+        return photo;
+    }
+
+//получаем строк с названиями картинок, в последующем разделим её и получим список
+    public String get_list_photo(String point){
+        String photo = new String();
+        SQLiteDatabase db = this.getReadableDatabase();
+        @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_PHOTO_ID +
+                " FROM " + TABLE_EX + " WHERE " + COLUMN_POINT + " LIKE ?  ", new String[]   {point});
+        if(cursor != null && cursor.moveToFirst()){
+            do {
+                if(cursor.getString(cursor.getColumnIndex(COLUMN_PHOTO_ID)) != null){
+                    photo = cursor.getString(cursor.getColumnIndex(COLUMN_PHOTO_ID));
+                }
+                else{
+                    Log.d("mLog","There is no photo for PhotoRecyclerview" );
+                }
+
+            } while (cursor.moveToNext());
+        }
+        else
+            Log.d("mLog","there is no photo_ids" );
         cursor.close();
         return photo;
     }
@@ -279,7 +348,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         ArrayList<String> list = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_SUBSECTION +"," + COLUMN_POINT +" FROM " + TABLE_NAME + " WHERE " + COLUMN_SECTION + " LIKE ?  ", new String[]   {section});
+        @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_SUBSECTION +"," + COLUMN_POINT +" FROM " + TABLE_EX + " WHERE " + COLUMN_SECTION + " LIKE ?  ", new String[]   {section});
 
 
         if(cursor != null && cursor.moveToFirst()){
@@ -306,6 +375,23 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return map_of_DBobjects;
+    }
+//получаем номер версии БД
+    public int getVersion(){
+        int version = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_VERSION + " FROM " + TABLE_NAME_VERSION,null);
+        if(cursor != null && cursor.moveToFirst()){
+            do {
+                 version = cursor.getInt(cursor.getColumnIndex(COLUMN_VERSION));
+                Log.d("mLog","DATABASEHELPER:   CURRENT VERSION = " + version);
+            } while (cursor.moveToNext());
+        }
+        else
+            Log.d("mLog","DATABASEHELPER:   PROBLEMS WITH VERSION" );
+        cursor.close();
+        return version;
+
     }
 
 
