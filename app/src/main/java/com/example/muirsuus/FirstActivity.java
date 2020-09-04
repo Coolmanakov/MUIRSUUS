@@ -39,7 +39,7 @@ import static com.example.muirsuus.R.id.nav_host_fragment;
 public class FirstActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 100;
     private  Fragment fragment = null;
-    private  int oldversion, newversion;
+    private  int oldversion, newversion ;
     private SQLiteDatabase db;
     SpaceNavigationView spaceNavigationView;
     Context context;
@@ -58,22 +58,34 @@ public class FirstActivity extends AppCompatActivity {
         spaceNavigationView.initWithSaveInstanceState(savedInstanceState);
 
 
-
-
 //---------------------------------------------------------------------------------------------------
         DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
-        newversion = dataBaseHelper.getVersion();
 //---------------------------------------------------------------------------------------------------
         SharedPreferences myPreferences  = PreferenceManager.getDefaultSharedPreferences(FirstActivity.this);
         @SuppressLint("CommitPrefEdits") SharedPreferences.Editor myEditor = myPreferences.edit();
 
-        if(myPreferences.getInt("VERSION",0) != 0){ // проверка, что в preferences есть какая-то запись
+        if(myPreferences.getInt("Version",0) != 0){ // проверка, что в preferences есть какая-то запись
+            oldversion = myPreferences.getInt("Version",0); // получаем номер старой версии
             Log.d("mLog","FIRST ACTIVITY:   OLD VERSION     " + oldversion );
-            oldversion = myPreferences.getInt("VERSION",0); // получаем номер старой версии
         }
-        myEditor.putInt("VERSION",newversion); // меняем номер версии на новый
-        myEditor.commit(); //сохраняем изменения
+        else{
+
+            try {
+                Log.d("mLog","here");
+                dataBaseHelper.copyDataBase();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            oldversion = 0;
+            myEditor.putInt("Version", oldversion); // меняем номер версии на новый
+            myEditor.commit(); //сохраняем изменения
+
+        }
+
 //---------------------------------------------------------------------------------------------------
+        newversion = dataBaseHelper.getVersion();
+
+
         if(newversion > oldversion) { // если версия изменилась, значит перезапишем файл с БД
             try {
                 Log.d("mLog","FIRST ACTIVITY:   NEW VERSION OF DATABASE" );
@@ -81,6 +93,8 @@ public class FirstActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            myEditor.putInt("Version",newversion); // меняем номер версии на новый
+            myEditor.commit(); //сохраняем изменения
         }
         else{
             Log.d("mLog", "FIRST ACTIVITY:   NO CHANGES IN DATABASE");

@@ -138,8 +138,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void copyDataBase() throws IOException{
-        versionControl +=1;
-        Log.d("mLog", "versionControl = " +versionControl);
+        //versionControl +=1;
+        //Log.d("mLog", "versionControl = " + versionControl);
         InputStream myInput = new FileInputStream(Environment.getExternalStorageDirectory()  //убрать метод  getExternalStorageDirectory() в api 29 его нет
                 + File.separator + FILE_DIR
                 + File.separator + DB_NAME);
@@ -384,11 +384,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if(cursor != null && cursor.moveToFirst()){
             do {
                  version = cursor.getInt(cursor.getColumnIndex(COLUMN_VERSION));
-                Log.d("mLog","DATABASEHELPER:   CURRENT VERSION = " + version);
+                Log.d("mLog","DATABASE HELPER:   CURRENT VERSION = " + version);
             } while (cursor.moveToNext());
         }
         else
-            Log.d("mLog","DATABASEHELPER:   PROBLEMS WITH VERSION" );
+            Log.d("mLog","DATABASE HELPER:   PROBLEMS WITH VERSION" );
         cursor.close();
         return version;
 

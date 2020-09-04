@@ -19,8 +19,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.muirsuus.classes.Army;
 import com.example.muirsuus.ui.fragments.DescriptionFragment;
 import com.example.muirsuus.ui.fragments.TthFragment;
-
-
 public class InformActivity extends AppCompatActivity {
     Button btn_tth;
     Button btn_history;
