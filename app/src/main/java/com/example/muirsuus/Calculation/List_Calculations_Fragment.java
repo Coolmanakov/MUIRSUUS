@@ -53,6 +53,7 @@ public class List_Calculations_Fragment extends Fragment {
         vremya_Vypolneniya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 navController.navigate(R.id.action_choose_calc_to_vremya_Vypolneniya);
             }
         });

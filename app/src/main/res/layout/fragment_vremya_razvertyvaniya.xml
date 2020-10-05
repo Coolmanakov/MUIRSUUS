@@ -7,29 +7,34 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginLeft="5dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_margin="5dp">
-    <TextView
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:text="Тип линий = "
-        android:textColor="@color/Black"
-        android:textSize="15sp">
-    </TextView>
-    <Spinner
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/type_lines"
-        android:layout_weight="4">
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Тип линий = "
+            android:textColor="@color/Black"
+            android:textSize="15sp">
 
-    </Spinner>
-</LinearLayout>
+        </TextView>
+        <Spinner
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/type_lines"
+            android:layout_weight="4">
+
+        </Spinner>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -205,11 +210,17 @@
         <Spinner
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/trazv"
+            android:id="@+id/stations"
             android:layout_weight="4">
 
         </Spinner>
     </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Рассчитать"
+        android:elevation="15dp"/>
 
 </LinearLayout>
 </FrameLayout>

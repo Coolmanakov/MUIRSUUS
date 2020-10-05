@@ -45,7 +45,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 //----------------------------------------------------------------------
     public static final String TABLE_NAME_FAVORITE = "favorite";
 //----------------------------------------------------------------------
-    public static final String TABLE_NAME_VERSION = "version_control";
+    public static final String TABLE_NAME_VERSION_CONTROL = "version_control";
     public  static final String COLUMN_VERSION = "version";
 //----------------------------------------------------------------------
     public  static final  int id = 0;
@@ -61,6 +61,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
         if (android.os.Build.VERSION.SDK_INT >= 17)
             DB_PATH = context.getApplicationInfo().dataDir + "/databases/";
+
         this.mContext = context;
     }
 
@@ -91,10 +92,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void checkAndCopyDatabase(){
+    public void checkAndCopyDatabase() throws IOException {
         boolean dbExist = checkDataBase();
         if (dbExist){
             Log.d("mLog","database already exist");
+            updateDataBase();
         }else {
             this.getReadableDatabase();
         }
@@ -107,24 +109,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-   /* public void updateDataBase() throws IOException { // проверяем обновлена ли бд
-        if (mNeedUpdate) {
-            Log.d("mLog","mNeedUpdate = " + mNeedUpdate);
-            File dbFile = new File(DB_PATH + DB_NAME);
-            if (dbFile.exists())
-                dbFile.delete();
+    public void updateDataBase() throws IOException { // проверяем обновлена ли бд
+      File dbFile = new File(DB_PATH + DB_NAME);
+      if (dbFile.exists()) {
+          boolean b = dbFile.delete();
+          Log.d("mLog", "DataBaseHelper: updateDataBase  " + b);
+      }
+      copyDataBase();
+    }
+    public void openDatabase(){
+        String myPath = DB_PATH + DB_NAME;
+        mDataBase = SQLiteDatabase.openDatabase(myPath,null,SQLiteDatabase.OPEN_READWRITE);
+    }
 
-            copyDataBase();
-
-            mNeedUpdate = false;
-        }
-        else{
-            Log.d("mLog","mNeedUpdate = " + mNeedUpdate);
-
-        }
-    }*/
-
-    private boolean checkDataBase() {  // создаём файл, в котором будет храниться бд
+    public boolean checkDataBase() {  // создаём файл, в котором будет храниться бд
         SQLiteDatabase checkDB = null;
         try {
             String myPath = DB_PATH + DB_NAME;
@@ -134,19 +132,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if(checkDB != null){
             checkDB.close();
         }
-        return checkDB != null ? true : false;
+        return checkDB != null;
     }
 
     public void copyDataBase() throws IOException{
         //versionControl +=1;
         //Log.d("mLog", "versionControl = " + versionControl);
-        InputStream myInput = new FileInputStream(Environment.getExternalStorageDirectory()  //убрать метод  getExternalStorageDirectory() в api 29 его нет
+        ////Открываем локальную БД как входящий поток
+        //    	InputStream myInput = mContext.getAssets().open(DB_NAME); для работы с assets
+        InputStream myInput = new FileInputStream(Environment.getExternalStorageDirectory()
                 + File.separator + FILE_DIR
                 + File.separator + DB_NAME);
-        OutputStream myOutput = new FileOutputStream(DB_PATH + DB_NAME);
+        String outFileName = DB_PATH + DB_NAME;
+        OutputStream myOutput = new FileOutputStream(outFileName);
         byte[] buffer = new byte[1024];
         int length;
-        while ((length = myInput.read(buffer))>0){
+        while ((length = myInput.read(buffer)) > 0){
             myOutput.write(buffer,0,length);
         }
         myOutput.flush();
@@ -367,12 +368,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 }
 
 
-                Log.d("mLog", "map =" + map_of_DBobjects.values());
+
             }while (cursor.moveToNext());
         }
         else{
             Log.d("mLog", "cursor null or not moving to first");
         }
+        Log.d("mLog", "map =" + map_of_DBobjects.values());
         cursor.close();
         return map_of_DBobjects;
     }
@@ -380,7 +382,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public int getVersion(){
         int version = 0;
         SQLiteDatabase db = this.getReadableDatabase();
-        @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_VERSION + " FROM " + TABLE_NAME_VERSION,null);
+        @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_VERSION + " FROM " + TABLE_NAME_VERSION_CONTROL,null);
         if(cursor != null && cursor.moveToFirst()){
             do {
                  version = cursor.getInt(cursor.getColumnIndex(COLUMN_VERSION));
@@ -393,6 +395,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return version;
 
     }
+
 
 
 

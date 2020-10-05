@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MParcelable implements Parcelable {
+
     private List<String> arrayList = new ArrayList<String>(); //для передачи points из БД
 
     public MParcelable(List arrayList) {

@@ -1,5 +1,6 @@
 package com.example.muirsuus.ui.settings;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,10 +13,12 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,11 +30,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.muirsuus.DataBaseHelper;
 import com.example.muirsuus.FirstActivity;
 import com.example.muirsuus.R;
 import com.example.muirsuus.ui.lit.LitViewModel;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.content.Context.POWER_SERVICE;
@@ -43,6 +48,7 @@ public class SettingsFragment extends Fragment {
     final float step = 0.15f; //шаг увеличения коэффициента
     int size_coef ; //выбранный коэффициент
     private Switch mySwitch;
+    public Button update_db;
 
 
 
@@ -137,5 +143,24 @@ public class SettingsFragment extends Fragment {
         return  root;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        update_db = view.findViewById(R.id.update_db);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext());
 
+
+        update_db.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    dataBaseHelper.updateDataBase();
+                    Toast.makeText(getContext(),"База данных успешно обновлена",Toast.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(),"База данных не может быть обновлена",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 }

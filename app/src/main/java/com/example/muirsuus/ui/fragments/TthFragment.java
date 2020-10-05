@@ -58,7 +58,7 @@ public class TthFragment extends Fragment {
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext());
         title = root.findViewById(R.id.title_tth);
         tth_text = root.findViewById(R.id.tth_text);
-        photo_recycler = root.findViewById(R.id.photo_recycler);
+        //photo_recycler = root.findViewById(R.id.photo_recycler);
 
 
 
@@ -67,15 +67,15 @@ public class TthFragment extends Fragment {
 
 
         if(point != null) {
-            title.setText(point);
+            //title.setText(point);
             tth = dataBaseHelper.getTTHFromDB(point);
             Log.d("mLog", "Point for TTH is " + point);
             tth_text.setText(tth.getTTH());
-            photo_list = get_list_images(dataBaseHelper.get_list_photo(point));
+           // photo_list = get_list_images(dataBaseHelper.get_list_photo(point));
         }
 
 
-        photo_recycler = (RecyclerView) root.findViewById(R.id.photo_recycler);
+        /*photo_recycler = (RecyclerView) root.findViewById(R.id.photo_recycler);
         photo_recycler.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -95,7 +95,7 @@ public class TthFragment extends Fragment {
 
         };
         adapter = new GalleryAdapter(photo_list,listener);
-        photo_recycler.setAdapter(adapter);
+        photo_recycler.setAdapter(adapter);*/
         return root;
     }
 }

@@ -23,14 +23,14 @@ public class Particular extends AppCompatActivity {
         setContentView(R.layout.inform_layout);
 
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragment_managed_by_buttons);
+        /*Fragment fragment = fm.findFragmentById(R.id.fragment_managed_by_buttons);
 
         if(fragment == null){
             fragment = new DescriptionFragment();
             fm.beginTransaction()
                     .add(R.id.fragment_managed_by_buttons,fragment)
                     .commit();
-        }
+        }*/
     }
 
 }

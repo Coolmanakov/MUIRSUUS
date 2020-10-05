@@ -12,18 +12,15 @@
         <action
             android:id="@+id/action_navigation_second_level_of_nesting_to_navigation_Description"
             app:destination="@id/descriptionFragment" />
-        <action
-            android:id="@+id/action_secondLevelOfNesting_to_historyFragment"
-            app:destination="@id/historyFragment" />
     </fragment>
 
 
     <fragment
-        android:id="@+id/historyFragment"
-        android:name="com.example.muirsuus.ui.fragments.HistoryFragment"
-        tools:layout="@layout/fragment_layout_history" />
-    <fragment
         android:id="@+id/descriptionFragment"
         android:name="com.example.muirsuus.ui.fragments.DescriptionFragment"
-        tools:layout="@layout/fragment_layout_description"/>
+        tools:layout="@layout/fragment_layout_description">
+        <action
+            android:id="@+id/action_descriptionFragment_to_tthFragment"
+            app:destination="@id/tthFragment" />
+    </fragment>
 </navigation>

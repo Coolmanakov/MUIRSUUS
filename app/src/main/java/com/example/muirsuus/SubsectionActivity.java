@@ -51,7 +51,7 @@ public class SubsectionActivity extends AppCompatActivity  {
         String string_name = intent.getStringExtra("Build_subsection");//получаем название view, на который нажал пльзователь
         Log.d("mLog", "string_name = " + string_name);
 
-
+        setTitle(string_name);
 
 
 //---------------------------Проверяем обновления в базе данных---------------------------
@@ -96,7 +96,7 @@ public class SubsectionActivity extends AppCompatActivity  {
                 Log.d("mLog","list "+ mParcelable.getList());
 
                 intent.putExtra("Build points", mParcelable );//передаём название нажатого view
-
+                intent.putExtra("Name",SCHEMES.get(position).getTitle());
                 intent.putExtra(MParcelable.class.getCanonicalName(),mParcelable);
                 startActivity(intent);
             }

@@ -67,10 +67,10 @@ public class DescriptionFragment extends Fragment{
         description = dataBaseHelper.getDescriptionFromDB(point);
 
 
-        title.setText(point);
+        //title.setText(point);
         Log.d("mLog","point Description " +  point);
         description_text.setText(description.get_description());
-        photo_list = get_list_images(dataBaseHelper.get_list_photo(point));
+        /*photo_list = get_list_images(dataBaseHelper.get_list_photo(point));
 
         photo_recycler = (RecyclerView) root.findViewById(R.id.photo_recycler_description);
         photo_recycler.setHasFixedSize(true);
@@ -92,7 +92,7 @@ public class DescriptionFragment extends Fragment{
 
         };
         adapter = new GalleryAdapter(photo_list,listener);
-        photo_recycler.setAdapter(adapter);
+        photo_recycler.setAdapter(adapter);*/
         return root;
     }
 

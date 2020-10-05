@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:elevation="15dp"
             >
 
             <TextView
@@ -38,13 +39,17 @@
                 android:max="4"
                 android:progress="0" />
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+
+    <Button
+        android:id="@+id/update_db"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
-    </androidx.cardview.widget.CardView>
+        android:text="Обновить базу данных"
+        android:textColor="@color/Black"
+        android:elevation="20dp"/>
 
 
 

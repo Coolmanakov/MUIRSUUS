@@ -3,11 +3,18 @@ package com.example.muirsuus.classes;
 import android.net.Uri;
 import android.os.Environment;
 import android.widget.ImageView;
+import android.widget.ViewAnimator;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.muirsuus.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IndependentMethods {
+public class IndependentMethods  {
 
     public static void loadImageFromData(String namePhoto, ImageView imageView1) {
         String path = Environment.getExternalStorageDirectory().toString();
@@ -37,6 +44,7 @@ public class IndependentMethods {
         }
         return temp;
     }
+
 
 
 }

@@ -27,4 +27,105 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_points">PointsActivity</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="title_activity_appp">MainActivity</string>
+
+    <string-array name="type_of_lines">
+        <item>Р-409, Р-419Л1, Р-419МП</item>
+        <item>Р-416ГМ</item>
+        <item>Р-431АМ</item>
+        <item>Р-423АМ</item>
+    </string-array>
+
+    <string-array name="type_chanel">
+        <item>ТГ</item>
+        <item>ТЧ</item>
+        <item>Цифровой поток(канал)</item>
+    </string-array>
+
+    <string-array name="ground">
+        <item>Равнинная и средне пересеченная</item>
+        <item>Лесисто-болотистая (Район Крайнего Севера) </item>
+        <item>Пустынно-песчаная</item>
+        <item>Гористая (грунт 4 категории)</item>
+    </string-array>
+    <string-array name="stations">
+        <item>Передающий узел Р-161У на антенны: две V-образные (70 мин.)</item>
+        <item>Приемный узел Р-161ПУ на антенны: всех типов (90 мин.)</item>
+        <item>Радиостанция Р-166 на две мачты (72 мин.)</item>
+        <item>Передающая часть радиостанции Р–161–5 на антенны: двойной вертикальный ромб (145 мин.)</item>
+        <item>Приемная часть радиостанции Р–161–5 на антенны: все типы антенн (105 мин.)</item>
+        <item>Тропосферная станция Р-423АМ (35 мин.)</item>
+        <item>Радиорелейная станция Р-416ГМ (85 мин.)</item>
+        <item>Радиорелейная станция Р-431АМ (антенный модуль) (47 мин.)</item>
+
+        <item>Радиорелейная станция Р-419Л1 на два полукомплекта (30 мин.)</item>
+        <item>Станция спутниковой связи Р-441-Л на выносную антенну (40 мин.)</item>
+        <item>Комплексная аппаратная П-260-Т (70 мин.)</item>
+        <item>Комплексная аппаратная П-260-О (75 мин.)</item>
+        <item>Комплексная аппаратная П-260-У (80 мин.)</item>
+        <item>Аппаратная П-266 (45 мин.)</item>
+        <item>Станция спутниковой связи Р-441-УВ (Р-441-У, Р-440-У) (110 мин.)</item>
+        <item>Аппаратная ШАС П-244И(П-244И-4) (80 мин.)</item>
+
+        <item>Аппаратная ШАС П-238ТК(П-238ТК1) (55 мин.)</item>
+        <item>Аппаратная ШАС К-8М (50 мин.)</item>
+        <item>Аппаратная КАС П-240И(П240И4) (70 мин.)</item>
+        <item>83Т588 (МК ЗВКС) (25 мин.))</item>
+        <item>Аппаратная ФПС П-391П1М (П-391ПМ) (25 мин.)</item>
+        <item>Аппаратная ФПС П-392ПМ (23 мин.)</item>
+        <item>Передающий узел Р-176У на антенны: две V-образные (80 мин.)</item>
+        <item>Приемный узел Р-176ПУ на антенны: всех типов (100 мин.)</item>
+
+        <item>Радиостанция Р-176 -1А на две мачты (80 мин.)</item>
+        <item>Передающая часть радиостанции Р–171–5 на антенны двойной вертикальный ромб (160 мин.)</item>
+        <item>Приемная часть радиостанции Р–171–5 на антенны: все типы антенн (115 мин.)</item>
+        <item>П-243Т (МТК) (60 мин.)</item>
+        <item>Аппаратная 83Т212 (54 мин.)</item>
+        <item>Аппаратная 83Т104 (40 мин)</item>
+        <item>Аппаратная П-261 (30 мин.)</item>
+        <item>Электропитающая станция ЭД 2х30 (35 мин.)</item>
+
+    </string-array>
+
+    <string-array name="time_for_stations">
+        <item>70</item>
+        <item>90 </item>
+        <item>72</item>
+        <item>145</item>
+        <item>105</item>
+        <item>35</item>
+        <item>85</item>
+        <item>47</item>
+
+        <item>30</item>
+        <item>40</item>
+        <item>70</item>
+        <item>75</item>
+        <item>80</item>
+        <item>45</item>
+        <item>110</item>
+        <item>80</item>
+
+        <item>55</item>
+        <item>50</item>
+        <item>70</item>
+        <item>25</item>
+        <item>25</item>
+        <item>23</item>
+        <item>80</item>
+        <item>100</item>
+
+        <item>80</item>
+        <item>160)</item>
+        <item>115</item>
+        <item>60</item>
+        <item>54</item>
+        <item>40</item>
+        <item>30</item>
+        <item>35</item>
+
+    </string-array>
+
+
 </resources>

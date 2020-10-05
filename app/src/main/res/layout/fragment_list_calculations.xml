@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
 
-            android:text="Расчёт времени выполнения задач узлом связи(выполнение требований по иобтльности узла связи)"
+            android:text="Расчёт времени выполнения задач узлом связи(выполнение требований по стабильности узла связи)"
             android:textSize="15sp"
             android:textColor="@color/Black"
             android:layout_gravity="center"

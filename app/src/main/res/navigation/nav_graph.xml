@@ -34,7 +34,13 @@
         android:id="@+id/reconnaissance"
         android:name="com.example.muirsuus.Calculation.Razvedka_fragment"
         android:label="Расчёт разведзащищенности"
-        tools:layout="@layout/fragment_reconnaissance" />
+        tools:layout="@layout/fragment_reconnaissance" >
+        <action
+            android:id="@+id/action_reconnaissance_to_tableView2"
+            app:destination="@id/tableView"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/vremya_Vypolneniya"
         android:name="com.example.muirsuus.Calculation.Vremya_Vypolneniya"
@@ -50,4 +56,8 @@
         android:name="com.example.muirsuus.Calculation.Vremya_Razvertyvaniya"
         android:label="Расчёт времени на развёртывание много интевальной радиорелейной линии связи"
         tools:layout="@layout/fragment_vremya_razvertyvaniya" />
+    <fragment
+        android:id="@+id/tableView"
+        android:name="com.example.muirsuus.Calculation.TableView"
+        tools:layout="@layout/fragment_table_view" />
 </navigation>

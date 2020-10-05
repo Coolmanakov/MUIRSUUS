@@ -39,9 +39,9 @@ public class PointsActivity extends AppCompatActivity {
 
         //получаем лист из points
         MParcelable string_name =  (MParcelable) getIntent().getParcelableExtra(MParcelable.class.getCanonicalName());//получаем объект SHEMES, на который нажал пльзователь
-
+        String title = getIntent().getStringExtra("Name");
         Log.d("mLog", "string_name = " + string_name.getList());
-
+        setTitle(title);
 
 //---------------------------Проверяем обновления в базе данных---------------------------
         DataBaseHelper dataBaseHelper = new DataBaseHelper(this);

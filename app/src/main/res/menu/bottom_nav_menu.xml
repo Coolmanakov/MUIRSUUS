@@ -12,16 +12,6 @@
         android:icon="@drawable/ic_portfel"
         android:title="Портфель" />
 
-    <item
-        android:id="@+id/empty"
-        android:title=""
-        />
-
-    <item
-        android:id="@+id/navigation_lit"
-        android:icon="@drawable/ic_lit"
-        android:title="@string/title_lit"
-        />
 
     <item
         android:id="@+id/navigation_settings"
