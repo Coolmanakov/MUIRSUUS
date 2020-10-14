@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.muirsuus.CardClass;
-import com.example.muirsuus.IRecyclerViewClickListener;
+import com.example.muirsuus.classes.CardClass;
+import com.example.muirsuus.classes.IRecyclerViewClickListener;
 import com.example.muirsuus.R;
 
 import java.util.List;
@@ -53,10 +53,8 @@ public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
         public ImageView image;
         public TextView text;
-        public View layout;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -68,8 +66,10 @@ public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> 
 
         @Override
         public void onClick(View v) {
+
             clickListener.onClick(v,getAdapterPosition());
         }
+
     }
 
 

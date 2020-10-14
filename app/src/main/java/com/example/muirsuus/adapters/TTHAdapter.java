@@ -1,6 +1,11 @@
 package com.example.muirsuus.adapters;
-
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.muirsuus.CardClass;
-import com.example.muirsuus.IRecyclerViewClickListener;
+import com.example.muirsuus.DataBaseHelper;
+import com.example.muirsuus.classes.CardClass;
 import com.example.muirsuus.R;
 
 import java.util.List;
@@ -20,12 +25,36 @@ import java.util.List;
 public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
 
     private List<CardClass> mLinks;
-    private  OnTthListener mOnTthListener;
+    private  OnItemClickListener mListener; //обычный слушатель нажатия
+    private  OnLongItemClickListener onLongClickListener;//слушатель долгого нажатия
 
-    public TTHAdapter(List<CardClass> mLinks, OnTthListener onTthListener){
+
+
+
+
+    public TTHAdapter(List<CardClass> mLinks){
         this.mLinks = mLinks;
-        this.mOnTthListener = onTthListener;
     }
+    //-------------------методы и интерфейсы слушателей--------------
+    public  interface  OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public  interface  OnLongItemClickListener{
+        void onLongItemClick(int position);
+    }
+    public void  SetOnItemClickListener(OnItemClickListener listener){
+
+        mListener = listener;
+    }
+    public void  SetOnLongItemClickListener(OnLongItemClickListener listener){
+
+        onLongClickListener = listener;
+    }
+
+
+
+    //-------------------методы и интерфейсы слушателей--------------
 
 
 
@@ -35,7 +64,7 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
         ViewGroup viewGroup;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.item_tth,parent,false);
-        MyViewHolder vh = new MyViewHolder(v, mOnTthListener);
+        MyViewHolder vh = new MyViewHolder(v,mListener,onLongClickListener);
         return vh;
     }
 
@@ -43,37 +72,81 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.text.setText(mLinks.get(position).getTitle());
-        holder.image.setImageResource(mLinks.get(position).getImage());
+        //holder.image.setImageResource(mLinks.get(position).getImage());
+// проверяем есть ли фото в БД для данного элемента recyclerview
+        if( mLinks.get(position).getPhoto() != null ){
+            loadImageFromData(mLinks.get(position).getPhoto(), holder.image);
+            Log.d("mLog", "BIND VIEW HOLDER in TTH ADAPTER: photo for   " + mLinks.get(position).getTitle() + " is  " + mLinks.get(position).getPhoto());
+        }
+        else {
+            holder.image.setImageResource(mLinks.get(position).getImage());
+            Log.d("mLog", "BIND VIEW HOLDER in TTH ADAPTER: no photo for    " + mLinks.get(position).getTitle());
+        }
     }
+
+
+
 
     @Override
     public int getItemCount() {
         return mLinks.size();
     }
 
-    public static class  MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class  MyViewHolder extends RecyclerView.ViewHolder  {
         public ImageView image;
         public TextView text;
-        OnTthListener onTthListener;
 
-        public MyViewHolder(@NonNull View itemView, OnTthListener onTthListener) {
+
+        public MyViewHolder(@NonNull View itemView, final OnItemClickListener listener, final OnLongItemClickListener longClickListener) {
             super(itemView);
             image = (ImageView)itemView.findViewById(R.id.tth_image);
             text = (TextView)itemView.findViewById(R.id.tth_text);
-            this.onTthListener = onTthListener;
 
-            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if(longClickListener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            longClickListener.onLongItemClick(position);
+                        }
+
+                    }
+                    return true;
+                }
+            });
 
         }
-
-        @Override
-        public void onClick(View v) {
-            onTthListener.onTthCLick(getAdapterPosition());
-        }
+    }
+    public int removeById(int position) {
+        int id = mLinks.get(position).getId();
+        mLinks.remove(position);
+        notifyDataSetChanged();
+        Log.d("mLog", "TTHADAPTER removeByID:   ");
+        return  id;
+    }
+    public int findById(int position) {
+        int id = mLinks.get(position).getId();
+        return  id;
     }
 
-    public interface OnTthListener{
-        void onTthCLick(int position);
+    public static void loadImageFromData(String namePhoto, ImageView imageView1) {
+        String path = Environment.getExternalStorageDirectory().toString();
+        String imagePath = path + "/AudioArmy/PhotoForDB/"+namePhoto+".jpg";
+        imageView1.setImageURI(Uri.parse(imagePath));
     }
+
 
 }

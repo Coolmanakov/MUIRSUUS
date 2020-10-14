@@ -19,16 +19,9 @@ public class LitFragment extends Fragment {
     private LitViewModel litViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-         litViewModel =
-                ViewModelProviders.of(this).get(LitViewModel.class);
-         View root = inflater.inflate(R.layout.fragment_lit,container,false);
-         final TextView textView = root.findViewById(R.id.text_lit);
-         litViewModel.getText().observe(getViewLifecycleOwner(),new Observer<String>() {
-             @Override
-             public void onChanged(@Nullable String s) {
-                 textView.setText(s);
-             }
-         });
+
+         View root = inflater.inflate(R.layout.fragment_portfel,container,false);
+
          return root;
     }
 }

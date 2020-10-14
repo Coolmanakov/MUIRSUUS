@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Calculation.Razvedka_fragment"
+    android:background="@color/colorWhite">
+<RelativeLayout
+    android:id="@+id/relative_razved"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/text_razved"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="Количество вскрытых противником элементов(модулей) в составе УС(ПУ)"
+        android:textSize="20sp"
+        android:textColor="@color/Black"/>
+
+    <EditText
+        android:id="@+id/counts_of_elements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Введите число"
+        android:inputType="numberDecimal"
+        android:maxLength="2"
+        android:layout_below="@+id/text_razved"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/counts_of_elements"
+        android:layout_alignEnd="@id/text_razved"
+        android:layout_alignRight="@id/text_razved"
+        android:clickable="true"
+        android:text="Далее"
+        android:textSize="15sp"
+        android:visibility="invisible" />
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_below="@+id/next">
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/relative_razvedka">
+            <TableLayout
+                android:id="@+id/linear_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/calculate_razvedka"
+                android:text="Рассчитать"
+                android:layout_below="@+id/linear_table"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+
+                android:textSize="15sp"
+                android:visibility="invisible" />
+
+
+        </RelativeLayout>
+
+   </ScrollView>
+
+
+</RelativeLayout>
+</FrameLayout>

@@ -9,27 +9,27 @@
         android:id="@+id/navigation_home"
         android:name="com.example.muirsuus.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_portfel"
+            app:destination="@id/navigation_portfel" />
+
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_settings"
+            app:destination="@id/navigation_settings" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_portfel"
         android:name="com.example.muirsuus.ui.portfel.PortfelFragment"
-        android:label="@string/title_portfel"
-        tools:layout="@layout/fragment_dashboard" />
+        android:label="Портфель"
+        tools:layout="@layout/fragment_portfel" />
 
-    <fragment
-        android:id="@+id/navigation_lit"
-        android:name="com.example.muirsuus.ui.lit.LitFragment"
-        android:label="@string/title_lit"
-        tools:layout="@layout/fragment_notifications" />
+
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.muirsuus.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_notifications" />
-    <fragment
-        android:id="@+id/navigation_net"
-        android:name="com.example.muirsuus.ui.net.NetFragment"
-        android:label="@string/title_net"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_settings" />
+
 </navigation>
