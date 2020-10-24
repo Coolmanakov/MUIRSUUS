@@ -76,6 +76,18 @@
         app:layout_constraintEnd_toEndOf="@+id/vremya_Razvertyvaniya"
         app:layout_constraintStart_toStartOf="@+id/vremya_Razvertyvaniya"
         app:layout_constraintTop_toBottomOf="@+id/vremya_Razvertyvaniya" />
+
+    <Button
+        android:id="@+id/kompas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_inf_style"
+        android:text="@string/compass"
+        app:layout_constraintEnd_toEndOf="@+id/vremya_Vypolneniya"
+        app:layout_constraintStart_toStartOf="@+id/vremya_Vypolneniya"
+        app:layout_constraintTop_toBottomOf="@+id/vremya_Vypolneniya" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
 

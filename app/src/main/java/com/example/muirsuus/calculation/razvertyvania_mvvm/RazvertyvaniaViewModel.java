@@ -1,5 +1,6 @@
 package com.example.muirsuus.calculation.razvertyvania_mvvm;
 
+import android.util.Log;
 import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
@@ -14,21 +15,16 @@ public class RazvertyvaniaViewModel extends BaseObservable {
     public ObservableField<Integer> quantity = new ObservableField<>();
     public ObservableField<List<Integer>> quantityEntries = new ObservableField<>();
 
-/*
-    @BindingAdapter(value = "entries")
-    public void setEntries(List<Integer> entries){
-        setEntries(entries);
-    }
+
+
     @BindingAdapter(value = "onItemSelected")
     public  void setItemSelectedListener(AdapterView.OnItemSelectedListener itemSelectedListener){
-        setItemSelectedListener(itemSelectedListener);
+        Log.d("mLog","itemSelectedListener " );
     }
     @BindingAdapter(value = "newValue")
     public  void  setNewValue(Integer newValue){
-        setNewValue(newValue);
-    }*/
-
-
+        Log.d("mLog","newValue " + newValue);
+    }
 
 
 }

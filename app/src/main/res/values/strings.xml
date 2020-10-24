@@ -62,6 +62,7 @@
     <string name="result_razvedka">Разведзащищенность элемента №</string>
     <string name="_1">1</string>
     <string name="change_value">Перерасчёт</string>
+    <string name="compass">Компас</string>
 
 
     <string-array name="type_of_lines">
