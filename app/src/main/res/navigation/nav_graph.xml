@@ -29,7 +29,13 @@
             app:destination="@id/vremya_Razvertyvaniya"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit" />
+        <action
+            android:id="@+id/action_choose_calc_to_kompas"
+            app:destination="@id/kompas"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"/>
     </fragment>
+
     <fragment
         android:id="@+id/reconnaissance"
         android:name="com.example.muirsuus.calculation.razvedka_mvvm.Razvedka_fragment"
@@ -41,6 +47,7 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
+
     <fragment
         android:id="@+id/vremya_Vypolneniya"
         android:name="com.example.muirsuus.calculation.Vremya_Vypolneniya"
@@ -60,4 +67,9 @@
         android:id="@+id/tableView"
         android:name="com.example.muirsuus.calculation.TableView"
         tools:layout="@layout/fragment_table_view" />
+    <fragment
+        android:id="@+id/kompas"
+        android:name="com.example.muirsuus.calculation.kompas.Kompas"
+        android:label="Компас"
+        tools:layout="@layout/fragment_kompas" />
 </navigation>

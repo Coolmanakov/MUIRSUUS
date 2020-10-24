@@ -21,6 +21,7 @@ public class List_Calculations_Fragment extends Fragment {
     Button vremya_Vypolneniya;
     Button vremya_Razvertyvaniya;
     Button zhivuchest;
+    Button kompas;
     NavController navController;
 
     @Override
@@ -39,6 +40,7 @@ public class List_Calculations_Fragment extends Fragment {
         vremya_Vypolneniya = view.findViewById(R.id.vremya_Vypolneniya);
         vremya_Razvertyvaniya = view.findViewById(R.id.vremya_Razvertyvaniya);
         zhivuchest = view.findViewById(R.id.zhivuchest);
+        kompas = view.findViewById(R.id.kompas);
 
         navController = Navigation.findNavController(view);
 
@@ -68,6 +70,14 @@ public class List_Calculations_Fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_choose_calc_to_zhivuchest);
+            }
+        });
+
+
+        kompas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_choose_calc_to_kompas);
             }
         });
     }

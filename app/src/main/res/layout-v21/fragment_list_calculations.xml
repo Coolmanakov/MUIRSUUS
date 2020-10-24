@@ -1,81 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".calculation.List_Calculations_Fragment">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
 
-    <Button
-        android:id="@+id/reconnaissance"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_weight="1"
-        android:background="@drawable/button_inf_style"
-        android:text="@string/razved_calcuate"
-        android:textColor="@color/Black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" 
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
 
-        android:elevation="20dp"
-        />
+                android:text="Расчёт разведзащищенности узла связи (пункта управления)"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:layout_gravity="center"
 
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp" />
+            <Button
+                android:id="@+id/reconnaissance"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="ВХОД"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:background="@drawable/button_inf_style"/>
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/zhivuchest"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        android:background="@drawable/button_inf_style"
-        android:text="@string/zhivuchest_calculate"
-        android:textColor="@color/Black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/reconnaissance"
-        app:layout_constraintStart_toStartOf="@+id/reconnaissance"
-        app:layout_constraintTop_toBottomOf="@+id/reconnaissance" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
 
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
 
-    <Button
-        android:id="@+id/vremya_Razvertyvaniya"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        android:background="@drawable/button_inf_style"
-        android:text="@string/razvetvania_calculate"
-        android:textColor="@color/Black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/zhivuchest"
-        app:layout_constraintStart_toStartOf="@+id/zhivuchest"
-        app:layout_constraintTop_toBottomOf="@+id/zhivuchest" />
+                android:text="Расчёт живучести узла связи
+                            (пункта управления)"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:layout_gravity="center"
 
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp" />
+            <Button
+                android:id="@+id/zhivuchest"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="ВХОД"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:background="@drawable/button_inf_style"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
 
-    <Button
-        android:id="@+id/vremya_Vypolneniya"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        android:background="@drawable/button_inf_style"
-        android:text="@string/time_calculate"
-        android:textColor="@color/Black"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/vremya_Razvertyvaniya"
-        app:layout_constraintStart_toStartOf="@+id/vremya_Razvertyvaniya"
-        app:layout_constraintTop_toBottomOf="@+id/vremya_Razvertyvaniya" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+
+                android:text="Расчёт времени на развертывание много интервальной радиорелейной линии связи"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:layout_gravity="center"
+
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp" />
+            <Button
+                android:id="@+id/vremya_Razvertyvaniya"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="ВХОД"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:background="@drawable/button_inf_style"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+
+                android:text="Расчёт времени выполнения задач узлом связи(выполнение требований по стабильности узла связи)"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:layout_gravity="center"
+
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp" />
+            <Button
+                android:id="@+id/vremya_Vypolneniya"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="ВХОД"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:background="@drawable/button_inf_style"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+
+                android:text="Компас"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:layout_gravity="center"
+
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp" />
+            <Button
+                android:id="@+id/kompas"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="ВХОД"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:background="@drawable/button_inf_style"/>
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>
 
