@@ -22,13 +22,47 @@
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
-    <string name="previous">Previous</string>
+
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_points">PointsActivity</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="title_activity_appp">MainActivity</string>
+    <string name="title_zhivuchest">Введите количество элементов, входящих в состав УС(ПУ)</string>
+    <string name="input_hint">Введите число</string>
+    <string name="element_1">Элемент № 1</string>
+    <string name="target_area">Площадь цели</string>
+    <string name="count_opened_tracks">Количество вскрытых противником аппаратных</string>
+    <string name="all_tracks">Общее количество апаратных</string>
+    <string name="effciency_koef">Эффективность   действия группировки ПВО</string>
+    <string name="eficiency_koef_rub">Эффективность действия группиовки РЭБ</string>
+    <string name="add">Рассчитать  </string>
+    <string name="previous">Предыдущий </string>
+    <string name="max_area">Максимальная площадь поражения боеприпасами</string>
+    <string name="element_zhivuchest">Живучесть элемента = </string>
+    <string name="zhivuchest_string">Живучесть элемента =</string>
+    <string name="razved_calcuate">Расчёт разведзащищенности узла связи (пункта управления)</string>
+    <string name="input">ВХОД</string>
+    <string name="zhivuchest_calculate">Расчёт живучести узла связи (пункта управления)</string>
+    <string name="razvetvania_calculate">Расчёт времени на развертывание много интервальной радиорелейной линии связи</string>
+    <string name="time_calculate">Расчёт времени выполнения задач узлом связи(выполнение требований по стабильности узла связи)</string>
+    <string name="temperature">Температура</string>
+    <string name="ground">Местность</string>
+    <string name="count_radio_stations">Количество радиорелейных станций</string>
+    <string name="type_chanel">Тип канала</string>
+    <string name="type_line">Тип линий</string>
+    <string name="snow">Снег</string>
+    <string name="wind">Ветер</string>
+    <string name="time_marsh">Тмарша (мин)</string>
+    <string name="time_razvertyvania">Тразв</string>
+    <string name="calculate">Рассчитать</string>
+    <string name="elements">Элемент №</string>
+    <string name="reconisanse_title">Количество вскрытых противником элементов(модулей) в составе УС(ПУ)</string>
+    <string name="result_razvedka">Разведзащищенность элемента №</string>
+    <string name="_1">1</string>
+    <string name="change_value">Перерасчёт</string>
+
 
     <string-array name="type_of_lines">
         <item>Р-409, Р-419Л1, Р-419МП</item>
@@ -36,6 +70,8 @@
         <item>Р-431АМ</item>
         <item>Р-423АМ</item>
     </string-array>
+
+
 
     <string-array name="type_chanel">
         <item>ТГ</item>

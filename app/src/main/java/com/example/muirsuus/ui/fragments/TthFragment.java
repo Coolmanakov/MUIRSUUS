@@ -1,7 +1,5 @@
 package com.example.muirsuus.ui.fragments;
 
-import android.content.Intent;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,17 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muirsuus.DataBaseHelper;
-import com.example.muirsuus.FullScreenActivity;
 import com.example.muirsuus.R;
 import com.example.muirsuus.adapters.GalleryAdapter;
 import com.example.muirsuus.classes.Army;
-import com.example.muirsuus.classes.IRecyclerViewClickListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.muirsuus.classes.IndependentMethods.get_list_images;
 
 
 public class TthFragment extends Fragment {
@@ -57,7 +50,7 @@ public class TthFragment extends Fragment {
 
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext());
         title = root.findViewById(R.id.title_tth);
-        tth_text = root.findViewById(R.id.tth_text);
+        tth_text = root.findViewById(R.id.title);
         //photo_recycler = root.findViewById(R.id.photo_recycler);
 
 

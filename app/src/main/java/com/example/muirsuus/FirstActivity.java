@@ -9,17 +9,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.luseen.spacenavigation.SpaceNavigationView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -28,7 +21,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import java.io.IOException;
 
 public class FirstActivity extends AppCompatActivity  {
     private static final int PERMISSION_REQUEST_CODE = 100;
@@ -49,7 +41,7 @@ public class FirstActivity extends AppCompatActivity  {
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_first);
 
 
 

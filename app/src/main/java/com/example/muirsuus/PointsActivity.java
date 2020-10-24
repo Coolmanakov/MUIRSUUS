@@ -1,7 +1,6 @@
 package com.example.muirsuus;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -10,15 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.muirsuus.adapters.TTHAdapter;
+import com.example.muirsuus.adapters.tth_mvvm.TTHAdapter;
 import com.example.muirsuus.classes.Army;
 import com.example.muirsuus.classes.CardClass;
 import com.example.muirsuus.classes.MParcelable;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 

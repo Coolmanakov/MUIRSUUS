@@ -1,32 +1,23 @@
 package com.example.muirsuus;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.muirsuus.adapters.TTHAdapter;
+import com.example.muirsuus.adapters.tth_mvvm.TTHAdapter;
 import com.example.muirsuus.classes.Army;
 import com.example.muirsuus.classes.CardClass;
 import com.example.muirsuus.classes.MParcelable;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class SubsectionActivity extends AppCompatActivity  {
 
