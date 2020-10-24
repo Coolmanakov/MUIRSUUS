@@ -4,6 +4,7 @@ package com.example.muirsuus.calculation.zhivuchest_mvvm;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,10 +53,10 @@ public class ZhivuchestViewModel extends ViewModel {
 
             zhivuchestViewModel = new ZhivuchestViewModel(area, opened_tracks, all_tracks, koef_pvo, koef_rab, count, number);
             list_observables.add(zhivuchestViewModel);
-            temp = 1 -
+            temp = Math.floor(1 -
                     (ammunition_delivery_probability(Float.parseFloat(koef_pvo), Float.parseFloat(koef_rab))
                             * target_hit_probability(Float.parseFloat(area), Float.parseFloat(max_area))
-                            * opening_probability(Float.parseFloat(opened_tracks), Float.parseFloat(all_tracks)));
+                            * opening_probability(Float.parseFloat(opened_tracks), Float.parseFloat(all_tracks))) * 100) / 100;
 
             _zhivuchest_element.setValue(temp);
         }
