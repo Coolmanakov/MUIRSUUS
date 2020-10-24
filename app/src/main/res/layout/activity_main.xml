@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/green_fon">
+
+
+    <TextView
+        android:id="@+id/splash_vs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="125dp"
+        android:layout_marginRight="125dp"
+        android:layout_marginBottom="31dp"
+        android:text="Версия 1.0.5"
+        android:textSize="30sp"
+        android:textColor="@color/colorPrimary">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/spalsh_text"
+        android:layout_width="match_parent"
+        android:layout_height="358dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="373dp"
+        android:src="@drawable/splash_text">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/splash_emblem"
+        android:layout_width="393dp"
+        android:layout_height="292dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="77dp"
+        android:src="@drawable/splash_emblem">
+
+    </ImageView>
+
+    <ProgressBar
+        android:id="@+id/start_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="3dp"
+        android:progressTint="@color/white" />
+
+</RelativeLayout>

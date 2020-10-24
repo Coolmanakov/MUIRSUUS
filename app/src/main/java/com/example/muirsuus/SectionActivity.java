@@ -1,40 +1,41 @@
 package com.example.muirsuus;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.LinearLayout;
 
-import com.example.muirsuus.adapters.TTHAdapter;
+import com.example.muirsuus.adapters.tth_mvvm.TTHAdapter;
 import com.example.muirsuus.classes.CardClass;
+import com.example.muirsuus.databinding.ActivitySectionBinding;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class SectionActivity extends AppCompatActivity   {
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private TTHAdapter adapter;
     private final List<CardClass> SCHEMES = new ArrayList<CardClass>();
     NavController navController;
+    private ActivitySectionBinding binding;
+
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.section_activity);
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_section);
 
         SCHEMES.add(new CardClass(R.drawable.tank,"АВ и БТ техника"));
         SCHEMES.add(new CardClass(R.drawable.kalash,"Вооружение"));
@@ -50,12 +51,8 @@ public class SectionActivity extends AppCompatActivity   {
 
 
 
-        mRecyclerView = (RecyclerView)findViewById(R.id.section_recycler);
 
-        mRecyclerView.setHasFixedSize(true);
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(layoutManager);
+        binding.sectionRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
 
         adapter = new TTHAdapter(SCHEMES);
 
@@ -71,7 +68,7 @@ public class SectionActivity extends AppCompatActivity   {
                 startActivity(intent);
             }
         });
-        mRecyclerView.setAdapter(adapter);
+        binding.sectionRecycler.setAdapter(adapter);
 
 
     }

@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="data"
+            type="com.example.muirsuus.calculation.razvertyvania_mvvm.RazvertyvaniaViewModel" />
+    </data>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Calculation.Vremya_Razvertyvaniya">
+    tools:context=".calculation.razvertyvania_mvvm.Vremya_Razvertyvaniya">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"
@@ -14,257 +22,244 @@
         android:layout_marginRight="5dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/type_line_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="horizontal">
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/type_line"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Тип линий = "
-                android:textColor="@color/Black"
-                android:textSize="15sp">
-
-            </TextView>
-
-            <Spinner
-                android:id="@+id/type_lines"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4">
-
-            </Spinner>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/type_lines"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="horizontal">
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/type_line_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Тип канала = "
-                android:textColor="@color/Black"
-                android:textSize="15sp"/>
-
-            <Spinner
-                android:id="@+id/type_chanel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4">
-
-            </Spinner>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/type_chanel_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="32dp"
+            android:text="@string/type_chanel"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/type_line_text"
+            app:layout_constraintTop_toBottomOf="@+id/type_lines"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="4"
-                android:text="Количество радиорелейных станций"
-                android:textColor="@color/Black"
-                android:textSize="15sp"/>
-
-            <EditText
-                android:id="@+id/count_radio_stations"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Число"
-                android:inputType="phone">
-
-            </EditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/type_chanel"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="horizontal">
+            app:layout_constraintBottom_toBottomOf="@+id/type_chanel_text"
+            app:layout_constraintEnd_toEndOf="@+id/type_lines"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            android:entries="@array/type_chanel"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Местность = "
-                android:textColor="@color/Black"
-                android:textSize="15sp"/>
-
-            <Spinner
-                android:id="@+id/ground"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4">
-
-            </Spinner>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/count_radio_stations_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:text="@string/count_radio_stations"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/type_chanel_text"
+            app:layout_constraintTop_toBottomOf="@+id/type_chanel"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="4"
-                android:text="Температура = "
-                android:textColor="@color/Black"
-                android:textSize="15sp"/>
-
-
-
-            <EditText
-                android:id="@+id/temperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Введите температуру в Цельсиях"
-                android:inputType="phone"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/count_radio_stations"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:orientation="horizontal">
+            android:hint="@string/input_hint"
+            android:importantForAutofill="no"
+            android:inputType="phone"
+            app:layout_constraintBottom_toBottomOf="@+id/count_radio_stations_text"
+            app:layout_constraintEnd_toEndOf="@+id/type_chanel"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="4"
-                android:text="Снег = "
-                android:textColor="@color/Black"
-                android:textSize="15sp"/>
-
-
-            <EditText
-                android:id="@+id/snow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Высота снега в см."
-                android:inputType="phone">
-
-            </EditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/ground_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="32dp"
+            android:text="@string/ground"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/count_radio_stations_text"
+            app:layout_constraintTop_toBottomOf="@+id/count_radio_stations"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="4"
-                android:text="Ветер = "
-                android:textColor="@color/Black"
-                android:textSize="15sp"></TextView>
-
-            <EditText
-                android:id="@+id/wind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Ветер в м/c"
-                android:inputType="phone">
-
-            </EditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/ground"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:orientation="horizontal">
+            app:layout_constraintBottom_toBottomOf="@+id/ground_text"
+            app:layout_constraintEnd_toEndOf="@+id/count_radio_stations"
+            app:layout_constraintStart_toStartOf="@+id/count_radio_stations"
+            android:entries="@array/ground"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="4"
-                android:text="Тмарша (мин)"
-                android:textColor="@color/Black"
-                android:textSize="15sp"></TextView>
 
-            <EditText
-                android:id="@+id/t_marsh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Время (мин)"
-                android:inputType="phone">
-
-            </EditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/temperature_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:text="@string/temperature"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/ground_text"
+            app:layout_constraintTop_toBottomOf="@+id/ground"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Тразв = "
-                android:textColor="@color/Black"
-                android:textSize="15sp"></TextView>
+        <EditText
+            android:id="@+id/temperature"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_hint"
+            android:inputType="phone"
+            app:layout_constraintBottom_toBottomOf="@+id/temperature_text"
+            app:layout_constraintEnd_toEndOf="@+id/ground"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            android:importantForAutofill="no"/>
 
-            <Spinner
-                android:id="@+id/stations"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4">
+        <TextView
+            android:id="@+id/snow_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:text="@string/snow"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/temperature_text"
+            app:layout_constraintTop_toBottomOf="@+id/temperature"/>
 
-            </Spinner>
-        </LinearLayout>
+        <EditText
+            android:id="@+id/snow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_hint"
+            android:importantForAutofill="no"
+            android:inputType="phone"
+            app:layout_constraintBottom_toBottomOf="@+id/snow_text"
+            app:layout_constraintEnd_toEndOf="@+id/temperature"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"/>
+
+        <TextView
+            android:id="@+id/wind_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:text="@string/wind"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/snow_text"
+            app:layout_constraintTop_toBottomOf="@+id/snow"/>
+
+        <EditText
+            android:id="@+id/wind"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_hint"
+            android:inputType="phone"
+            app:layout_constraintBottom_toBottomOf="@+id/wind_text"
+            app:layout_constraintEnd_toEndOf="@+id/snow"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            android:importantForAutofill="no"/>
+
+        <TextView
+            android:id="@+id/time_marsh_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:text="@string/time_marsh"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/wind_text"
+            app:layout_constraintTop_toBottomOf="@+id/wind"/>
+
+        <EditText
+            android:id="@+id/time_marsh"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/input_hint"
+            android:inputType="phone"
+            app:layout_constraintBottom_toBottomOf="@+id/time_marsh_text"
+            app:layout_constraintEnd_toEndOf="@+id/wind"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/wind"
+            android:importantForAutofill="no"/>
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/time_razvertyvania"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="@+id/time_marsh_text"
+            app:layout_constraintTop_toBottomOf="@+id/time_marsh"/>
+
+        <Spinner
+            android:id="@+id/time_razvertyvania"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/textView9"
+            app:layout_constraintEnd_toEndOf="@+id/time_marsh"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            android:entries="@array/time_for_stations"/>
 
         <Button
-            android:id="@+id/calculate_razvertyvania"
-            android:layout_width="wrap_content"
+            android:id="@+id/calculate"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_marginTop="16dp"
             android:elevation="15dp"
-            android:text="Рассчитать" />
-        <TextView
+            android:text="@string/calculate"
+            app:layout_constraintEnd_toEndOf="@+id/time_razvertyvania"
+            app:layout_constraintStart_toStartOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/time_razvertyvania" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Результат"
-            android:textColor="@color/Black"
-            android:layout_gravity="center"
-            android:textSize="15sp"
-            android:id="@+id/text_result"
-            android:visibility="invisible"/>
+            android:layout_marginStart="149dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="257dp"
+            android:layout_marginBottom="726dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="157dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/Black"
-            android:id="@+id/vr_result"
-            android:layout_gravity="center"
-            android:visibility="invisible"
-            android:focusable="true"/>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
+    </layout>

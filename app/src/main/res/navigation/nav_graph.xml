@@ -6,7 +6,7 @@
     app:startDestination="@id/choose_calc">
     <fragment
         android:id="@+id/choose_calc"
-        android:name="com.example.muirsuus.Calculation.List_Calculations_Fragment"
+        android:name="com.example.muirsuus.calculation.List_Calculations_Fragment"
         android:label="Расчёт"
         tools:layout="@layout/fragment_list_calculations" >
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/reconnaissance"
-        android:name="com.example.muirsuus.Calculation.Razvedka_fragment"
+        android:name="com.example.muirsuus.calculation.razvedka_mvvm.Razvedka_fragment"
         android:label="Расчёт разведзащищенности"
         tools:layout="@layout/fragment_reconnaissance" >
         <action
@@ -43,21 +43,21 @@
     </fragment>
     <fragment
         android:id="@+id/vremya_Vypolneniya"
-        android:name="com.example.muirsuus.Calculation.Vremya_Vypolneniya"
+        android:name="com.example.muirsuus.calculation.Vremya_Vypolneniya"
         android:label="Время выполнения задач узлом связи"
         tools:layout="@layout/fragment_vremya__vypolneniya" />
     <fragment
         android:id="@+id/zhivuchest"
-        android:name="com.example.muirsuus.Calculation.Zhivuchest"
+        android:name="com.example.muirsuus.calculation.zhivuchest_mvvm.Zhivuchest"
         android:label="Расчёт живучести узла связи"
         tools:layout="@layout/fragment_zhivuchest" />
     <fragment
         android:id="@+id/vremya_Razvertyvaniya"
-        android:name="com.example.muirsuus.Calculation.Vremya_Razvertyvaniya"
+        android:name="com.example.muirsuus.calculation.razvertyvania_mvvm.Vremya_Razvertyvaniya"
         android:label="Расчёт времени на развёртывание много интевальной радиорелейной линии связи"
         tools:layout="@layout/fragment_vremya_razvertyvaniya" />
     <fragment
         android:id="@+id/tableView"
-        android:name="com.example.muirsuus.Calculation.TableView"
+        android:name="com.example.muirsuus.calculation.TableView"
         tools:layout="@layout/fragment_table_view" />
 </navigation>

@@ -1,17 +1,301 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Calculation.Zhivuchest">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <import type="android.view.View"/>
+        <variable name="zhivuchestViewModel"
+                  type="com.example.muirsuus.calculation.zhivuchest_mvvm.ZhivuchestViewModel"/>
+
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        tools:context=".calculation.zhivuchest_mvvm.Zhivuchest"
+        tools:visibility="visible"
+        android:background="@color/white">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title_zhivuchest"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/title_zhivuchest"
+                    android:textColor="@color/Black"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/count_input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/input_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:text="@={zhivuchestViewModel.count}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_zhivuchest"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/max_area_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/max_area"
+                    android:textColor="@color/Black"
+                    app:layout_constraintEnd_toStartOf="@+id/max_area"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/max_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:hint="@string/input_hint"
+                    android:inputType="number"
+                    android:text="@={zhivuchestViewModel.max_area}"
+                    app:layout_constraintBottom_toBottomOf="@+id/max_area_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/element"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@={zhivuchestViewModel.number}"
+                    android:textColor="@color/Black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.07"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/area_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/target_area"
+                    android:textColor="@color/Black"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/target_area"
+                    app:layout_constraintEnd_toStartOf="@+id/target_area"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <EditText
+                    android:id="@+id/target_area"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:hint="@string/input_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:text="@={zhivuchestViewModel.area}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/element" />
+
+
+                <TextView
+                    android:id="@+id/opened_tracks_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/count_opened_tracks"
+                    android:textColor="@color/Black"
+                    app:layout_constraintEnd_toEndOf="@+id/area_text"
+                    app:layout_constraintStart_toStartOf="@+id/area_text"
+                    app:layout_constraintTop_toBottomOf="@+id/target_area" />
+
+                <EditText
+                    android:id="@+id/count_opened_tracks_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/input_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:text="@={zhivuchestViewModel.opened_tracks}"
+                    app:layout_constraintBottom_toBottomOf="@+id/opened_tracks_text"
+                    app:layout_constraintEnd_toEndOf="@+id/target_area" />
+
+                <TextView
+                    android:id="@+id/all_tracks_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/all_tracks"
+                    android:textColor="@color/Black"
+                    app:layout_constraintEnd_toEndOf="@+id/opened_tracks_text"
+                    app:layout_constraintStart_toStartOf="@+id/opened_tracks_text"
+                    app:layout_constraintTop_toBottomOf="@+id/count_opened_tracks_text" />
+
+                <EditText
+                    android:id="@+id/all_tracks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/input_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:text="@={zhivuchestViewModel.all_tracks}"
+                    app:layout_constraintBottom_toBottomOf="@+id/all_tracks_text"
+                    app:layout_constraintEnd_toEndOf="@+id/count_opened_tracks_text" />
+
+                <TextView
+                    android:id="@+id/pvo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/effciency_koef"
+                    android:textColor="@color/Black"
+                    app:layout_constraintEnd_toEndOf="@+id/all_tracks_text"
+                    app:layout_constraintStart_toStartOf="@+id/all_tracks_text"
+                    app:layout_constraintTop_toBottomOf="@+id/all_tracks" />
+
+                <EditText
+                    android:id="@+id/effciency_koef"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/input_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="number|numberDecimal"
+                    android:text="@={zhivuchestViewModel.koef_pvo}"
+                    app:layout_constraintBottom_toBottomOf="@+id/pvo"
+                    app:layout_constraintEnd_toEndOf="@+id/all_tracks" />
+
+                <TextView
+                    android:id="@+id/rub"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/eficiency_koef_rub"
+                    android:textColor="@color/Black"
+                    app:layout_constraintEnd_toEndOf="@+id/pvo"
+                    app:layout_constraintStart_toStartOf="@+id/pvo"
+                    app:layout_constraintTop_toBottomOf="@+id/effciency_koef" />
+
+                <EditText
+                    android:id="@+id/eficiency_koef_rub"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/input_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="number|numberDecimal"
+                    android:text="@={zhivuchestViewModel.koef_rab}"
+                    app:layout_constraintBottom_toBottomOf="@+id/rub"
+                    app:layout_constraintEnd_toEndOf="@+id/effciency_koef" />
+
+                <Button
+                    android:id="@+id/calculate_zhivuchest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/colorPrimary"
+
+                    android:onClick="@{() -> zhivuchestViewModel.calculate_data()}"
+                    android:text="@string/add"
+                    android:textColor="@color/Black"
+                    app:layout_constraintBottom_toBottomOf="@+id/previous"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <Button
+                    android:id="@+id/previous"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colorPrimary"
+                    android:text="@string/previous"
+                    android:textColor="@color/Black"
+                    android:onClick="@{() -> zhivuchestViewModel.previous_data()}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rub"
+                   />
+
+                <TextView
+                    android:id="@+id/result"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="20sp"
+                    android:text="@{zhivuchestViewModel.zhivuchest_element.toString()}"
+                    android:textColor="@color/Red"
+                    app:layout_constraintBottom_toBottomOf="@+id/result_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/result_text"
+                    app:layout_constraintTop_toTopOf="@+id/result_text" />
+
+                <TextView
+                    android:id="@+id/result_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/zhivuchest_string"
+                    android:textSize="20sp"
+                    android:textColor="@color/Red"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/calculate_zhivuchest"
+                    app:layout_constraintStart_toEndOf="@+id/previous"
+                    app:layout_constraintTop_toBottomOf="@+id/previous" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </FrameLayout>
+        </layout>
 
-</FrameLayout>
