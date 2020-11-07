@@ -41,6 +41,7 @@ public class List_Calculations_Fragment extends Fragment {
         vremya_Razvertyvaniya = view.findViewById(R.id.vremya_Razvertyvaniya);
         zhivuchest = view.findViewById(R.id.zhivuchest);
         kompas = view.findViewById(R.id.kompas);
+        Button subscriberNetwork = view.findViewById(R.id.subscriber_network);
 
         navController = Navigation.findNavController(view);
 
@@ -50,7 +51,6 @@ public class List_Calculations_Fragment extends Fragment {
                 navController.navigate(R.id.action_choose_calc_to_reconnaissance);
             }
         });
-
 
         vremya_Vypolneniya.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,5 +80,9 @@ public class List_Calculations_Fragment extends Fragment {
                 navController.navigate(R.id.action_choose_calc_to_kompas);
             }
         });
+
+        subscriberNetwork.setOnClickListener(v ->
+                navController.navigate(R.id.choose_to_subscriber_network)
+        );
     }
 }
