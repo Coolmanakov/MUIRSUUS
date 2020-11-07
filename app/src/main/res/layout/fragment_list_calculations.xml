@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".calculation.List_Calculations_Fragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Расчёт разведзащищенности узла связи (пункта управления)"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:layout_gravity="center"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp" />
+
+            <Button
+                android:id="@+id/reconnaissance"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/enter"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:background="@drawable/button_inf_style"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Расчёт живучести узла связи\n(пункта управления)"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:layout_gravity="center"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp" />
+
+            <Button
+                android:id="@+id/zhivuchest"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/enter"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:background="@drawable/button_inf_style"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Расчёт времени на развертывание много интервальной радиорелейной линии связи"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:layout_gravity="center"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp" />
+
+            <Button
+                android:id="@+id/vremya_Razvertyvaniya"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/enter"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:background="@drawable/button_inf_style"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Расчёт времени выполнения задач узлом связи (выполнение требований по стабильности узла связи)"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:layout_gravity="center"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp" />
+
+            <Button
+                android:id="@+id/vremya_Vypolneniya"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/enter"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:background="@drawable/button_inf_style"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="Расчёт абонентской сети на пункте управления"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:layout_gravity="center"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp" />
+
+            <Button
+                android:id="@+id/subscriber_network"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/enter"
+                android:textSize="15sp"
+                android:textColor="@color/Black"
+                android:background="@drawable/button_inf_style"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
+
