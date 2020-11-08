@@ -16,6 +16,8 @@ public class SubscriberNetworkRepository {
     public static ArrayList<String> mOfficialType = new ArrayList<>();
     public static HashMap<String, ArrayList<String>> mDeviceType = new HashMap<>();
     public static HashMap<String, Integer> mDeviceRoomType = new HashMap<>();
+    public static HashMap<String, String> mCableType = new HashMap<>();
+    public static HashMap<String, Integer> mCableLength = new HashMap<>();
 
     public enum SpinnerList {
         DIVISION_LIST,
