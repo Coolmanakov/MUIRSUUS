@@ -4,8 +4,8 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="adapter"
-            type="com.example.muirsuus.adapters.tth_mvvm.TthViewModel" />
+            name="data"
+            type="com.example.muirsuus.information_ui.TthViewModel" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,8 +43,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/button_background" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/title"
@@ -56,7 +55,7 @@
                 android:layout_marginRight="8dp"
                 android:layout_toEndOf="@+id/tth_image"
                 android:layout_toRightOf="@+id/tth_image"
-                android:text="@{adapter.title.toString()}"
+                android:text="@{data.title.toString()}"
                 android:textColor="@color/Black"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -68,7 +67,7 @@
                 android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{adapter.description.toString()}"
+                android:text="@{data.description.toString()}"
                 app:layout_constraintEnd_toEndOf="@+id/title"
                 app:layout_constraintStart_toStartOf="@+id/title"
                 app:layout_constraintTop_toBottomOf="@+id/title" />

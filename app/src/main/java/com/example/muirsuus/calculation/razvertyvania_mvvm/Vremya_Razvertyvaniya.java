@@ -2,21 +2,19 @@ package com.example.muirsuus.calculation.razvertyvania_mvvm;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 
 import com.example.muirsuus.R;
 import com.example.muirsuus.databinding.FragmentVremyaRazvertyvaniyaBinding;
@@ -43,8 +41,7 @@ public class Vremya_Razvertyvaniya extends Fragment {
     private  int wind_int = 0;
     private int t_marsh_int = 0;
     private BigDecimal time_result = new BigDecimal(0);
-    private TextView text_result;
-    private  TextView vr_result;
+
     private FragmentVremyaRazvertyvaniyaBinding binding;
 
 
@@ -61,7 +58,7 @@ public class Vremya_Razvertyvaniya extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /*calculate.setOnClickListener(new View.OnClickListener() {
+        binding.calculate.setOnClickListener(new View.OnClickListener() {
             @SuppressLint({"ResourceAsColor", "SetTextI18n"})
             @Override
             public void onClick(View v) {
@@ -108,37 +105,26 @@ public class Vremya_Razvertyvaniya extends Fragment {
                     time_result = time_result.multiply(koef);
                     Log.d("mLog", "time = " + time_result);
 
-                    vr_result.setVisibility(View.VISIBLE);
-                    text_result.setVisibility(View.VISIBLE);
-                    vr_result.setText(time_result.toString() + " мин.");
-                }
-                else Log.d("mLog", "time = " + 0);
+                    binding.resultText.setVisibility(View.VISIBLE);
+                    binding.resultValue.setVisibility(View.VISIBLE);
+                    binding.resultValue.setText(time_result.toString() + " мин.");
+                } else Log.d("mLog", "time = " + 0);
 
             }
-        });*/
+        });
     }
 
 
 
 
-    // Общий метод получения адаптера для каждого spinner a
-    private SpinnerAdapter get_Spinner_adapter(int data) {
-        ArrayAdapter<?> adapter =
-                ArrayAdapter.createFromResource(requireContext(), data, android.R.layout.simple_spinner_item);// вид каждого item spinera
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);//общий вид спинера
-        return adapter;
-    }
 
 
     private boolean isInt(String input){
         boolean isInt = false;
         for(int j = 0; j< input.length(); j++){
 
-            if( input.charAt(j) > '0' && input.charAt(j) <= '9'){
-                isInt = true;
-            }
-            else  isInt = false;
+            isInt = input.charAt(j) > '0' && input.charAt(j) <= '9';
         }
         return isInt;
     }

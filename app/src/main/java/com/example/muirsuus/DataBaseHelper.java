@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
-    private static String DB_NAME = "MURSY_YS.db";
+    private static String DB_NAME = "databases/MURSY_YS.db";
     private static String DB_PATH = "";
     private static final int DB_VERSION = 34;
     public static final String FILE_DIR ="AudioArmy";
@@ -318,7 +318,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 //получаем строк с названиями картинок, в последующем разделим её и получим список
     public String get_list_photo(String point){
-        String photo = new String();
+        String photo = "";
         SQLiteDatabase db = this.getReadableDatabase();
         @SuppressLint("Recycle")Cursor cursor = db.rawQuery(" SELECT " + COLUMN_PHOTO_ID +
                 " FROM " + TABLE_EX + " WHERE " + COLUMN_POINT + " LIKE ?  ", new String[]   {point});

@@ -10,15 +10,4 @@ public class RazvertyvaniaViewModel extends BaseObservable {
     public ObservableField<List<Integer>> quantityEntries = new ObservableField<>();
 
 
-
-    /*@BindingAdapter(value = "onItemSelected")
-    public  void setItemSelectedListener(AdapterView.OnItemSelectedListener itemSelectedListener){
-        Log.d("mLog","itemSelectedListener " );
-    }
-    @BindingAdapter(value = "newValue")
-    public  void  setNewValue(Integer newValue){
-        Log.d("mLog","newValue " + newValue);
-    }*/
-
-
 }

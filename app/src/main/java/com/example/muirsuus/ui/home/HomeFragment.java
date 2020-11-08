@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,15 +19,14 @@ import androidx.navigation.NavController;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.muirsuus.CalculationActivity;
 import com.example.muirsuus.DataBaseHelper;
-import com.example.muirsuus.classes.CardClass;
 import com.example.muirsuus.R;
-import com.example.muirsuus.SectionActivity;
-import com.example.muirsuus.adapters.StartAdapter;
 import com.example.muirsuus.WebActivity;
+import com.example.muirsuus.adapters.StartAdapter;
+import com.example.muirsuus.calculation.CalculationActivity;
+import com.example.muirsuus.classes.CardClass;
+import com.example.muirsuus.information_ui.MainInformationActivity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +76,7 @@ public class HomeFragment extends Fragment {
 
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext());
 
-        if(dataBaseHelper.checkDataBase()){
+        /*if(dataBaseHelper.checkDataBase()){
             Log.d("mLog","DataBaseHelper: checkDataBase: database already exist");
         }
         else {
@@ -94,7 +91,7 @@ public class HomeFragment extends Fragment {
             Log.d("mLog", "База данных не найдена");
             //Toast.makeText(getContext(),"База данных не найдена",Toast.LENGTH_SHORT).show();
             inf_btn.setClickable(false);
-        }
+        }*/
 
 
 
@@ -119,7 +116,7 @@ public class HomeFragment extends Fragment {
         View.OnClickListener onInfBtn = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SectionActivity.class);
+                Intent intent = new Intent(getContext(), MainInformationActivity.class);
                 startActivity(intent);
             }
         };

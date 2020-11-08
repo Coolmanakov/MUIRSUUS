@@ -73,7 +73,6 @@
     </string-array>
 
 
-
     <string-array name="type_chanel">
         <item>ТГ</item>
         <item>ТЧ</item>
@@ -178,4 +177,6 @@
 
     <string name="compass_dial" translatable="false">Compass Dial</string>
     <string name="compass_hands" translatable="false">Compass Hands</string>
+    <string name="result_razvertyvania">Время на развертывание</string>
+    <string name="title_activity_main_information">MainInformationActivity</string>
 </resources>

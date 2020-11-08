@@ -1,18 +1,13 @@
-package com.example.muirsuus;
+package com.example.muirsuus.calculation;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import android.view.View;
-import android.widget.Button;
+import com.example.muirsuus.R;
 
 public class CalculationActivity extends AppCompatActivity {
 

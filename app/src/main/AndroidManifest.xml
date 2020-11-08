@@ -1,40 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.muirsuus" >
+    package="com.example.muirsuus">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
-
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="МИРСУ УС"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".information_ui.MainInformationActivity"
+            android:label="@string/title_activity_main_information">
 
+        </activity>
         <activity
-            android:name=".CalculationActivity"
+            android:name=".calculation.CalculationActivity"
             android:label="Рассчётный блок" />
-        <activity
-            android:name=".SectionActivity"
-            android:label="Информацинный блок" />
-        <activity
-            android:name=".PointsActivity"
-            android:label="Информацинный блок" />
-        <activity
-            android:name=".SubsectionActivity"
-            android:label="Информацинный блок" />
+
         <activity
             android:name=".InformActivity"
             android:label="Информацинный блок" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/NoActionBar" >
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,8 +1,6 @@
 package com.example.muirsuus.ui.portfel;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,8 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muirsuus.DataBaseHelper;
 import com.example.muirsuus.R;
-import com.example.muirsuus.InformActivity;
-import com.example.muirsuus.adapters.tth_mvvm.TTHAdapter;
+import com.example.muirsuus.adapters.TTHAdapter;
 import com.example.muirsuus.classes.Army;
 import com.example.muirsuus.classes.CardClass;
 import com.example.muirsuus.classes.MyObject;
@@ -64,27 +61,11 @@ public class PortfelFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        adapter = new TTHAdapter(favorites);
+        //adapter = new TTHAdapter(favorites, clickListener);
 
 //--------------создание subsection_activity view--------------------
 
-        adapter.SetOnLongItemClickListener(new TTHAdapter.OnLongItemClickListener() {
-            @Override
-            public void onLongItemClick(int position) {
-                String delete_record = favorites.get(position).title; // получаем название item, на который нажали
-                dataBaseHelper.deleteRow(delete_record);
-                adapter.removeById(position);
-            }
-        });
-        adapter.SetOnItemClickListener(new TTHAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(PortfelFragment.this.getActivity(), InformActivity.class);
-                intent.putExtra("Build points", favorites.get(position).title);
-                Log.d("mLog", "PORTFEL FRAGMENT:    INTENT FROM PORTFEL FRAGMENT TO INFORM ACTIVITY");
-                startActivity(intent);
-            }
-        });
+
         mRecyclerView.setAdapter(adapter);
         return root;
     }

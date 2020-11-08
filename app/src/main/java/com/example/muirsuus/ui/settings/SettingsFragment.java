@@ -1,20 +1,14 @@
 package com.example.muirsuus.ui.settings;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -22,26 +16,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.muirsuus.DataBaseHelper;
-import com.example.muirsuus.FirstActivity;
 import com.example.muirsuus.R;
-import com.example.muirsuus.ui.lit.LitViewModel;
 
 import java.io.IOException;
-import java.util.Objects;
-
-import static android.content.Context.MODE_PRIVATE;
-import static android.content.Context.POWER_SERVICE;
-import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
-import static com.example.muirsuus.R.id.nav_host_fragment;
 
 public class SettingsFragment extends Fragment {
     final float start_value = 0.7f; //начальное значение размера шрифта

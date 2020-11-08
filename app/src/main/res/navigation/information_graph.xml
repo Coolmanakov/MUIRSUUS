@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/information_graph"
+    app:startDestination="@id/sectionFragment">
+
+    <fragment
+        android:id="@+id/sectionFragment"
+        android:name="com.example.muirsuus.information_ui.section.SectionFragment"
+        android:label="section_fragment"
+        tools:layout="@layout/section_fragment">
+        <action
+            android:id="@+id/action_sectionFragment_to_subsectionFragment"
+            app:destination="@id/subsectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/subsectionFragment"
+        android:name="com.example.muirsuus.information_ui.subsection.SubsectionFragment"
+        android:label="subsection_fragment"
+        tools:layout="@layout/subsection_fragment">
+        <action
+            android:id="@+id/action_subsectionFragment_to_pointsFragment"
+            app:destination="@id/pointsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pointsFragment"
+        android:name="com.example.muirsuus.information_ui.point.PointsFragment"
+        android:label="points_fragment"
+        tools:layout="@layout/points_fragment">
+        <action
+            android:id="@+id/action_pointsFragment_to_informationFragment"
+            app:destination="@id/informationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/informationFragment"
+        android:name="com.example.muirsuus.information_ui.InformationFragment"
+        android:label="information_fragment"
+        tools:layout="@layout/information_fragment" />
+</navigation>
