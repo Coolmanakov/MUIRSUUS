@@ -23,10 +23,6 @@ public class CalculationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calculation);
 
 
-
-        navController = Navigation.findNavController(this, R.id.calc_fragment);
-        NavigationUI.setupActionBarWithNavController(this,navController);
-
     }
 
     @Override

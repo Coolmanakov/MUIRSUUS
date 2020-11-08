@@ -21,7 +21,6 @@ public class Zhivuchest extends Fragment {
     FragmentZhivuchestBinding binding;
     EditText count;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

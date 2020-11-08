@@ -74,7 +74,6 @@ public class Razvedka_fragment extends Fragment {
     /*private boolean isInt(String input){
         boolean isInt = false;
         for(int j = 0; j< input.length(); j++){
-
             if(input.charAt(j) > '0' && input.charAt(j) <= '9' ){
                 isInt = true;
             }
@@ -83,4 +82,3 @@ public class Razvedka_fragment extends Fragment {
         return isInt;}*/
 
 }
-
