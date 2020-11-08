@@ -1,6 +1,5 @@
 package com.example.muirsuus.calculation.razvertyvania_mvvm;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

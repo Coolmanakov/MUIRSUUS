@@ -45,8 +45,6 @@ public class FirstActivity extends AppCompatActivity  {
 
 
 
-
-
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
             if (Build.VERSION.SDK_INT >= 23) {

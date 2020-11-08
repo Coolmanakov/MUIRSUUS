@@ -22,6 +22,8 @@ public class List_Calculations_Fragment extends Fragment {
     Button vremya_Razvertyvaniya;
     Button zhivuchest;
     Button kompas;
+    Button next;
+
     NavController navController;
 
     @Override
@@ -42,7 +44,9 @@ public class List_Calculations_Fragment extends Fragment {
         zhivuchest = view.findViewById(R.id.zhivuchest);
         kompas = view.findViewById(R.id.kompas);
 
+
         navController = Navigation.findNavController(view);
+
 
         razvedka.setOnClickListener(new View.OnClickListener() {
             @Override
