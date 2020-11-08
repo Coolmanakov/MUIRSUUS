@@ -21,7 +21,7 @@ public class CheckableSpinnerAdapter extends ArrayAdapter<String> {
     private final ArrayList<String> itemList;
     private final ArrayList<String> checkedItemList;
 
-    private class ViewHolder {
+    private static class ViewHolder {
         private final TextView mTextView;
         private final CheckBox mCheckBox;
 

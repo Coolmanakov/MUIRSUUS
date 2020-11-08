@@ -45,7 +45,6 @@ public class List_Calculations_Fragment extends Fragment {
         kompas = view.findViewById(R.id.kompas);
         Button subscriberNetwork = view.findViewById(R.id.subscriber_network);
 
-
         navController = Navigation.findNavController(view);
 
 

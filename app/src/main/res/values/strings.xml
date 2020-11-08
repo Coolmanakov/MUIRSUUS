@@ -29,6 +29,12 @@
     <string name="title_activity_points">PointsActivity</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="title_activity_appp">MainActivity</string>
+    <string name="enter">ВХОД</string>
+    <string name="division_type">Тип воинского формирования</string>
+    <string name="control_point_type">Тип пункта управления</string>
+    <string name="officials_type">Категории должностных лиц</string>
+    <string name="transition_button_text">Далее</string>
+    <string name="spinner_header">Выбрать</string>
     <string name="title_zhivuchest">Введите количество элементов, входящих в состав УС(ПУ)</string>
     <string name="input_hint">Введите число</string>
     <string name="element_1">Элемент № 1</string>
@@ -71,7 +77,6 @@
         <item>Р-431АМ</item>
         <item>Р-423АМ</item>
     </string-array>
-
 
     <string-array name="type_chanel">
         <item>ТГ</item>
@@ -177,6 +182,7 @@
 
     <string name="compass_dial" translatable="false">Compass Dial</string>
     <string name="compass_hands" translatable="false">Compass Hands</string>
+    <string name="subscriber_network_title">Расчёт абонентской сети на пункте управления</string>
     <string name="bez_razd" translatable="true">Без разделения на мобильную и основную части</string>
     <string name="s_razd" translatable="true">С разделением на мобильную и основную часть</string>
     <string name="kol_chast">Количество частей</string>
