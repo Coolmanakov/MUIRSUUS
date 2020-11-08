@@ -52,11 +52,7 @@
         android:id="@+id/vremya_Vypolneniya"
         android:name="com.example.muirsuus.calculation.Vremya_Vypolneniya"
         android:label="Время выполнения задач узлом связи"
-        tools:layout="@layout/fragment_vremya__vypolneniya" >
-        <action
-            android:id="@+id/action_vremya_Vypolneniya_to_vremyaVypolneniya_step2_1"
-            app:destination="@id/vremyaVypolneniya_step2_1" />
-    </fragment>
+        tools:layout="@layout/fragment_vremya__vypolneniya" />
     <fragment
         android:id="@+id/zhivuchest"
         android:name="com.example.muirsuus.calculation.zhivuchest_mvvm.Zhivuchest"
@@ -76,44 +72,4 @@
         android:name="com.example.muirsuus.calculation.kompas.Kompas"
         android:label="Компас"
         tools:layout="@layout/fragment_kompas" />
-    <fragment
-        android:id="@+id/vremyaVypolneniya_step2_1"
-        android:name="com.example.muirsuus.VremyaVypolneniya_step2_1"
-        tools:layout="@layout/fragment_vremya_vypolneniya_step2_1">
-        <action
-            android:id="@+id/action_vremyaVypolneniya_step2_1_to_sostav_uzla_svyazi"
-            app:destination="@id/sostav_uzla_svyazi" />
-    </fragment>
-    <fragment
-        android:id="@+id/sostav_uzla_svyazi"
-        android:name="com.example.muirsuus.sostav_uzla.Sostav_uzla_svyazi"
-        android:label="fragment_sostav_uzla_svyazi"
-        tools:layout="@layout/fragment_sostav_uzla_svyazi" >
-        <action
-            android:id="@+id/action_sostav_uzla_svyazi_to_recogn"
-            app:destination="@id/recogn" />
-    </fragment>
-    <fragment
-        android:id="@+id/recogn"
-        android:name="com.example.muirsuus.Recogn"
-        android:label="fragment_recogn"
-        tools:layout="@layout/fragment_recogn" >
-        <action
-            android:id="@+id/action_recogn_to_marsh"
-            app:destination="@id/marsh" />
-    </fragment>
-    <fragment
-        android:id="@+id/marsh"
-        android:name="com.example.muirsuus.Marsh"
-        android:label="fragment_marsh"
-        tools:layout="@layout/fragment_marsh" >
-        <action
-            android:id="@+id/action_marsh_to_vremyaRazvertyvanya2"
-            app:destination="@id/vremyaRazvertyvanya" />
-    </fragment>
-    <fragment
-        android:id="@+id/vremyaRazvertyvanya"
-        android:name="com.example.muirsuus.VremyaRazvertyvanya"
-        android:label="fragment_vremya_razvertyvanya"
-        tools:layout="@layout/fragment_vremya_razvertyvanya" />
 </navigation>

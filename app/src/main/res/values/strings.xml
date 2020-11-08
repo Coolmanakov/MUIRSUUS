@@ -73,6 +73,7 @@
     </string-array>
 
 
+
     <string-array name="type_chanel">
         <item>ТГ</item>
         <item>ТЧ</item>
@@ -177,90 +178,4 @@
 
     <string name="compass_dial" translatable="false">Compass Dial</string>
     <string name="compass_hands" translatable="false">Compass Hands</string>
-    <string name="bez_razd" translatable="true">Без разделения на мобильную и основную части</string>
-    <string name="s_razd" translatable="true">С разделением на мобильную и основную часть</string>
-    <string name="kol_chast">Количество частей</string>
-    <string name="next_button">Далее</string>
-    <string name="vvedite_kolvo">Введите количество связей и количество абонентов мобильной части полевого узла</string>
-    <string name="tf_zas">Количество ТФ ЗАС</string>
-    <string name="tg_zas_pd">Количество ТГ ЗАС ПД</string>
-    <string name="tg_zas_ups">Количество ТГ ЗАС УПС</string>
-    <string name="ats_r">Аб. устройства АТС-Р + ТЛФ ЗАС</string>
-    <string name="ats_o">Аб. устройства АТС-О</string>
-    <string name="zvks">ЗВКС (АРМ)</string>
-    <string name="tlg">ТЛГ ЗАС</string>
-
-    <string name="kir">Кир = </string>
-    <string name="kir1">Кир1 = </string>
-    <string name="kir2">Кир2 = </string>
-    <string name="kir3">Кир3 = </string>
-    <string name="kir4">Кир4 = </string>
-    <string name="kir5">Кир5 = </string>
-    <string name="kir6">Кир6 = </string>
-    <string name="sostav">Состав узла связи</string>
-
-    <string name="nazvanye">Название:</string>
-    <string name="kolvo">Кол-во машин:</string>
-    <string name="tzd">Трудозатраты День:</string>
-    <string name="tzn">Трудозатраты Ночь:</string>
-    <string name="kolvoeq">Количество аппарвтных:</string>
-    <string name="kolvols">Количество л/с в аппаратной:</string>
-
-    <string name="recogn_time">Рекогносцировка местности</string>
-    <string name="norm_time">Нормативное время рекогнасцировки</string>
-    <string name="raschet">Произвести расчёт рекогносцировки</string>
-    <string name="vremya">Время рекогнасцировки :</string>
-
-    <string name="protyazhennost">Протяжённость участка</string>
-    <string name="speed">Средняя скорость</string>
-    <string name="pokryte">Дорожное покрытие</string>
-    <string name="weather">Погода</string>
-    <string name="mestnost">Местность</string>
-    <string name="time">Время суток</string>
-    <string name="deep_snow">Глубина снега</string>
-    <string name="temperature_t">T°С</string>
-    <string name="interval">Интервал привалов</string>
-    <string name="dlit">Длительность привалов</string>
-
-    <string-array name="roads">
-        <item>Шоссе</item>
-        <item>Улучшенная грунтовая дорога</item>
-        <item>Просёлочная дорога</item>
-        <item>Бездорожье</item>
-    </string-array>
-
-    <string-array name="weather_list">
-        <item>Ясная</item>
-        <item>Дождь</item>
-        <item>Распутица</item>
-        <item>Гололёд</item>
-        <item>Туман</item>
-        <item>Снегопад</item>
-    </string-array>
-
-    <string-array name="mestnost_list">
-        <item>Равнинная, среднепересечённая</item>
-        <item>Лесисто-болотистая</item>
-        <item>Пустынно-песчанная</item>
-        <item>Гористая (более 1500м)</item>
-    </string-array>
-
-    <string-array name="time_list">
-        <item>День</item>
-        <item>Ночь</item>
-    </string-array>
-
-    <string name="vremya_marsha">Рассчёт времени совершения марша узлом связи</string>
-    <string name="raschet_vremeni">Расчёт времени развёртывания полевого узла связи</string>
-    <string name="harakteristiki">Характеристики района развёртывания</string>
-    <string name="rhb">РХБ обстановка</string>
-    <string name="temp_vozduha">Температура воздуха</string>
-    <string name="skorost_vetra">Скорость ветра</string>
-    <string name="glubina_snega">Глубина снежного покрова</string>
-    <string name="vremya_razvert">Время развёртывания: </string>
-
-    <string-array name="rhb_list">
-        <item>л/с без ИСЗ</item>
-        <item>л/с с ИСЗ</item>
-    </string-array>
 </resources>
