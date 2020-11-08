@@ -29,6 +29,12 @@
     <string name="title_activity_points">PointsActivity</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="title_activity_appp">MainActivity</string>
+    <string name="enter">ВХОД</string>
+    <string name="division_type">Тип воинского формирования</string>
+    <string name="control_point_type">Тип пункта управления</string>
+    <string name="officials_type">Категории должностных лиц</string>
+    <string name="transition_button_text">Далее</string>
+    <string name="spinner_header">Выбрать</string>
     <string name="title_zhivuchest">Введите количество элементов, входящих в состав УС(ПУ)</string>
     <string name="input_hint">Введите число</string>
     <string name="element_1">Элемент № 1</string>
@@ -71,8 +77,6 @@
         <item>Р-431АМ</item>
         <item>Р-423АМ</item>
     </string-array>
-
-
 
     <string-array name="type_chanel">
         <item>ТГ</item>

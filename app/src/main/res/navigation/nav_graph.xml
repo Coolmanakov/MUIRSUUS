@@ -33,7 +33,12 @@
             android:id="@+id/action_choose_calc_to_kompas"
             app:destination="@id/kompas"
             app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit"/>
+            app:exitAnim="@anim/fragment_open_exit" />
+        <action
+            android:id="@+id/choose_to_subscriber_network"
+            app:destination="@id/subscriber_network_fragment_1"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
     </fragment>
 
     <fragment
@@ -72,4 +77,48 @@
         android:name="com.example.muirsuus.calculation.kompas.Kompas"
         android:label="Компас"
         tools:layout="@layout/fragment_kompas" />
+    <fragment
+        android:id="@+id/subscriber_network_fragment_1"
+        android:name="com.example.muirsuus.Calculation.SubscriberNetworkFragment1"
+        android:label="Расчёт абонентской сети">
+        <action
+            android:id="@+id/subscriber_network_1_to_2"
+            app:destination="@id/subscriber_network_fragment_2"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/subscriber_network_fragment_2"
+        android:name="com.example.muirsuus.Calculation.SubscriberNetworkFragment2"
+        android:label="Расчёт абонентской сети">
+        <action
+            android:id="@+id/subscriber_network_2_to_3"
+            app:destination="@id/subscriber_network_fragment_3"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/subscriber_network_fragment_3"
+        android:name="com.example.muirsuus.Calculation.SubscriberNetworkFragment3"
+        android:label="Расчёт абонентской сети">
+        <action
+            android:id="@+id/subscriber_network_3_to_4"
+            app:destination="@id/subscriber_network_fragment_4"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/subscriber_network_fragment_4"
+        android:name="com.example.muirsuus.Calculation.SubscriberNetworkFragment4"
+        android:label="Расчёт абонентской сети">
+        <action
+            android:id="@+id/subscriber_network_4_to_5"
+            app:destination="@id/subscriber_network_fragment_5"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/subscriber_network_fragment_5"
+        android:name="com.example.muirsuus.Calculation.SubscriberNetworkFragment5"
+        android:label="Расчёт абонентской сети" />
 </navigation>
