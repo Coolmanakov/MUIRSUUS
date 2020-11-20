@@ -10,30 +10,40 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.muirsuus.R;
 import com.example.muirsuus.adapters.TTHAdapter;
+import com.example.muirsuus.database.SubsectionAndPoint;
 import com.example.muirsuus.databinding.PointsFragmentBinding;
 import com.example.muirsuus.information_ui.ViewModelFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PointsFragment extends Fragment {
-    private static final String LOG_TAG = "mLog";
+    private static final String LOG_TAG = "mLog" + PointsFragment.class.getCanonicalName();
     private PointsFragmentBinding binding;
     private TTHAdapter adapter;
     private String subsection;
     private ViewModelFactory viewModelFactory;
     private TTHAdapter.ListItemClickListener listener;
     private NavController navController;
+    private List<String> titles;
+    private List<String> descriptions;
+    private List<String> images;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.points_fragment, container, false);
-        navController = Navigation.findNavController(binding.getRoot());
         subsection = getArguments().getString("subsection");
+        getActivity().setTitle(subsection);
+        binding.setLifecycleOwner(this);
+
+
         return binding.getRoot();
     }
 
@@ -43,20 +53,39 @@ public class PointsFragment extends Fragment {
             @Override
             public void OnItemClickListener(int clickItemIndex) {
                 Bundle bundle = new Bundle();
-                bundle.putString("point", adapter.getEntries().getValue().get(clickItemIndex));
+                bundle.putString("point", adapter.getTitles().get(clickItemIndex));
+                NavController navController = NavHostFragment.findNavController(PointsFragment.this);
                 navController.navigate(R.id.action_pointsFragment_to_informationFragment, bundle);
             }
         };
         adapter = new TTHAdapter(getContext(), listener);
-        binding.recycler.setAdapter(adapter);
         setupViewModel();
     }
 
     private void setupViewModel() {
         viewModelFactory = new ViewModelFactory(getContext());
         viewModelFactory.setSubsection(subsection);
-        PointViewModel pointViewModel = new ViewModelProvider(this, viewModelFactory).get(PointViewModel.class);
-        Log.d(LOG_TAG, "Set list of sections to the RecyclerView");
-        adapter.setEntries(pointViewModel.getPoints());
+        PointViewModel pointViewModel = new PointViewModel(getContext(), subsection);
+        pointViewModel.getPoints().observe(binding.getLifecycleOwner(), new Observer<List<SubsectionAndPoint>>() {
+            @Override
+            public void onChanged(List<SubsectionAndPoint> points) {
+                titles = new ArrayList<>();
+                descriptions = new ArrayList<>();
+                images = new ArrayList<>();
+                for (int i = 0; i < points.size(); i++) {
+
+                    titles.add(points.get(i).getPoint().getPoint());
+                    descriptions.add(points.get(i).getPoint().getPoint_description());
+                    images.add(points.get(i).getPoint().getPoint_photo());
+                }
+
+                adapter.setTitles(titles);
+                adapter.setDescriptions(descriptions);
+                adapter.setImages(images);
+                binding.recycler.setAdapter(adapter);
+                Log.d(LOG_TAG, "Set points to the RecyclerView");
+            }
+        });
+
     }
 }

@@ -1,94 +1,62 @@
 package com.example.muirsuus.ui.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.muirsuus.DataBaseHelper;
 import com.example.muirsuus.R;
-import com.example.muirsuus.adapters.GalleryAdapter;
 import com.example.muirsuus.classes.Army;
+import com.example.muirsuus.database.PointAndInformation;
+import com.example.muirsuus.databinding.FragmentLayoutTthBinding;
+import com.example.muirsuus.information_ui.ViewModelFactory;
+import com.example.muirsuus.information_ui.information.InformationViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class TthFragment extends Fragment {
-    String point;
-    public TthFragment(String point){
+    private final Army tth = new Army();
+    private String point;
+    private ViewModelFactory viewModelFactory;
+    private FragmentLayoutTthBinding binding;
+
+    public TthFragment(String point) {
         this.point = point;
     }
-    public TthFragment(){
 
+    public TthFragment() {
     }
 
-
-
-
-    private TextView title;
-    private TextView subtitle;
-    private TextView tth_text;
-    private RecyclerView photo_recycler;
-    private  GalleryAdapter adapter;
-    private  LinearLayoutManager layoutManager;
-    private List<String> photo_list = new ArrayList<>();
-
-    private Army tth = new Army();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_layout_tth, container, false);
+        binding.setLifecycleOwner(this);
+        return binding.getRoot();
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        setUpViewModel();
+    }
 
-        View root = inflater.inflate(R.layout.fragment_layout_tth,container,false);
-
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext());
-        title = root.findViewById(R.id.title_tth);
-        tth_text = root.findViewById(R.id.title);
-        //photo_recycler = root.findViewById(R.id.photo_recycler);
-
-
-
-
-
-
-
-        if(point != null) {
-            //title.setText(point);
-            tth = dataBaseHelper.getTTHFromDB(point);
-            Log.d("mLog", "Point for TTH is " + point);
-            tth_text.setText(tth.getTTH());
-           // photo_list = get_list_images(dataBaseHelper.get_list_photo(point));
-        }
-
-
-        /*photo_recycler = (RecyclerView) root.findViewById(R.id.photo_recycler);
-        photo_recycler.setHasFixedSize(true);
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.HORIZONTAL, false);
-        photo_recycler.setLayoutManager(layoutManager);
-
-
-        final IRecyclerViewClickListener listener = new IRecyclerViewClickListener() {
+    private void setUpViewModel() {
+        viewModelFactory = new ViewModelFactory(getContext());
+        viewModelFactory.setPoint(point);
+        InformationViewModel informationViewModel = new ViewModelProvider(this, viewModelFactory).get(InformationViewModel.class);
+        informationViewModel.getInformation().observe(binding.getLifecycleOwner(), new Observer<List<PointAndInformation>>() {
             @Override
-            public void onClick(View view, int position) {
-                //Toast.makeText(getActivity(),"click",Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(getActivity(), FullScreenActivity.class);
-                i.putExtra("IMAGES",photo_list.toArray(new String[0]));
-                Log.d("mLog", "photo List = " +photo_list.toArray(new String[0]));
-                i.putExtra("POSITION",position);
-                startActivity(i);
+            public void onChanged(List<PointAndInformation> pointAndInformation) {
+                binding.tth.setText(pointAndInformation.get(0).information.getDescription());
             }
-
-        };
-        adapter = new GalleryAdapter(photo_list,listener);
-        photo_recycler.setAdapter(adapter);*/
-        return root;
+        });
     }
 }

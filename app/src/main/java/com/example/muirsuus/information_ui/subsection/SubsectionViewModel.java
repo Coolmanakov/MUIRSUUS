@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.muirsuus.database.AppDatabase;
+import com.example.muirsuus.database.SectionAndSubsection;
 
-import java.io.IOException;
 import java.util.List;
 
 /*
@@ -15,14 +15,15 @@ import java.util.List;
  * which responsible for setting needed list of data to RecyclerView
  * */
 public class SubsectionViewModel extends ViewModel {
-    private LiveData<List<String>> subsections;
+    private final LiveData<List<SectionAndSubsection>> subsections;
 
-    public SubsectionViewModel(Context context, String section) throws IOException {
+    public SubsectionViewModel(Context context, String section) {
         AppDatabase appDatabase = AppDatabase.getInstance(context);
-        subsections = appDatabase.informationDAO().getSubsections(section);
+        //subsections = appDatabase.informationDAO().getSubsections(section);
+        subsections = appDatabase.informationDAO().getSectionAndSubsection(section);
     }
 
-    public LiveData<List<String>> getSubsections() {
+    public LiveData<List<SectionAndSubsection>> getSubsections() {
         return subsections;
     }
 }

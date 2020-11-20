@@ -36,7 +36,6 @@
         </activity>
         <activity android:name=".WebActivity" />
         <activity android:name=".FullScreenActivity" />
-        <activity android:name=".FirstActivity" />
     </application>
 
 </manifest>

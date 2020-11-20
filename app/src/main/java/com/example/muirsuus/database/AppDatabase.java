@@ -8,47 +8,63 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-@Database(entities = {table_ex.class}, version = 1, exportSchema = true)
+@Database(entities = {section.class, subsection.class, point.class, information.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String LOG_TAG = "mLog";
-    private static String DB_NAME = "databases/MURSY_YS.db";
+    private static final String DB_NAME = "MURSY_YS.db";
+    private static final String TEST_DB_NAME = "annotated_db.db";
     private static AppDatabase mInstance;
     private static String DB_PATH = "";
+    private static final String IMAGES = "images";
 
     //TODO method, which will write db file in getFilesDir()
 
 
-    public static AppDatabase getInstance(Context context) throws IOException {
+    public static AppDatabase getInstance(Context context) {
         DB_PATH = context.getFilesDir() + File.separator;
-        Log.d(LOG_TAG, "DB_PATH = " + DB_PATH);
         if (mInstance == null) {
             synchronized (new Object()) {
-                Log.d(LOG_TAG, "Creating a new database instance");
                 create_db(context);
-                mInstance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, AppDatabase.DB_NAME).
-                        createFromFile(new File(context.getApplicationInfo().dataDir, DB_NAME)).build();
-                Log.d("mLog", "" + new File(context.getApplicationInfo().dataDir, DB_NAME));
+                copy_images(context);
+
+                mInstance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, AppDatabase.TEST_DB_NAME)
+                        .createFromAsset(TEST_DB_NAME)
+                        .fallbackToDestructiveMigration()
+                        .build();
+
+                Log.d(LOG_TAG, "AppDatabase: creating a new instance of AppDatabase");
+
 
             }
         }
         return mInstance;
     }
 
+    /*
+        method, which is responsible for copying DB
+            from assets folder into getFilesDir()
+     */
     public static void create_db(Context context) {
         InputStream myInput = null;
         OutputStream myOutput = null;
         try {
             File file = new File(DB_PATH + DB_NAME);
             if (!file.exists()) {
-                myInput = new FileInputStream(context.getApplicationInfo().dataDir + DB_NAME);
+                myInput = context.getAssets().open(DB_NAME);
+
+                if (myInput != null) {
+                    Log.d(LOG_TAG, "AppDatabase: making copy of DB from " + DB_NAME);
+                } else {
+                    Log.d(LOG_TAG, "AppDatabase: myInput = null");
+                }
 
                 myOutput = new FileOutputStream(DB_PATH + DB_NAME);
+                Log.d(LOG_TAG, "AppDatabase: making copy of DB to " + DB_PATH + DB_NAME);
                 byte[] buffer = new byte[1024];
                 int length;
                 while ((length = myInput.read(buffer)) > 0) {
@@ -64,6 +80,39 @@ public abstract class AppDatabase extends RoomDatabase {
 
         }
     }
+
+    public static void copy_images(Context context) {
+        InputStream myInput = null;
+        OutputStream myOutput = null;
+        try {
+            File file = new File(DB_PATH + IMAGES);
+            if (!file.exists()) {
+                myInput = context.getAssets().open(DB_NAME);
+
+                if (myInput != null) {
+                    Log.d(LOG_TAG, "AppDatabase: making copy of DB from " + DB_NAME);
+                } else {
+                    Log.d(LOG_TAG, "AppDatabase: myInput = null");
+                }
+
+                myOutput = new FileOutputStream(DB_PATH + DB_NAME);
+                Log.d(LOG_TAG, "AppDatabase: making copy of DB to " + DB_PATH + DB_NAME);
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = myInput.read(buffer)) > 0) {
+                    myOutput.write(buffer, 0, length);
+
+                }
+                myOutput.flush();
+                myOutput.close();
+                myInput.close();
+            }
+
+        } catch (IOException ex) {
+
+        }
+    }
+
 
     public abstract InformationDAO informationDAO();
 }

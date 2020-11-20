@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muirsuus.R;
@@ -24,10 +23,11 @@ import java.util.List;
 public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
 
 
-    private static TthViewModel tthViewModel;
     private final ListItemClickListener clickListener;
-    private LiveData<List<String>> entries;
-    private Context context;
+    private final Context context;
+    private List<String> titles;
+    private List<String> descriptions;
+    private List<String> images;
 
 
     public TTHAdapter(Context context, ListItemClickListener clickListener) {
@@ -41,12 +41,28 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
         imageView1.setImageURI(Uri.parse(imagePath));
     }
 
-    public LiveData<List<String>> getEntries() {
-        return entries;
+    public List<String> getTitles() {
+        return titles;
     }
 
-    public void setEntries(LiveData<List<String>> entries) {
-        this.entries = entries;
+    public void setTitles(List<String> titles) {
+        this.titles = titles;
+    }
+
+    public List<String> getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(List<String> descriptions) {
+        this.descriptions = descriptions;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 
     @NonNull
@@ -63,14 +79,14 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        //TODO getting data from list mLinks by position
-        holder.bind(entries.getValue().get(position));
+
+        holder.bind(titles.get(position), descriptions.get(position), images.get(position));
     }
 
 
     @Override
     public int getItemCount() {
-        return entries.getValue().size();
+        return titles.size();
     }
 
     public interface ListItemClickListener {
@@ -78,21 +94,9 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
     }
 
 
-    /*public int removeById(int position) {
-        int id = mLinks.get(position).getId();
-        mLinks.remove(position);
-        notifyDataSetChanged();
-        Log.d("mLog", "TTHADAPTER removeByID:   ");
-        return  id;
-    }*/
-    /*public int findById(int position) {
-        int id = mLinks.get(position).getId();
-        return  id;
-    }*/
-
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ItemTthBinding binding;
-        private ListItemClickListener clickListener;
+        private final ListItemClickListener clickListener;
 
 
         public MyViewHolder(@NonNull ItemTthBinding binding, ListItemClickListener clickListener) {
@@ -100,12 +104,16 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
             this.binding = binding;
             this.clickListener = clickListener;
             binding.getRoot().setOnClickListener(this);
-
-
         }
 
-        private void bind(String title) {
+        private void bind(String title, String description, String image) {
+            TthViewModel tthViewModel = new TthViewModel();
             tthViewModel.setTitle(title);// put title into tthviewmodel
+            tthViewModel.setDescription(description);
+            //loadImageFromData(image, binding.tthImage);
+
+            //TODO realize method loadImageFromData()
+
             binding.setData(tthViewModel); // set tthviewmodel into layout
         }
 

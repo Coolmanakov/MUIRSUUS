@@ -7,6 +7,12 @@ android {
         // Required when setting minSdkVersion to 20 or lower
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation":
+                                      "$projectDir/schemas".toString()]
+            }
+        }
     }
     buildFeatures {
 
@@ -21,7 +27,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.muirsuus"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"

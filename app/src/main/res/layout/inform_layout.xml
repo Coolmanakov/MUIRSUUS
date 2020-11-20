@@ -25,7 +25,7 @@
         android:layout_below="@id/tab_buttons" />
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager_inform"
+        android:id="@+id/text_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/photo_recycler">

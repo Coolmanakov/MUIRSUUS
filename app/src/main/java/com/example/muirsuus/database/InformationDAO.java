@@ -2,38 +2,27 @@ package com.example.muirsuus.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
+import androidx.room.Transaction;
 
 import java.util.List;
 
 @Dao
 public interface InformationDAO {
+    @Query("SELECT * FROM section")
+    LiveData<List<section>> getSections();
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    void update(table_ex information);
+    @Transaction
+    @Query("SELECT * FROM section WHERE section =:section")
+    LiveData<List<SectionAndSubsection>> getSectionAndSubsection(String section);
 
+    @Transaction
+    @Query("SELECT * FROM subsection WHERE subsection =:subsection")
+    LiveData<List<SubsectionAndPoint>> getSubsectionAndPoint(String subsection);
 
-    @Query("SELECT section FROM table_ex ")
-    LiveData<List<String>> getSections();
-
-    @Query("SELECT subsection FROM table_ex WHERE section = :section")
-    LiveData<List<String>> getSubsections(String section);
-
-    @Query("SELECT point FROM table_ex WHERE subsection = :subsection")
-    LiveData<List<String>> getPoints(String subsection);
-
-    @Query(" SELECT description FROM  table_ex  WHERE  point = :point")
-    LiveData<List<String>> getDescriptionFromDB(String point);
-
-    @Query(" SELECT tth  FROM  table_ex  WHERE  point = :point")
-    LiveData<List<String>> getTTHFromDB(String point);
-
-
-    @Delete
-    void deleteFavourite(table_ex informationDB);
+    @Transaction
+    @Query("SELECT * FROM point WHERE point =:point")
+    LiveData<List<PointAndInformation>> getPointAndInformation(String point);
 
 
 }

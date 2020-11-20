@@ -3,25 +3,19 @@ package com.example.muirsuus;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-import android.widget.ViewFlipper;
-import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -86,7 +80,7 @@ public class InformActivity extends AppCompatActivity  {
         setTitle(string_name);
 
 
-        viewPager = findViewById(R.id.view_pager_inform);
+        viewPager = findViewById(R.id.text_pager);
         tab_buttons = findViewById(R.id.tab_buttons);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),1);
         viewPagerAdapter.addFragment(new DescriptionFragment(string_name),"Назначение");
@@ -190,7 +184,7 @@ public class InformActivity extends AppCompatActivity  {
                 return true;
 
             case  R.id.share:
-                Toast.makeText(this,"Вы  поделились ",Toast.LENGTH_SHORT).show();;
+                Toast.makeText(this, "Вы  поделились ", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

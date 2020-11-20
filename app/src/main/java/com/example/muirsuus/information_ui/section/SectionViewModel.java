@@ -8,8 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.muirsuus.database.AppDatabase;
+import com.example.muirsuus.database.section;
 
-import java.io.IOException;
 import java.util.List;
 
 /*
@@ -18,21 +18,18 @@ import java.util.List;
  * */
 public class SectionViewModel extends ViewModel {
     private static final String LOG_TAG = "mLog";
-    private LiveData<List<String>> sections;
+    private final LiveData<List<section>> sections;
 
 
-    public SectionViewModel(@NonNull Context context) throws IOException {
+    public SectionViewModel(@NonNull Context context) {
 
         AppDatabase appDatabase = AppDatabase.getInstance(context);
-        Log.d(LOG_TAG, "Actively retrieving the tasks from the DataBase");
-
+        Log.d(LOG_TAG, "SectionViewModel: getSections from DB");
         sections = appDatabase.informationDAO().getSections();
-        Log.d(LOG_TAG, "" + sections.getValue());
     }
 
-    public LiveData<List<String>> getSections() {
+
+    public LiveData<List<section>> getSections() {
         return sections;
     }
-
-
 }

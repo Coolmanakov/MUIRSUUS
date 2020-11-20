@@ -46,7 +46,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/tth"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -68,9 +68,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{data.description.toString()}"
-                app:layout_constraintEnd_toEndOf="@+id/title"
-                app:layout_constraintStart_toStartOf="@+id/title"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintEnd_toEndOf="@+id/tth"
+                app:layout_constraintStart_toStartOf="@+id/tth"
+                app:layout_constraintTop_toBottomOf="@+id/tth" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
