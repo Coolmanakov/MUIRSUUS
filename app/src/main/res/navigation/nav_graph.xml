@@ -2,79 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_host_fragment"
-    app:startDestination="@id/choose_calc">
-    <fragment
-        android:id="@+id/choose_calc"
-        android:name="com.example.muirsuus.calculation.List_Calculations_Fragment"
-        android:label="Расчёт"
-        tools:layout="@layout/fragment_list_calculations">
-        <action
-            android:id="@+id/action_choose_calc_to_reconnaissance"
-            app:destination="@id/reconnaissance"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit" />
-        <action
-            android:id="@+id/action_choose_calc_to_vremya_Vypolneniya"
-            app:destination="@id/vremya_Vypolneniya"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit" />
-        <action
-            android:id="@+id/action_choose_calc_to_zhivuchest"
-            app:destination="@id/zhivuchest"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_close_exit" />
-        <action
-            android:id="@+id/action_choose_calc_to_vremya_Razvertyvaniya"
-            app:destination="@id/vremya_Razvertyvaniya"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit" />
-        <action
-            android:id="@+id/action_choose_calc_to_kompas"
-            app:destination="@id/kompas"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit" />
-    </fragment>
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FirstFragment">
 
-    <fragment
-        android:id="@+id/reconnaissance"
-        android:name="com.example.muirsuus.calculation.razvedka_mvvm.Razvedka_fragment"
-        android:label="Расчёт разведзащищенности"
-        tools:layout="@layout/fragment_reconnaissance">
-        <action
-            android:id="@+id/action_reconnaissance_to_tableView2"
-            app:destination="@id/tableView"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/vremya_Vypolneniya"
-        android:name="com.example.muirsuus.calculation.Vremya_Vypolneniya"
-        android:label="Время выполнения задач узлом связи"
-        tools:layout="@layout/fragment_vremya__vypolneniya" />
-    <fragment
-        android:id="@+id/zhivuchest"
-        android:name="com.example.muirsuus.calculation.zhivuchest_mvvm.Zhivuchest"
-        android:label="Расчёт живучести узла связи"
-        tools:layout="@layout/fragment_zhivuchest" />
-    <fragment
-        android:id="@+id/vremya_Razvertyvaniya"
-        android:name="com.example.muirsuus.calculation.razvertyvania_mvvm.Vremya_Razvertyvaniya"
-        android:label="Расчёт времени на развёртывание много интевальной радиорелейной линии связи"
-        tools:layout="@layout/fragment_vremya_razvertyvaniya" />
-    <fragment
-        android:id="@+id/tableView"
-        android:name="com.example.muirsuus.calculation.TableView"
-        tools:layout="@layout/fragment_table_view" />
-    <fragment
-        android:id="@+id/kompas"
-        android:name="com.example.muirsuus.calculation.kompas.Kompas"
-        android:label="Компас"
-        tools:layout="@layout/fragment_kompas" />
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.muirsuus.information_ui.FirstFragment"
+        android:name="com.example.muirsuus.registration.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
@@ -84,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.muirsuus.information_ui.SecondFragment"
+        android:name="com.example.muirsuus.registration.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 

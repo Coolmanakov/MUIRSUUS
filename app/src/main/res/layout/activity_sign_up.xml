@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="user"
+            type="com.example.muirsuus.registration.sign_up.SignUpViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorGray"
+        tools:context=".registration.sign_up.SignUpActivity">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="0dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary">
+
+                <TextView
+                    android:id="@+id/signUpToptext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/signIn"
+                    android:textColor="@color/Black"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/name_signUpText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/input_name"
+                    android:textColor="@color/Black"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/signUpToptext" />
+
+                <EditText
+                    android:id="@+id/name_signUp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/inputName"
+                    android:inputType="textPersonName|text"
+                    android:text="@={user._name}"
+                    android:textColor="@color/Black"
+                    android:textColorHint="@color/Black"
+                    app:layout_constraintEnd_toEndOf="@+id/signUpToptext"
+                    app:layout_constraintStart_toStartOf="@+id/name_signUpText"
+                    app:layout_constraintTop_toBottomOf="@+id/name_signUpText" />
+
+                <TextView
+                    android:id="@+id/password_signUpText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/password"
+                    android:textColor="@color/Black"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="@+id/name_signUp"
+                    app:layout_constraintTop_toBottomOf="@+id/name_signUp" />
+
+                <EditText
+                    android:id="@+id/password_signUp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:autofillHints=""
+                    android:hint="@string/inputPassword"
+                    android:inputType="textPassword"
+                    android:text="@={user._password}"
+                    android:textColor="@color/Black"
+                    android:textColorHint="@color/Black"
+                    app:layout_constraintEnd_toEndOf="@+id/name_signUp"
+                    app:layout_constraintStart_toStartOf="@+id/password_signUpText"
+                    app:layout_constraintTop_toBottomOf="@+id/password_signUpText" />
+
+                <Button
+                    android:id="@+id/enter_signUp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/button_pressed"
+                    android:onClick="@{() -> user.enter()}"
+                    android:padding="10dp"
+                    android:text="@string/enter"
+                    android:textSize="19sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/signUpToptext"
+                    app:layout_constraintStart_toStartOf="@+id/signUpToptext"
+                    app:layout_constraintTop_toBottomOf="@+id/password_signUp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/logoSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/cardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/icon_round" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

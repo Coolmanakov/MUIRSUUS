@@ -12,16 +12,12 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.muirsuus.DataBaseHelper;
 import com.example.muirsuus.R;
-
-import java.io.IOException;
 
 public class SettingsFragment extends Fragment {
     final float start_value = 0.7f; //начальное значение размера шрифта
@@ -37,38 +33,6 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.fragment_settings,container,false);
-
-        // create ContextThemeWrapper from the original Activity Context with the custom theme
-        /*final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.AppTheme);
-
-
-
-
-
-
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-            // create ContextThemeWrapper from the original Activity Context with the custom theme
-            contextThemeWrapper.setTheme(R.style.NightTheme);
-        }
-        else contextThemeWrapper.setTheme(R.style.AppTheme);
-
-        mySwitch = (Switch) root.findViewById(R.id.mySwitch);
-
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-            mySwitch.setChecked(true);
-        }
-        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-
-            }
-
-        });
-
-
-        // clone the inflater using the ContextThemeWrapper
-        LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);*/
-
 
         final SharedPreferences settings = this.getActivity().getSharedPreferences("MyAppSett", Context.MODE_PRIVATE);
 
@@ -126,21 +90,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        update_db = view.findViewById(R.id.update_db);
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext());
 
-
-        update_db.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    dataBaseHelper.updateDataBase();
-                    Toast.makeText(getContext(),"База данных успешно обновлена",Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getContext(),"База данных не может быть обновлена",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 }

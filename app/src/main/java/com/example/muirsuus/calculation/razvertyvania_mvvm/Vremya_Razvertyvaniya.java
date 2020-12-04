@@ -6,10 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,27 +19,16 @@ import java.math.BigDecimal;
 
 
 public class Vremya_Razvertyvaniya extends Fragment {
-    private Spinner type_of_line;
-    private Spinner type_of_chanel;
-    private Spinner ground;
-    private Spinner stations;
-    AdapterView adapterView;
-    private Button calculate;
-    private EditText count_radio_stations;
-    private EditText temperature;
-    private EditText snow;
-    private EditText wind;
-    private EditText t_marsh;
-    private  int count_of_transit_stations = 0;
-    private int koef_razvertyvaniay = 0;
-    private  int temperature_int = 0;
-    private  int snow_int = 0;
-    private  int wind_int = 0;
+
+    private final int koef_razvertyvaniay = 0;
+    private int count_of_transit_stations = 0;
+    private int temperature_int = 0;
+    private int snow_int = 0;
+    private int wind_int = 0;
     private int t_marsh_int = 0;
     private BigDecimal time_result = new BigDecimal(0);
 
     private FragmentVremyaRazvertyvaniyaBinding binding;
-
 
 
     @Override

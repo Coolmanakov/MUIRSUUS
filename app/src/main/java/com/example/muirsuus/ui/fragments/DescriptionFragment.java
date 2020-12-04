@@ -69,10 +69,10 @@ public class DescriptionFragment extends Fragment {
         viewModelFactory = new ViewModelFactory(getContext());
         viewModelFactory.setPoint(point);
         InformationViewModel informationViewModel = new ViewModelProvider(this, viewModelFactory).get(InformationViewModel.class);
-        informationViewModel.getInformation().observe(binding.getLifecycleOwner(), new Observer<List<PointAndInformation>>() {
+        informationViewModel.getInformation().observe(binding.getLifecycleOwner(), new Observer<PointAndInformation>() {
             @Override
-            public void onChanged(List<PointAndInformation> pointAndInformation) {
-                binding.description.setText(pointAndInformation.get(0).information.getDescription());
+            public void onChanged(PointAndInformation pointAndInformation) {
+                binding.description.setText(pointAndInformation.information.getDescription());
             }
         });
     }

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="newUser"
+            type="com.example.muirsuus.registration.sign_in.SignInViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorGray"
+        tools:context=".registration.sign_in.SignInActivity">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/registrForm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary">
+
+                <TextView
+                    android:id="@+id/signIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/registration"
+                    android:textColor="@color/Black"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/nameSignInText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/input_name"
+                    android:textColor="@color/Black"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/signIn" />
+
+                <EditText
+                    android:id="@+id/name_input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:autofillHints=""
+                    android:hint="@string/inputName"
+                    android:inputType="textPersonName|text"
+                    android:text="@={newUser._name}"
+                    android:textColor="@color/Black"
+                    android:textColorHint="@color/Black"
+                    app:layout_constraintEnd_toEndOf="@+id/signIn"
+                    app:layout_constraintStart_toStartOf="@+id/nameSignInText"
+                    app:layout_constraintTop_toBottomOf="@+id/nameSignInText" />
+
+                <TextView
+                    android:id="@+id/password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/password"
+                    android:textColor="@color/Black"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="@+id/name_input"
+                    app:layout_constraintTop_toBottomOf="@+id/name_input" />
+
+                <EditText
+                    android:id="@+id/password_input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:autofillHints=""
+                    android:hint="@string/inputPassword"
+                    android:inputType="textPassword"
+                    android:text="@={newUser._password}"
+                    android:textColor="@color/Black"
+                    android:textColorHint="@color/Black"
+                    app:layout_constraintEnd_toEndOf="@+id/name_input"
+                    app:layout_constraintStart_toStartOf="@+id/password"
+                    app:layout_constraintTop_toBottomOf="@+id/password" />
+
+                <TextView
+                    android:id="@+id/password2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/password"
+                    android:textColor="@color/Black"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="@+id/password_input"
+                    app:layout_constraintTop_toBottomOf="@+id/password_input" />
+
+                <EditText
+                    android:id="@+id/password_input2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:autofillHints=""
+                    android:hint="@string/repeatPassword"
+                    android:inputType="textPassword"
+                    android:text="@={newUser._password2}"
+                    android:textColor="@color/Black"
+                    android:textColorHint="@color/Black"
+                    app:layout_constraintEnd_toEndOf="@+id/signIn"
+                    app:layout_constraintStart_toStartOf="@+id/password2"
+                    app:layout_constraintTop_toBottomOf="@+id/password2" />
+
+                <Button
+                    android:id="@+id/signInBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/button_pressed"
+                    android:onClick="@{() -> newUser.signIN()}"
+                    android:padding="10dp"
+                    android:text="@string/new_user_btn"
+                    android:textSize="19sp"
+                    app:layout_constraintEnd_toEndOf="@+id/signIn"
+                    app:layout_constraintStart_toStartOf="@+id/signIn"
+                    app:layout_constraintTop_toBottomOf="@+id/password_input2" />
+
+                <TextView
+                    android:id="@+id/signUpText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/button_pressed"
+                    android:text="@string/signUp"
+                    android:textColor="@color/Black"
+                    android:textSize="15sp"
+                    android:textStyle="italic"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/signInBtn"
+                    app:layout_constraintStart_toStartOf="@+id/signInBtn"
+                    app:layout_constraintTop_toBottomOf="@+id/signInBtn" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/logoSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/registrForm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/icon_round" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

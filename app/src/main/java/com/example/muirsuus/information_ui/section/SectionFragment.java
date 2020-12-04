@@ -42,7 +42,6 @@ public class SectionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.section_fragment, container, false);
-        getActivity().setTitle("Информационный блок");
         binding.setLifecycleOwner(this);
 
         //appDatabase = AppDatabase.getInstance(getContext());
@@ -85,10 +84,12 @@ public class SectionFragment extends Fragment {
 
                     titles.add(section.get(i).getSection());
                     descriptions.add(section.get(i).getSectionDescription());
+
                     images.add(section.get(i).getSectionPhoto());
                 }
                 adapter.setTitles(titles);
                 adapter.setDescriptions(descriptions);
+
                 adapter.setImages(images);
                 binding.recycler.setAdapter(adapter);
                 Log.d(LOG_TAG, "Set sections to the RecyclerView");

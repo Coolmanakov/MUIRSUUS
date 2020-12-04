@@ -8,11 +8,9 @@ import androidx.lifecycle.ViewModel;
 import com.example.muirsuus.database.AppDatabase;
 import com.example.muirsuus.database.PointAndInformation;
 
-import java.util.List;
-
 public class InformationViewModel extends ViewModel {
 
-    private final LiveData<List<PointAndInformation>> information;
+    private final LiveData<PointAndInformation> information;
     private String point;
 
     public InformationViewModel(Context context, String point) {
@@ -25,7 +23,7 @@ public class InformationViewModel extends ViewModel {
         this.point = point;
     }
 
-    public LiveData<List<PointAndInformation>> getInformation() {
+    public LiveData<PointAndInformation> getInformation() {
         return information;
     }
 }

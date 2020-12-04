@@ -14,15 +14,15 @@ public interface InformationDAO {
 
     @Transaction
     @Query("SELECT * FROM section WHERE section =:section")
-    LiveData<List<SectionAndSubsection>> getSectionAndSubsection(String section);
+    LiveData<SectionAndSubsection> getSectionAndSubsection(String section);
 
     @Transaction
     @Query("SELECT * FROM subsection WHERE subsection =:subsection")
-    LiveData<List<SubsectionAndPoint>> getSubsectionAndPoint(String subsection);
+    LiveData<SubsectionAndPoint> getSubsectionAndPoint(String subsection);
 
     @Transaction
     @Query("SELECT * FROM point WHERE point =:point")
-    LiveData<List<PointAndInformation>> getPointAndInformation(String point);
+    LiveData<PointAndInformation> getPointAndInformation(String point);
 
 
 }

@@ -40,7 +40,7 @@ public class PointsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.points_fragment, container, false);
         subsection = getArguments().getString("subsection");
-        getActivity().setTitle(subsection);
+
         binding.setLifecycleOwner(this);
 
 
@@ -66,17 +66,17 @@ public class PointsFragment extends Fragment {
         viewModelFactory = new ViewModelFactory(getContext());
         viewModelFactory.setSubsection(subsection);
         PointViewModel pointViewModel = new PointViewModel(getContext(), subsection);
-        pointViewModel.getPoints().observe(binding.getLifecycleOwner(), new Observer<List<SubsectionAndPoint>>() {
+        pointViewModel.getPoints().observe(binding.getLifecycleOwner(), new Observer<SubsectionAndPoint>() {
             @Override
-            public void onChanged(List<SubsectionAndPoint> points) {
+            public void onChanged(SubsectionAndPoint points) {
                 titles = new ArrayList<>();
                 descriptions = new ArrayList<>();
                 images = new ArrayList<>();
-                for (int i = 0; i < points.size(); i++) {
+                for (int i = 0; i < points.getPoint().size(); i++) {
 
-                    titles.add(points.get(i).getPoint().getPoint());
-                    descriptions.add(points.get(i).getPoint().getPoint_description());
-                    images.add(points.get(i).getPoint().getPoint_photo());
+                    titles.add(points.getPoint().get(i).getPoint());
+                    descriptions.add(points.getPoint().get(i).getPoint_description());
+                    images.add(points.getPoint().get(i).getPoint_photo());
                 }
 
                 adapter.setTitles(titles);

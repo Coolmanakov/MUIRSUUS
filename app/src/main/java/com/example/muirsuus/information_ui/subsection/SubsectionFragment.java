@@ -42,7 +42,7 @@ public class SubsectionFragment extends Fragment {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.subsection_fragment, container, false);
         section = getArguments().getString("section");
-        getActivity().setTitle(section);
+
 
         binding.setLifecycleOwner(this);
         return binding.getRoot();
@@ -73,19 +73,17 @@ public class SubsectionFragment extends Fragment {
         viewModelFactory = new ViewModelFactory(getContext());
         viewModelFactory.setSection(section);
         SubsectionViewModel subsectionViewModel = new ViewModelProvider(this, viewModelFactory).get(SubsectionViewModel.class);
-        subsectionViewModel.getSubsections().observe(binding.getLifecycleOwner(), new Observer<List<SectionAndSubsection>>() {
+        subsectionViewModel.getSubsections().observe(binding.getLifecycleOwner(), new Observer<SectionAndSubsection>() {
             @Override
-            public void onChanged(List<SectionAndSubsection> subsections) {
-                Log.d(LOG_TAG, "subsections" + subsections);
+            public void onChanged(SectionAndSubsection subsections) {
+
                 titles = new ArrayList<>();
                 descriptions = new ArrayList<>();
                 images = new ArrayList<>();
-                for (int i = 0; i < subsections.size(); i++) {
-
-                    Log.d(LOG_TAG, "size " + subsections.size());
-                    titles.add(subsections.get(i).getSubsection().getSubsection());
-                    descriptions.add(subsections.get(i).getSubsection().getSub_description());
-                    images.add(subsections.get(i).getSubsection().getSub_photo());
+                for (int i = 0; i < subsections.getSubsection().size(); i++) {
+                    titles.add(subsections.getSubsection().get(i).getSubsection());
+                    descriptions.add(subsections.getSubsection().get(i).getSub_description());
+                    images.add(subsections.getSubsection().get(i).getSub_photo());
                 }
                 adapter.setTitles(titles);
                 adapter.setDescriptions(descriptions);
@@ -94,7 +92,5 @@ public class SubsectionFragment extends Fragment {
                 Log.d(LOG_TAG, "Set subsections to the RecyclerView ");
             }
         });
-
-
     }
 }

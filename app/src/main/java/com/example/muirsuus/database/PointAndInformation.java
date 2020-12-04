@@ -8,6 +8,10 @@ public class PointAndInformation {
     public point point;
     @Relation(
             parentColumn = "pointId",
-            entityColumn = "pointId")
+            entityColumn = "informId")
     public information information;
+
+    public information getInformation() {
+        return information;
+    }
 }

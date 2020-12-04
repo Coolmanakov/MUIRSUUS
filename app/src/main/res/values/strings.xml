@@ -40,8 +40,7 @@
     <string name="add">Рассчитать  </string>
     <string name="previous">Предыдущий </string>
     <string name="max_area">Максимальная площадь поражения боеприпасами</string>
-    <string name="element_zhivuchest">Живучесть элемента = </string>
-    <string name="zhivuchest_string">Живучесть элемента =</string>
+    <string name="zhivuchest_string">Живучесть элемента №</string>
     <string name="razved_calcuate">Расчёт разведзащищенности узла связи (пункта управления)</string>
     <string name="input">ВХОД</string>
     <string name="zhivuchest_calculate">Расчёт живучести узла связи (пункта управления)</string>
@@ -179,4 +178,48 @@
     <string name="compass_hands" translatable="false">Compass Hands</string>
     <string name="result_razvertyvania">Время на развертывание</string>
     <string name="title_activity_main_information">MainInformationActivity</string>
+    <string name="inf_block">Информационный блок</string>
+    <string name="calc_button">Рассчётный блок</string>
+    <string name="web_button">Сеть</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="signIn">Вход в систему</string>
+    <string name="input_name">Имя</string>
+    <string name="password">Пароль</string>
+    <string name="inputPassword">Введите пароль</string>
+    <string name="repeatPassword">Повторите пароль</string>
+    <string name="inputName">Введите имя</string>
+    <string name="registration">Регистрация</string>
+    <string name="new_user_btn">Зарегистрироваться</string>
+    <string name="signUp">Уже зарегистрированы?</string>
+    <string name="enter">Войти</string>
+    <string name="input_surname">Введите фамилию</string>
+    <string name="input_patronymic">Введите отчество</string>
+    <string name="rank">Звание</string>
+    <string name="appointment"> Должность</string>
+    <string name="workPlace">Узел связи</string>
+    <string name="inputRank">Ваше звание</string>
+    <string name="input_appointment">Ваша должность</string>
+    <string name="input_workPlace">Узел связи, на котором вы работаете</string>
+    <string name="changePersonalData">Изменить данные профиля</string>
+    <string name="title_activity_change_personal_data">ChangePersonalData</string>
+    <string name="surnameText">Фамилия</string>
+    <string name="patronymicText">Отчество</string>
+    <string name="saveChanges">Сохранить изменения</string>
+    <string name="literature_list1"> 1. Аппаратная П-260-О. Руководство по эксплуатации. Часть 1. Общие сведения.</string>
+    <string name="literature_list2"> 2. Аппаратная П-260-Т. Руководство по эксплуатации. Часть 1. Общие сведения.</string>
+    <string name="literature_list3">  3. Аппаратная П-260-У. Руководство по эксплуатации. Часть 1. Общие сведения.</string>
+    <string name="literature_list4">  5. Основы построения и эксплуатации полевых узлов связи ПУ объеди-нений. Альбом схем. – СПб.: ВАС. 2013.</string>
+    <string name="literature_list5"> 6. Основы построения и эксплуатации узлов связи пунктов управления объединений. Курс лекций. – СПб.: ВАС. 2013.</string>
+    <string name="literature_list6"> 7. Проект оперативно-тактических требований к полевым подвижным пунктам управления модульного типа. – М.: ВАГШ, 2010.</string>
+    <string name="literature_list7"> 8. Руководство по боевому применению комплекса аппаратных связи «Редут-2УС» (проект). – М.: 16 ЦНИИС, 2013.</string>
+    <string name="literature_list8">  9. Руководство по эксплуатации аппаратных П-260-У, П-260-О, П-260-Т. – М.: НИИССУ, 2013.</string>
+    <string name="literature_list9">  10. Цифровая радиорелейная станция Р-416ГМ. Руководство по экс-плуатации радиорелейного оборудования.</string>
+    <string name="literature_list10"> 11. Системы радиосвязи специального назначения. Радиостанции ма–лой мощности. В двух книгах. Книга 1. Радиостанции Р–168-100КА и Р-168-25У-2. С. В. Дворников, Д. А. Кузнецов, Ю. Н. Лысенков, А. А. Пого-релов, П. Г. Романенко. – СПб.: ВАС, 2014. – 68 с.</string>
+    <string name="literature_list11"> 12. Литкевич Г. Ю., Кочетков А. О., Чернышов А. Г. Командно-штабная машина Р-149АКШ-1. – СПб.: ВАС, 2015. – 187 с.</string>
+    <string name="literature_list12"> 13. Системы радиосвязи специального назначения. Радиостанции сред-ней мощности. Книга 1. Радиостанции из состава комплекса технических средств радиосвязи «Поиск-М». П. Г. Романенко, Д. А. Кузнецов, С. В. Дворников, А. А. Погорелов. – СПб.: ВАС, 2014. – 128 с.</string>
+    <string name="literature_list13"> 14. Системы радиосвязи специального назначения. Радиостанции сред-ней мощности. Книга 2. Радиостанция Р-166. П. Г. Романенко, Д. А. Кузне-цов, А. М. Спирин, Е. Н. Штрекер, Д. Ю. Риконен. – СПб.: ВАС, 2016. – 107 с.</string>
+    <string name="literature_list14"> 15. Системы радиосвязи специального назначения. Радиостанции сред-ней мощности. Книга 3. Радиостанция Р-166-0,5 П. Г. Романенко, Д. В. Милый, А. М. Спирин, П. А. Викулин. – СПб.: ВАС, 2016. – 134 с.</string>
+    <string name="literature_list15"> 16. Бондаренко С. А., Журавлёв Д. А., Дворовой М. О., Платонов С. Н., Сазонов М. А. Антенный модуль Р-431АМ. Учеб. пособие. – СПб: ВАС, 2014.</string>
+    <string name="literature_list16"> 17. Бондаренко С. А., Журавлёв Д. А., Сальников Д. В., Сазонов М. А., Орлов Е. В., Дворовой М. О. Цифровая радиорелейная станция Р-416ГМ: Учеб. пособие для ввузов связи. – СПб.: ВАС, 2016. – 96 с.</string>
+
 </resources>

@@ -7,14 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.muirsuus.R;
 import com.example.muirsuus.classes.CardClass;
 import com.example.muirsuus.classes.IRecyclerViewClickListener;
-import com.example.muirsuus.R;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ import java.util.List;
 public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> {
 
 
-    private List<CardClass> mLinks;
+    private final List<CardClass> mLinks;
     IRecyclerViewClickListener clickListener;
 
     public StartAdapter(List<CardClass> mLinks){
@@ -35,9 +34,9 @@ public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View v = inflater.inflate(R.layout.listitem_layout,viewGroup,false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        View v = inflater.inflate(R.layout.listitem_layout, viewGroup, false);
+
+        return new ViewHolder(v);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -52,23 +51,23 @@ public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> 
         return mLinks.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
         public TextView text;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView)itemView.findViewById(R.id.image);
-            text = (TextView)itemView.findViewById(R.id.item_title);
-            itemView.setOnClickListener(this);
+            image = (ImageView) itemView.findViewById(R.id.image);
+            text = (TextView) itemView.findViewById(R.id.item_title);
+
         }
 
 
-        @Override
+        /*@Override
         public void onClick(View v) {
 
             clickListener.onClick(v,getAdapterPosition());
-        }
+        }*/
 
     }
 

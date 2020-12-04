@@ -21,7 +21,7 @@
 
 
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
+        app:navGraph="@navigation/calculation_graph" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

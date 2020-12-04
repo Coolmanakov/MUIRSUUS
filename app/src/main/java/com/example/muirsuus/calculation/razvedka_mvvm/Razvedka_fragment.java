@@ -1,28 +1,18 @@
 package com.example.muirsuus.calculation.razvedka_mvvm;
 
-import android.annotation.SuppressLint;
-import android.graphics.Typeface;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 
 import com.example.muirsuus.R;
 import com.example.muirsuus.databinding.FragmentReconnaissanceBinding;
@@ -41,7 +31,7 @@ public class Razvedka_fragment extends Fragment {
     private Button back;
     private Button calculate;
     private EditText count_of_elements;
-    private volatile int col = 0;//введенное число
+    private final int col = 0;//введенное число
     double[] values;
     private TableLayout tableLayout;
     private boolean mShrink;
@@ -60,7 +50,7 @@ public class Razvedka_fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         RazvedkaViewModel razvedkaViewModel = new RazvedkaViewModel();
-
+        razvedkaViewModel.setContext(getContext());
         binding.setRazvedData(razvedkaViewModel);
         binding.setLifecycleOwner(this);
 
@@ -74,7 +64,6 @@ public class Razvedka_fragment extends Fragment {
     /*private boolean isInt(String input){
         boolean isInt = false;
         for(int j = 0; j< input.length(); j++){
-
             if(input.charAt(j) > '0' && input.charAt(j) <= '9' ){
                 isInt = true;
             }
@@ -83,4 +72,3 @@ public class Razvedka_fragment extends Fragment {
         return isInt;}*/
 
 }
-

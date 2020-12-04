@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muirsuus.DataBaseHelper;
@@ -31,42 +30,14 @@ public class PortfelFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private TTHAdapter adapter;
     final List<CardClass> favorites = new ArrayList<CardClass>();
-    private ArrayList<String> list_of_ids = new ArrayList<>();
+    private final ArrayList<String> list_of_ids = new ArrayList<>();
     private MyObject myObject;
-    private Army subsection_photo = new Army();
+    private final Army subsection_photo = new Army();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_portfel, container, false);
-        setHasOptionsMenu(true);//включаем режим вывода элементов фрагмента в ActionBar.
-        dataBaseHelper = new DataBaseHelper(getActivity());
 
-
-        //mDBHelper.deleteTable();
-        list_of_ids = dataBaseHelper.createFavoriteList(); //получаем список тех аппаратных, которые добавили в закладки
-
-
-        for (String favorite : list_of_ids) {
-            subsection_photo = dataBaseHelper.get_point_photo(favorite); //получаем объект Army с заполненным полем для фотографии
-            favorites.add(new CardClass(subsection_photo.get_photo_point(), favorite));
-        }
-
-
-        //String linksPhoto = DataBaseInfo.getAllImage();
-//--------------создание subsection_activity view--------------------
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.portfel_recycler);
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(layoutManager);
-
-        //adapter = new TTHAdapter(favorites, clickListener);
-
-//--------------создание subsection_activity view--------------------
-
-
-        mRecyclerView.setAdapter(adapter);
         return root;
     }
 

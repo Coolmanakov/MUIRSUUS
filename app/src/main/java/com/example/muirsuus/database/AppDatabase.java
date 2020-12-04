@@ -16,11 +16,10 @@ import java.io.OutputStream;
 @Database(entities = {section.class, subsection.class, point.class, information.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String LOG_TAG = "mLog";
-    private static final String DB_NAME = "MURSY_YS.db";
-    private static final String TEST_DB_NAME = "annotated_db.db";
+    private static final String DB_NAME = "annotated_db.db";
     private static AppDatabase mInstance;
     private static String DB_PATH = "";
-    private static final String IMAGES = "images";
+    private static final String IMAGES = "images/83t104.jpg";
 
     //TODO method, which will write db file in getFilesDir()
 
@@ -30,10 +29,9 @@ public abstract class AppDatabase extends RoomDatabase {
         if (mInstance == null) {
             synchronized (new Object()) {
                 create_db(context);
-                copy_images(context);
 
-                mInstance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, AppDatabase.TEST_DB_NAME)
-                        .createFromAsset(TEST_DB_NAME)
+                mInstance = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, AppDatabase.DB_NAME)
+                        .createFromAsset(DB_NAME)
                         .fallbackToDestructiveMigration()
                         .build();
 
@@ -54,65 +52,33 @@ public abstract class AppDatabase extends RoomDatabase {
         OutputStream myOutput = null;
         try {
             File file = new File(DB_PATH + DB_NAME);
-            if (!file.exists()) {
-                myInput = context.getAssets().open(DB_NAME);
+            //if (!file.exists()) {
+            myInput = context.getAssets().open(DB_NAME);
 
-                if (myInput != null) {
-                    Log.d(LOG_TAG, "AppDatabase: making copy of DB from " + DB_NAME);
-                } else {
-                    Log.d(LOG_TAG, "AppDatabase: myInput = null");
-                }
-
-                myOutput = new FileOutputStream(DB_PATH + DB_NAME);
-                Log.d(LOG_TAG, "AppDatabase: making copy of DB to " + DB_PATH + DB_NAME);
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = myInput.read(buffer)) > 0) {
-                    myOutput.write(buffer, 0, length);
-
-                }
-                myOutput.flush();
-                myOutput.close();
-                myInput.close();
+            if (myInput != null) {
+                Log.d(LOG_TAG, "AppDatabase: making copy of DB from " + DB_NAME);
+            } else {
+                Log.d(LOG_TAG, "AppDatabase: myInput = null");
             }
+
+            myOutput = new FileOutputStream(DB_PATH + DB_NAME);
+            Log.d(LOG_TAG, "AppDatabase: making copy of DB to " + DB_PATH + DB_NAME);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = myInput.read(buffer)) > 0) {
+                myOutput.write(buffer, 0, length);
+
+            }
+            myOutput.flush();
+            myOutput.close();
+            myInput.close();
+            //}
+
 
         } catch (IOException ex) {
 
         }
     }
-
-    public static void copy_images(Context context) {
-        InputStream myInput = null;
-        OutputStream myOutput = null;
-        try {
-            File file = new File(DB_PATH + IMAGES);
-            if (!file.exists()) {
-                myInput = context.getAssets().open(DB_NAME);
-
-                if (myInput != null) {
-                    Log.d(LOG_TAG, "AppDatabase: making copy of DB from " + DB_NAME);
-                } else {
-                    Log.d(LOG_TAG, "AppDatabase: myInput = null");
-                }
-
-                myOutput = new FileOutputStream(DB_PATH + DB_NAME);
-                Log.d(LOG_TAG, "AppDatabase: making copy of DB to " + DB_PATH + DB_NAME);
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = myInput.read(buffer)) > 0) {
-                    myOutput.write(buffer, 0, length);
-
-                }
-                myOutput.flush();
-                myOutput.close();
-                myInput.close();
-            }
-
-        } catch (IOException ex) {
-
-        }
-    }
-
 
     public abstract InformationDAO informationDAO();
 }

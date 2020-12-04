@@ -1,6 +1,10 @@
 package com.example.muirsuus.calculation;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,20 +12,15 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-
 import com.example.muirsuus.R;
 
 
 public class List_Calculations_Fragment extends Fragment {
     Button razvedka;
-    Button vremya_Vypolneniya;
+    //Button vremya_Vypolneniya;
     Button vremya_Razvertyvaniya;
     Button zhivuchest;
-    Button kompas;
+    //Button kompas;
     NavController navController;
 
     @Override
@@ -36,11 +35,11 @@ public class List_Calculations_Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        razvedka= view.findViewById(R.id.reconnaissance);
-        vremya_Vypolneniya = view.findViewById(R.id.vremya_Vypolneniya);
-        vremya_Razvertyvaniya = view.findViewById(R.id.vremya_Razvertyvaniya);
+        razvedka = view.findViewById(R.id.reconnaissance);
+        //vremya_Vypolneniya = view.findViewById(R.id.vremya_Vypolneniya);
+        vremya_Razvertyvaniya = view.findViewById(R.id.vremya_Razvertyvaniya_btn);
         zhivuchest = view.findViewById(R.id.zhivuchest);
-        kompas = view.findViewById(R.id.kompas);
+        //kompas = view.findViewById(R.id.kompas);
 
         navController = Navigation.findNavController(view);
 
@@ -52,13 +51,13 @@ public class List_Calculations_Fragment extends Fragment {
         });
 
 
-        vremya_Vypolneniya.setOnClickListener(new View.OnClickListener() {
+        /*vremya_Vypolneniya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 navController.navigate(R.id.action_choose_calc_to_vremya_Vypolneniya);
             }
-        });
+        });*/
 
         vremya_Razvertyvaniya.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,11 +73,11 @@ public class List_Calculations_Fragment extends Fragment {
         });
 
 
-        kompas.setOnClickListener(new View.OnClickListener() {
+        /*kompas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_choose_calc_to_kompas);
             }
-        });
+        });*/
     }
 }

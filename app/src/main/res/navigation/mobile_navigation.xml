@@ -9,14 +9,19 @@
         android:id="@+id/navigation_home"
         android:name="com.example.muirsuus.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_navigation_home_to_navigation_portfel"
-            app:destination="@id/navigation_portfel" />
-
+            android:id="@+id/action_navigation_home_to_sectionFragment"
+            app:destination="@id/sectionFragment" />
         <action
-            android:id="@+id/action_navigation_home_to_navigation_settings"
-            app:destination="@id/navigation_settings" />
+            android:id="@+id/action_navigation_home_to_litFragment"
+            app:destination="@id/litFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_nav_host_fragment"
+            app:destination="@id/nav_host_fragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -31,5 +36,50 @@
         android:name="com.example.muirsuus.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/sectionFragment"
+        android:name="com.example.muirsuus.information_ui.section.SectionFragment"
+        android:label="Справочник">
+        <action
+            android:id="@+id/action_sectionFragment_to_subsectionFragment"
+            app:destination="@id/subsectionFragment"
+            app:popUpTo="@id/sectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/litFragment"
+        android:name="com.example.muirsuus.ui.lit.LitFragment"
+        android:label="Литература"
+        tools:layout="@layout/lit_fragment" />
+    <fragment
+        android:id="@+id/subsectionFragment"
+        android:name="com.example.muirsuus.information_ui.subsection.SubsectionFragment"
+        android:label="{section}">
+        <action
+            android:id="@+id/action_subsectionFragment_to_pointsFragment"
+            app:destination="@id/pointsFragment" />
+        <argument
+            android:name="section"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/pointsFragment"
+        android:name="com.example.muirsuus.information_ui.point.PointsFragment"
+        android:label="{subsection}">
+        <action
+            android:id="@+id/action_pointsFragment_to_informationFragment"
+            app:destination="@id/informationFragment" />
+        <argument
+            android:name="subsection"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/informationFragment"
+        android:name="com.example.muirsuus.information_ui.information.InformationFragment"
+        android:label="{point}">
+        <argument
+            android:name="point"
+            app:argType="string" />
+    </fragment>
+    <include app:graph="@navigation/calculation_graph" />
 
 </navigation>

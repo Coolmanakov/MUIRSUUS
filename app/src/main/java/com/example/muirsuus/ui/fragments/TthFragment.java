@@ -19,8 +19,6 @@ import com.example.muirsuus.databinding.FragmentLayoutTthBinding;
 import com.example.muirsuus.information_ui.ViewModelFactory;
 import com.example.muirsuus.information_ui.information.InformationViewModel;
 
-import java.util.List;
-
 
 public class TthFragment extends Fragment {
     private final Army tth = new Army();
@@ -52,10 +50,10 @@ public class TthFragment extends Fragment {
         viewModelFactory = new ViewModelFactory(getContext());
         viewModelFactory.setPoint(point);
         InformationViewModel informationViewModel = new ViewModelProvider(this, viewModelFactory).get(InformationViewModel.class);
-        informationViewModel.getInformation().observe(binding.getLifecycleOwner(), new Observer<List<PointAndInformation>>() {
+        informationViewModel.getInformation().observe(binding.getLifecycleOwner(), new Observer<PointAndInformation>() {
             @Override
-            public void onChanged(List<PointAndInformation> pointAndInformation) {
-                binding.tth.setText(pointAndInformation.get(0).information.getDescription());
+            public void onChanged(PointAndInformation pointAndInformation) {
+                binding.tth.setText(pointAndInformation.information.getTth());
             }
         });
     }

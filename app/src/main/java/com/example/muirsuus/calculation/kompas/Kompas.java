@@ -1,21 +1,9 @@
 package com.example.muirsuus.calculation.kompas;
 
-import androidx.fragment.app.Fragment;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.muirsuus.calculation.kompas.KompasClass;
-import com.example.muirsuus.calculation.kompas.SOTWFormater;
-import com.example.muirsuus.R;
+import androidx.fragment.app.Fragment;
 
 public class Kompas extends Fragment {
 
@@ -28,7 +16,7 @@ public class Kompas extends Fragment {
     private float currentAzimuth;
     private SOTWFormater sotwFormater;
 
-    @Override
+   /* @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -102,16 +90,17 @@ public class Kompas extends Fragment {
                 // UI updates only in UI thread
                 // https://stackoverflow.com/q/11140285/444966
                 mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            adjustArrow(azimuth);
-                            adjustSotwLabel(azimuth);
-                        }
-                    });
+                    @Override
+                    public void run() {
+                        adjustArrow(azimuth);
+                        adjustSotwLabel(azimuth);
+                    }
+                });
             }
         };
-    };
+    };*/
 
 
 
 }
+

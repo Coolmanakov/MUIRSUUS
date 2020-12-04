@@ -3,16 +3,18 @@ package com.example.muirsuus.database;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import java.util.List;
+
 public class SectionAndSubsection {
     @Embedded
     public section section;
     @Relation(
             parentColumn = "id",
             entityColumn = "secId")
-    public subsection subsection;
+    public List<subsection> subsection;
 
 
-    public subsection getSubsection() {
+    public List<subsection> getSubsection() {
         return subsection;
     }
 }

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="user"
+            type="com.example.muirsuus.ui.home.HomeFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:contentDescription="personalFoto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.107"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:hint="@string/inputName"
+            android:padding="3dp"
+            android:text="@={user._nickname}"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/colorGray"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.431"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/surname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/input_surname"
+            android:padding="3dp"
+            android:text="@={user._surname}"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/colorGray"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/name"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <TextView
+            android:id="@+id/patronymic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/input_patronymic"
+            android:padding="3dp"
+            android:text="@={user._patronymic}"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/colorGray"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/surname"
+            app:layout_constraintStart_toStartOf="@+id/surname"
+            app:layout_constraintTop_toBottomOf="@+id/surname" />
+
+        <TextView
+            android:id="@+id/rank"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:padding="3dp"
+
+            android:text="@string/rank"
+
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/patronymic"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/patronymic" />
+
+        <TextView
+            android:id="@+id/appointment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="3dp"
+            android:text="@string/appointment"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/rank"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/rank" />
+
+        <TextView
+            android:id="@+id/workPlace"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="3dp"
+            android:text="@string/workPlace"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/appointment"
+            app:layout_constraintStart_toStartOf="@+id/appointment"
+            app:layout_constraintTop_toBottomOf="@+id/appointment" />
+
+        <TextView
+            android:id="@+id/rankValue"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:hint="@string/inputRank"
+            android:padding="5dp"
+            android:text="@={user._rank}"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/colorGray"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/rank"
+            app:layout_constraintEnd_toEndOf="@+id/patronymic"
+            app:layout_constraintStart_toEndOf="@+id/rank"
+            app:layout_constraintTop_toTopOf="@+id/rank" />
+
+        <TextView
+            android:id="@+id/appointmentValue"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:hint="@string/input_appointment"
+            android:padding="5dp"
+            android:text="@={user._appointment}"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/colorGray"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/appointment"
+            app:layout_constraintEnd_toEndOf="@+id/rankValue"
+            app:layout_constraintStart_toStartOf="@+id/rankValue"
+            app:layout_constraintTop_toTopOf="@+id/appointment" />
+
+        <TextView
+            android:id="@+id/workPlaceValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/input_workPlace"
+            android:padding="5dp"
+            android:text="@={user._workPlace}"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/colorGray"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@+id/appointmentValue"
+            app:layout_constraintStart_toStartOf="@+id/appointmentValue"
+            app:layout_constraintTop_toTopOf="@+id/workPlace" />
+
+        <Button
+            android:id="@+id/changePersonalData"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@color/button_pressed"
+            android:text="@string/changePersonalData"
+            android:textColor="@color/Black"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="@+id/workPlaceValue"
+            app:layout_constraintStart_toStartOf="@+id/workPlace"
+            app:layout_constraintTop_toBottomOf="@+id/workPlaceValue" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

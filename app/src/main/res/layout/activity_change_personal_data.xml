@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="user"
+            type="com.example.muirsuus.registration.change_info.ChangePersonalDataViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".registration.change_info.ChangePersonalData">
+
+        <TextView
+            android:id="@+id/nameChangePersonalDataText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center_horizontal"
+            android:padding="3dp"
+            android:text="@string/input_name"
+            android:textAlignment="center"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/surnameChangePersonalDataText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="3dp"
+            android:text="@string/surnameText"
+            android:textAlignment="center"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/changeSurname"
+            app:layout_constraintStart_toStartOf="@+id/nameChangePersonalDataText" />
+
+        <TextView
+            android:id="@+id/patronymicChangePersonalDataText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:padding="3dp"
+            android:text="@string/patronymicText"
+            android:textAlignment="center"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/changePatronymic"
+            app:layout_constraintStart_toStartOf="@+id/surnameChangePersonalDataText"
+            app:layout_constraintTop_toBottomOf="@+id/changeSurname" />
+
+        <TextView
+            android:id="@+id/rankChangePersonalDataText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="3dp"
+            android:text="@string/rank"
+            android:textAlignment="center"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/changeRank"
+            app:layout_constraintEnd_toEndOf="@+id/patronymicChangePersonalDataText"
+            app:layout_constraintStart_toStartOf="@+id/patronymicChangePersonalDataText" />
+
+        <TextView
+            android:id="@+id/appointmentChangePersonalDataText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="3dp"
+            android:text="@string/appointment"
+            android:textAlignment="center"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+
+            app:layout_constraintBottom_toBottomOf="@+id/changeAppointment"
+            app:layout_constraintStart_toStartOf="@+id/rankChangePersonalDataText" />
+
+        <TextView
+            android:id="@+id/workPlaceChangePersonalDataText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="3dp"
+            android:text="@string/workPlace"
+            android:textAlignment="center"
+            android:textColor="@color/Black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/changeWorkPlace"
+            app:layout_constraintEnd_toEndOf="@+id/appointmentChangePersonalDataText"
+            app:layout_constraintStart_toStartOf="@+id/appointmentChangePersonalDataText" />
+
+        <EditText
+            android:id="@+id/changeSurname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/input_surname"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName|text"
+            android:padding="5dp"
+            android:text="@={user._surname}"
+            android:textColor="@color/Black"
+            android:textColorLink="@color/colorGray"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/changePatronymic"
+            app:layout_constraintStart_toStartOf="@+id/changePatronymic"
+            app:layout_constraintTop_toBottomOf="@+id/changeName" />
+
+        <EditText
+            android:id="@+id/changeName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/inputName"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName|text"
+            android:padding="5dp"
+            android:text="@={user._nickname}"
+            android:textColor="@color/Black"
+            android:textColorLink="@color/colorGray"
+            app:layout_constraintBottom_toBottomOf="@+id/nameChangePersonalDataText"
+            app:layout_constraintEnd_toEndOf="@+id/changeSurname"
+            app:layout_constraintStart_toStartOf="@+id/changeSurname" />
+
+        <EditText
+            android:id="@+id/changeWorkPlace"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="Номер узла связи"
+            android:inputType="textPersonName|text"
+            android:padding="5dp"
+            android:text="@={user._workPlace}"
+            android:textColor="@color/Black"
+            android:textColorLink="@color/colorGray"
+            app:layout_constraintEnd_toEndOf="@+id/changeAppointment"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/changeAppointment"
+            app:layout_constraintTop_toBottomOf="@+id/changeAppointment" />
+
+        <EditText
+            android:id="@+id/changeAppointment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="@string/input_appointment"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName|text"
+            android:padding="5dp"
+            android:text="@={user._appointment}"
+            android:textColor="@color/Black"
+            android:textColorLink="@color/colorGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/appointmentChangePersonalDataText"
+            app:layout_constraintTop_toBottomOf="@+id/changeRank" />
+
+        <EditText
+            android:id="@+id/changeRank"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/inputRank"
+            android:importantForAutofill="no"
+            android:padding="5dp"
+            android:text="@={user._rank}"
+            app:layout_constraintEnd_toEndOf="@+id/changeAppointment"
+            app:layout_constraintStart_toStartOf="@+id/changeAppointment"
+            app:layout_constraintTop_toBottomOf="@+id/changePatronymic" />
+
+        <EditText
+            android:id="@+id/changePatronymic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/input_patronymic"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName|text"
+            android:padding="5dp"
+            android:text="@={user._patronymic}"
+            android:textColor="@color/Black"
+            android:textColorLink="@color/colorGray"
+            app:layout_constraintEnd_toEndOf="@+id/changeRank"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/changeRank"
+            app:layout_constraintTop_toBottomOf="@+id/changeSurname" />
+
+        <Button
+            android:id="@+id/btnSaveChanges"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="68dp"
+            android:background="@color/button_pressed"
+            android:onClick="@{() -> user.changePrivateInfo()}"
+            android:text="@string/saveChanges"
+            app:layout_constraintEnd_toEndOf="@+id/changeWorkPlace"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/workPlaceChangePersonalDataText"
+            app:layout_constraintTop_toBottomOf="@+id/changeWorkPlace" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
