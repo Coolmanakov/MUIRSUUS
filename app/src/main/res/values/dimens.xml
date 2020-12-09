@@ -3,4 +3,7 @@
     <dimen name="design_bottom_navigation_text_size" tools:override="true">10sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">10sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="spinner_header_spacing">2dp</dimen>
+    <dimen name="text_view_size">16sp</dimen>
+    <dimen name="spinner_item_space">8dp</dimen>
 </resources>
