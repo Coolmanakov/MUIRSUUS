@@ -62,7 +62,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@drawable/button_inf_style"
+            android:background="@drawable/roundrectangle"
             android:text="@string/subscriber_network_calculate"
             app:layout_constraintEnd_toEndOf="@+id/vremya_Razvertyvaniya_btn"
             app:layout_constraintStart_toStartOf="@+id/vremya_Razvertyvaniya_btn"

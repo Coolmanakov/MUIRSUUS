@@ -220,5 +220,14 @@
     <string name="literature_list15"> 16. Бондаренко С. А., Журавлёв Д. А., Дворовой М. О., Платонов С. Н., Сазонов М. А. Антенный модуль Р-431АМ. Учеб. пособие. – СПб: ВАС, 2014.</string>
     <string name="literature_list16"> 17. Бондаренко С. А., Журавлёв Д. А., Сальников Д. В., Сазонов М. А., Орлов Е. В., Дворовой М. О. Цифровая радиорелейная станция Р-416ГМ: Учеб. пособие для ввузов связи. – СПб.: ВАС, 2016. – 96 с.</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="subscriber_network_calculate">Расчёт абонентской сети на пункте управления</string>
+    <string name="division_type_not_choosen">Выберите тип подразделения</string>
+    <string name="division_type_is_wrong">Wrong division type</string>
+    <string name="division_type">Тип воинского формирования</string>
+
+    <string name="control_point_type">Тип пункта управления</string>
+    <string name="officials_type">Категории должностных лиц</string>
+    <string name="transition_button_text">Далее</string>
+    <string name="spinner_header">Выбрать</string>
 
 </resources>
