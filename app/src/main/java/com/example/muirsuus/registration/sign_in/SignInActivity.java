@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 
-import com.example.muirsuus.MainActivity;
 import com.example.muirsuus.R;
+import com.example.muirsuus.SplashActivity;
 import com.example.muirsuus.databinding.ActivitySignInBinding;
 import com.example.muirsuus.registration.sign_up.SignUpActivity;
 
@@ -32,7 +32,7 @@ public class SignInActivity extends AppCompatActivity {
                 //если пользователь только что зарегистрировался, то он продолжает работу
                 //если пользователь уже есть в базе данных, значит он не продолжит работу с этого активити
                 if (signed) {
-                    Intent i = new Intent(SignInActivity.this, MainActivity.class);
+                    Intent i = new Intent(SignInActivity.this, SplashActivity.class);
                     i.putExtra("name", newUser._name.getValue());
                     startActivity(i);
                     finish();

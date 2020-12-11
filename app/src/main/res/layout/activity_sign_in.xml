@@ -20,7 +20,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/registrForm"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
@@ -28,6 +28,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/colorGray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,13 +37,16 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimary">
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:background="@drawable/roundrectangle">
+
 
                 <TextView
                     android:id="@+id/signIn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/registration"
                     android:textColor="@color/Black"
                     android:textSize="25sp"
@@ -136,30 +140,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@color/button_pressed"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/colorPrimary"
                     android:onClick="@{() -> newUser.signIN()}"
                     android:padding="10dp"
                     android:text="@string/new_user_btn"
                     android:textSize="19sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/signIn"
                     app:layout_constraintStart_toStartOf="@+id/signIn"
-                    app:layout_constraintTop_toBottomOf="@+id/password_input2" />
+                    app:layout_constraintTop_toBottomOf="@+id/signUpText" />
 
                 <TextView
                     android:id="@+id/signUpText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@color/button_pressed"
+                    android:background="@color/colorPrimary"
                     android:text="@string/signUp"
                     android:textColor="@color/Black"
                     android:textSize="15sp"
                     android:textStyle="italic"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/signInBtn"
                     app:layout_constraintStart_toStartOf="@+id/signInBtn"
-                    app:layout_constraintTop_toBottomOf="@+id/signInBtn" />
+                    app:layout_constraintTop_toBottomOf="@+id/password_input2" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

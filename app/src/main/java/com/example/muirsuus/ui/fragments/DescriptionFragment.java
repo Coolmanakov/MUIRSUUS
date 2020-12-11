@@ -13,12 +13,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muirsuus.R;
-import com.example.muirsuus.adapters.GalleryAdapter;
-import com.example.muirsuus.classes.Army;
 import com.example.muirsuus.database.PointAndInformation;
 import com.example.muirsuus.databinding.FragmentLayoutDescriptionBinding;
 import com.example.muirsuus.information_ui.ViewModelFactory;
@@ -36,11 +32,7 @@ public class DescriptionFragment extends Fragment {
 
     private final List<String> photo_list = new ArrayList<>();
     String point;
-    Army description = new Army();
     private FragmentLayoutDescriptionBinding binding;
-    private GalleryAdapter adapter;
-    private LinearLayoutManager layoutManager;
-    private RecyclerView photo_recycler;
     private ViewModelFactory viewModelFactory;
 
     //создание конструктора класса для получение нужного ID

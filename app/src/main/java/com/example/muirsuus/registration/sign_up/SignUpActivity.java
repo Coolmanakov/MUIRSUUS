@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 
-import com.example.muirsuus.MainActivity;
 import com.example.muirsuus.R;
+import com.example.muirsuus.SplashActivity;
 import com.example.muirsuus.databinding.ActivitySignUpBinding;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -29,7 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onChanged(Boolean accepted) {
                 if (accepted) {
-                    Intent i = new Intent(SignUpActivity.this, MainActivity.class);
+                    Intent i = new Intent(SignUpActivity.this, SplashActivity.class);
                     i.putExtra("name", user._name.getValue());
                     startActivity(i);
                     finish();

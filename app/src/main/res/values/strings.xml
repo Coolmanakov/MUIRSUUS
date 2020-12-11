@@ -2,8 +2,6 @@
     <string name="app_name">MUIRSUUS</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Главная</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_lit">Литература</string>
     <string name="title_portfel">Твой портфель</string>
     <string name="title_net">Сеть</string>
@@ -221,5 +219,6 @@
     <string name="literature_list14"> 15. Системы радиосвязи специального назначения. Радиостанции сред-ней мощности. Книга 3. Радиостанция Р-166-0,5 П. Г. Романенко, Д. В. Милый, А. М. Спирин, П. А. Викулин. – СПб.: ВАС, 2016. – 134 с.</string>
     <string name="literature_list15"> 16. Бондаренко С. А., Журавлёв Д. А., Дворовой М. О., Платонов С. Н., Сазонов М. А. Антенный модуль Р-431АМ. Учеб. пособие. – СПб: ВАС, 2014.</string>
     <string name="literature_list16"> 17. Бондаренко С. А., Журавлёв Д. А., Сальников Д. В., Сазонов М. А., Орлов Е. В., Дворовой М. О. Цифровая радиорелейная станция Р-416ГМ: Учеб. пособие для ввузов связи. – СПб.: ВАС, 2016. – 96 с.</string>
+    <string name="title_activity_splash">SplashActivity</string>
 
 </resources>

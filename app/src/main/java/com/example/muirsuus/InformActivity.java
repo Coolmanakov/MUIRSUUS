@@ -22,7 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.muirsuus.adapters.GalleryAdapter;
+import com.example.muirsuus.adapters.ViewPagerAdapter;
 import com.example.muirsuus.classes.Army;
+import com.example.muirsuus.classes.DataBaseHelper;
 import com.example.muirsuus.classes.IRecyclerViewClickListener;
 import com.example.muirsuus.ui.fragments.DescriptionFragment;
 import com.example.muirsuus.ui.fragments.TthFragment;
@@ -110,7 +112,7 @@ public class InformActivity extends AppCompatActivity  {
             }
 
         };
-        galleryAdapter = new GalleryAdapter(photo_list,listener);
+        galleryAdapter = new GalleryAdapter(photo_list, listener, this);
         photo_recycler.setAdapter(galleryAdapter);
 
 /*

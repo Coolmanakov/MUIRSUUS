@@ -12,11 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.muirsuus.DataBaseHelper;
 import com.example.muirsuus.R;
 import com.example.muirsuus.adapters.TTHAdapter;
 import com.example.muirsuus.classes.Army;
 import com.example.muirsuus.classes.CardClass;
+import com.example.muirsuus.classes.DataBaseHelper;
 import com.example.muirsuus.classes.MyObject;
 
 import java.util.ArrayList;

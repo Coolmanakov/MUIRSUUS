@@ -12,30 +12,38 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_sectionFragment"
-            app:destination="@id/sectionFragment" />
+            app:destination="@id/sectionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_navigation_home_to_litFragment"
-            app:destination="@id/litFragment" />
+            app:destination="@id/litFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_navigation_home_to_nav_host_fragment"
-            app:destination="@id/nav_host_fragment" />
+            app:destination="@id/calculation_nav_fragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_net2"
+            app:destination="@id/navigation_net"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
-    <fragment
-        android:id="@+id/navigation_portfel"
-        android:name="com.example.muirsuus.ui.portfel.PortfelFragment"
-        android:label="Портфель"
-        tools:layout="@layout/fragment_portfel" />
 
-
-    <fragment
-        android:id="@+id/navigation_settings"
-        android:name="com.example.muirsuus.ui.settings.SettingsFragment"
-        android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/sectionFragment"
         android:name="com.example.muirsuus.information_ui.section.SectionFragment"
@@ -43,6 +51,10 @@
         <action
             android:id="@+id/action_sectionFragment_to_subsectionFragment"
             app:destination="@id/subsectionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/sectionFragment" />
     </fragment>
     <fragment
@@ -56,7 +68,11 @@
         android:label="{section}">
         <action
             android:id="@+id/action_subsectionFragment_to_pointsFragment"
-            app:destination="@id/pointsFragment" />
+            app:destination="@id/pointsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="section"
             app:argType="string" />
@@ -67,7 +83,11 @@
         android:label="{subsection}">
         <action
             android:id="@+id/action_pointsFragment_to_informationFragment"
-            app:destination="@id/informationFragment" />
+            app:destination="@id/informationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="subsection"
             app:argType="string" />
@@ -81,5 +101,9 @@
             app:argType="string" />
     </fragment>
     <include app:graph="@navigation/calculation_graph" />
+    <fragment
+        android:id="@+id/navigation_net"
+        android:name="com.example.muirsuus.web.WebFragment"
+        android:label="@string/title_net" />
 
 </navigation>
