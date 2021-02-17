@@ -8,17 +8,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.muirsuus.MainActivity;
 import com.example.muirsuus.R;
 import com.example.muirsuus.adapters.TTHAdapter;
-import com.example.muirsuus.database.SectionAndSubsection;
 import com.example.muirsuus.databinding.SubsectionFragmentBinding;
+import com.example.muirsuus.information_database.SectionAndSubsection;
 import com.example.muirsuus.information_ui.ViewModelFactory;
 
 import java.util.ArrayList;
@@ -50,6 +53,12 @@ public class SubsectionFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //set Title for fragment
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(section);
+        //set Home Up Btn and block the drawerLayout
+        ((MainActivity)getActivity()).resetActionBar(true,
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
 
         //по клику переходим в PointFragment, передавая туда title, нажатого view
         listener = new TTHAdapter.ListItemClickListener() {

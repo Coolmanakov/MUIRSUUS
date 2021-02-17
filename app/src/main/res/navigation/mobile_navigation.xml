@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.muirsuus.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:name="com.example.muirsuus.main_navigation.home.HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_sectionFragment"
@@ -41,13 +40,27 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_navigation_home_to_favouriteFragment"
+            app:destination="@id/favouriteFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_navigation_home_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
 
     <fragment
         android:id="@+id/sectionFragment"
         android:name="com.example.muirsuus.information_ui.section.SectionFragment"
-        android:label="Справочник">
+        >
         <action
             android:id="@+id/action_sectionFragment_to_subsectionFragment"
             app:destination="@id/subsectionFragment"
@@ -59,13 +72,12 @@
     </fragment>
     <fragment
         android:id="@+id/litFragment"
-        android:name="com.example.muirsuus.ui.lit.LitFragment"
-        android:label="Литература"
+        android:name="com.example.muirsuus.main_navigation.lit.LitFragment"
         tools:layout="@layout/lit_fragment" />
     <fragment
         android:id="@+id/subsectionFragment"
         android:name="com.example.muirsuus.information_ui.subsection.SubsectionFragment"
-        android:label="{section}">
+        >
         <action
             android:id="@+id/action_subsectionFragment_to_pointsFragment"
             app:destination="@id/pointsFragment"
@@ -80,7 +92,7 @@
     <fragment
         android:id="@+id/pointsFragment"
         android:name="com.example.muirsuus.information_ui.point.PointsFragment"
-        android:label="{subsection}">
+        >
         <action
             android:id="@+id/action_pointsFragment_to_informationFragment"
             app:destination="@id/informationFragment"
@@ -95,7 +107,7 @@
     <fragment
         android:id="@+id/informationFragment"
         android:name="com.example.muirsuus.information_ui.information.InformationFragment"
-        android:label="{point}">
+        >
         <argument
             android:name="point"
             app:argType="string" />
@@ -103,7 +115,24 @@
     <include app:graph="@navigation/calculation_graph" />
     <fragment
         android:id="@+id/navigation_net"
-        android:name="com.example.muirsuus.web.WebFragment"
+        android:name="com.example.muirsuus.main_navigation.web.WebFragment"
         android:label="@string/title_net" />
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.muirsuus.main_navigation.favourite.FavouriteFragment"
+        android:label="FavouriteFragment" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_informationFragment"
+            app:destination="@id/informationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.muirsuus.main_navigation.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>

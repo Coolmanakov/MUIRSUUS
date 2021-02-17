@@ -10,16 +10,16 @@ import androidx.lifecycle.Observer;
 
 import com.example.muirsuus.R;
 import com.example.muirsuus.SplashActivity;
-import com.example.muirsuus.databinding.ActivitySignUpBinding;
+import com.example.muirsuus.databinding.MaterialSignUpBinding;
 
 public class SignUpActivity extends AppCompatActivity {
-    private ActivitySignUpBinding binding;
+    private MaterialSignUpBinding binding;
     private SignUpViewModel user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
+        binding = DataBindingUtil.setContentView(this, R.layout.material_sign_up);
         binding.setLifecycleOwner(this);
         user = new SignUpViewModel();
         user.setContext(this);
@@ -28,14 +28,18 @@ public class SignUpActivity extends AppCompatActivity {
         user.accepted.observe(binding.getLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean accepted) {
-                if (accepted) {
-                    Intent i = new Intent(SignUpActivity.this, SplashActivity.class);
-                    i.putExtra("name", user._name.getValue());
-                    startActivity(i);
-                    finish();
-                } else {
-                    Toast.makeText(SignUpActivity.this, "Неверно ввведен пароль или имя", Toast.LENGTH_SHORT).show();
-                    user._password.setValue("");
+                if (accepted != null) {
+                    if (accepted) {
+                        binding.passwordTextLayout.setError(null);
+
+                        Intent i = new Intent(SignUpActivity.this, SplashActivity.class);
+                        i.putExtra("name", user._name.getValue());
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Неверно ввведен пароль или имя", Toast.LENGTH_SHORT).show();
+                        user._password.setValue("");
+                        binding.passwordTextLayout.setError("Неверный пароль");
+                    }
                 }
             }
         });

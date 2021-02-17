@@ -16,7 +16,7 @@ public class SignUpViewModel extends ViewModel {
     private final String LOG_TAG = "mLog";
     public MutableLiveData<String> _name = new MutableLiveData<>();
     private final LiveData<String> name = _name;
-    public MutableLiveData<Boolean> _accepted = new MutableLiveData<>();
+    public MutableLiveData<Boolean> _accepted = new MutableLiveData<>(null);
     public LiveData<Boolean> accepted = _accepted;
     public MutableLiveData<String> _password = new MutableLiveData<>();
     private final LiveData<String> password = _password;
@@ -52,21 +52,25 @@ public class SignUpViewModel extends ViewModel {
         new AsyncTask<Void, Boolean, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
+
                 //проверяем есть ли такой пользователь в Базе
-                if (!registrationDB.registrationDAO().getUsersData(name.getValue()).isEmpty()) {
-                    Log.d(LOG_TAG, "SignUpViewModel: User " + registrationDB.registrationDAO().getUsersData(name.getValue()).get(0).getName() + " exists");
-                    //если такой есть, тогда сравниваем пароли
+                if (registrationDB.registrationDAO().getUsersData(name.getValue()) != null) {
+                    Log.d(LOG_TAG, "SignUpViewModel: Пользователья " + registrationDB.registrationDAO().getUsersData(name.getValue()).getName() + " существует");
+
+                    //если такой  пользователь есть, тогда сравниваем пароли
                     if (registrationDB.registrationDAO().getUsetPasword(name.getValue()).equals(password.getValue())) {
                         publishProgress(true);
-                        Log.d(LOG_TAG, "SignUpViewModel: input password is correct");
-                    } else {
+                        Log.d(LOG_TAG, "SignUpViewModel: введённый пароль совпадает с паролем в Базе");
+                    }
+                    else {
                         //пароль неверный, сбросить введенное значение и вывести toast - пароль неверный
                         publishProgress(false);
-                        Log.d(LOG_TAG, "SignUpViewModel: input password isn't correct");
+                        Log.d(LOG_TAG, "SignUpViewModel: введённый пароль не совпадает с паролем в Базе");
                     }
-                } else {
+                }
+                else {
                     publishProgress(false);
-                    Log.d(LOG_TAG, "SignUpViewModel: no such User in RegistrationDB");
+                    Log.d(LOG_TAG, "SignUpViewModel: такого пользователя нет в Базе");
                 }
                 return null;
             }
@@ -74,7 +78,6 @@ public class SignUpViewModel extends ViewModel {
 
             @Override
             protected void onProgressUpdate(Boolean... values) {
-                super.onProgressUpdate(values);
                 _accepted.setValue(values[0]);
             }
         }.execute();

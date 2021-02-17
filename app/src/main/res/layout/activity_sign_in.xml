@@ -67,21 +67,26 @@
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/signIn" />
-
                 <EditText
                     android:id="@+id/name_input"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:autofillHints=""
+
                     android:hint="@string/inputName"
                     android:inputType="textPersonName|text"
                     android:text="@={newUser._name}"
                     android:textColor="@color/Black"
                     android:textColorHint="@color/Black"
+
                     app:layout_constraintEnd_toEndOf="@+id/signIn"
                     app:layout_constraintStart_toStartOf="@+id/nameSignInText"
                     app:layout_constraintTop_toBottomOf="@+id/nameSignInText" />
+
+
+
+
 
                 <TextView
                     android:id="@+id/password"
@@ -100,11 +105,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:autofillHints=""
+
                     android:hint="@string/inputPassword"
                     android:inputType="textPassword"
                     android:text="@={newUser._password}"
                     android:textColor="@color/Black"
                     android:textColorHint="@color/Black"
+
                     app:layout_constraintEnd_toEndOf="@+id/name_input"
                     app:layout_constraintStart_toStartOf="@+id/password"
                     app:layout_constraintTop_toBottomOf="@+id/password" />
@@ -121,7 +128,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/password_input" />
 
                 <EditText
-                    android:id="@+id/password_input2"
+                    android:id="@+id/password_text_layout2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -163,9 +170,10 @@
                     android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="@+id/signInBtn"
                     app:layout_constraintStart_toStartOf="@+id/signInBtn"
-                    app:layout_constraintTop_toBottomOf="@+id/password_input2" />
+                    app:layout_constraintTop_toBottomOf="@+id/password_text_layout2" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
 
         <ImageView
             android:id="@+id/logoSignIn"
@@ -175,6 +183,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/icon_round" />
+            app:srcCompat="@mipmap/app_icon_round" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

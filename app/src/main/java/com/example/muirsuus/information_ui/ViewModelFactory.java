@@ -21,6 +21,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private String section;
     private final String LOG_TAG = "mLog " + ViewModelFactory.class.getCanonicalName();
     private String point;
+    private String userName;
 
 
     public ViewModelFactory(Context context) {
@@ -60,5 +61,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     public void setPoint(String point) {
         this.point = point;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -1,24 +1,22 @@
 <resources>
 
     <!-- Light/white theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorWhite</item>
         <item name="textcolor">@color/colorPrimary</item>
         <item name="maintextcolor">@color/Black</item>
-
+        <item name="android:statusBarColor">@color/white</item>
 
     </style>
     <!-- Night/dark theme. -->
-    <style name="NightTheme" parent="Theme.AppCompat.DayNight">
+    <style name="NightTheme" parent="Theme.MaterialComponents">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/Black</item>
         <item name="colorPrimaryDark">@color/Black</item>
         <item name="textcolor">@color/colorPrimary</item>
         <item name="maintextcolor">@color/white</item>
-
-
     </style>
 
 

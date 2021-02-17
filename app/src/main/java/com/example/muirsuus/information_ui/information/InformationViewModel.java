@@ -6,8 +6,8 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.muirsuus.database.AppDatabase;
-import com.example.muirsuus.database.PointAndInformation;
+import com.example.muirsuus.information_database.AppDatabase;
+import com.example.muirsuus.information_database.PointAndInformation;
 
 @SuppressLint("StaticFieldLeak")
 public class InformationViewModel extends ViewModel {

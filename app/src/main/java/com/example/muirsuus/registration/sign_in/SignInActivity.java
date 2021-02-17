@@ -2,7 +2,6 @@ package com.example.muirsuus.registration.sign_in;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -10,17 +9,16 @@ import androidx.lifecycle.Observer;
 
 import com.example.muirsuus.R;
 import com.example.muirsuus.SplashActivity;
-import com.example.muirsuus.databinding.ActivitySignInBinding;
-import com.example.muirsuus.registration.sign_up.SignUpActivity;
+import com.example.muirsuus.databinding.MaterialSignInBinding;
 
 public class SignInActivity extends AppCompatActivity {
-    private ActivitySignInBinding binding;
+    private MaterialSignInBinding binding;
     private SignInViewModel newUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_in);
+        binding = DataBindingUtil.setContentView(this, R.layout.material_sign_in);
         newUser = new SignInViewModel();
         newUser.setContext(this);
         binding.setNewUser(newUser);
@@ -31,23 +29,28 @@ public class SignInActivity extends AppCompatActivity {
             public void onChanged(Boolean signed) {
                 //если пользователь только что зарегистрировался, то он продолжает работу
                 //если пользователь уже есть в базе данных, значит он не продолжит работу с этого активити
-                if (signed) {
-                    Intent i = new Intent(SignInActivity.this, SplashActivity.class);
-                    i.putExtra("name", newUser._name.getValue());
-                    startActivity(i);
-                    finish();
+                if(signed != null) {
+                    if (signed) {
+                        binding.nameTextLayout.setError(null);
+                        binding.passwordTextLayout.setError(null);
+                        binding.passwordTextLayout2.setError(null);
+
+                        //если пользователь успешно зарегистрирован, то переходим на SplashActivity, передавая имя пользователя
+                        Intent intent = new Intent(SignInActivity.this, SplashActivity.class);
+                        intent.putExtra("name", newUser.get_name().getValue());
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        binding.nameTextLayout.setError("Минимальная длина имени 5");
+                        binding.passwordTextLayout.setError("Минимальная длина парля 5");
+                        binding.passwordTextLayout2.setError("Минимальная длина парля 5");
+                    }
                 }
             }
         });
-        binding.signUpText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //если пользователь уже зарегистрирован в системе, значит переходим на активити, гдеможно войти в систему
-                Intent i = new Intent(SignInActivity.this, SignUpActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
+
+
+
 
     }
 }

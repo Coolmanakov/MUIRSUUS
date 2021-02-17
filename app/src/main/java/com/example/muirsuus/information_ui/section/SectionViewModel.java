@@ -7,8 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.muirsuus.database.AppDatabase;
-import com.example.muirsuus.database.section;
+import com.example.muirsuus.information_database.AppDatabase;
+import com.example.muirsuus.information_database.section;
 
 import java.util.List;
 

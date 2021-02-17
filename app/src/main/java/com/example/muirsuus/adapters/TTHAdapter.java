@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.muirsuus.R;
 import com.example.muirsuus.databinding.ItemTthBinding;
 import com.example.muirsuus.information_ui.TthViewModel;
+import com.example.muirsuus.main_navigation.favourite.FavouriteViewModel;
+import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,7 +35,19 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
     private List<String> descriptions;
     private List<String> images;
     private static final String LOG_TAG = "mLog " + TTHAdapter.class.getCanonicalName();
+    private static FavouriteViewModel favouriteViewModel;
+    private Boolean isFavBtnVisible = false;
 
+    public static void loadImageFromAssets(String namePhoto, ImageView imageView1, Context context) throws IOException {
+        AssetManager manager = context.getAssets();
+        InputStream inputStream = manager.open("images/" + namePhoto + ".jpg");
+        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+        imageView1.setImageBitmap(bitmap);
+    }
+
+    public void setFavouriteViewModel(FavouriteViewModel favouriteViewModel) {
+        TTHAdapter.favouriteViewModel = favouriteViewModel;
+    }
 
     public TTHAdapter(Context context, ListItemClickListener clickListener) {
         this.context = context;
@@ -66,11 +80,8 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
         this.images = images;
     }
 
-    public static void loadImageFromAssets(String namePhoto, ImageView imageView1, Context context) throws IOException {
-        AssetManager manager = context.getAssets();
-        InputStream inputStream = manager.open("images/" + namePhoto + ".png");
-        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-        imageView1.setImageBitmap(bitmap);
+    public  void setIsFavBtnVisible(Boolean isFavBtnVisible) {
+        this.isFavBtnVisible = isFavBtnVisible;
     }
 
     @NonNull
@@ -78,7 +89,16 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         ItemTthBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_tth, parent, false);
-
+        //кнопка Нравится доступна только для PointFragment,
+        // в этом фрагменте мы задаем этому параметру true
+        if(isFavBtnVisible){
+            binding.favoriteButton.setVisibility(View.VISIBLE);
+            //если кнопка видно, то она будет уже нажата в Favourite Fragment,
+            // где мы задаем этот параметр true
+            if(favouriteViewModel.alreadyFavourite){
+                binding.favoriteButton.setFavorite(favouriteViewModel.alreadyFavourite);
+            }
+        }
         return new MyViewHolder(binding, clickListener, context);
 
     }
@@ -98,6 +118,16 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //вешаем слушатель нажатия кнопки favourite
+        holder.binding.favoriteButton.setOnFavoriteChangeListener(new MaterialFavoriteButton.OnFavoriteChangeListener() {
+            @Override
+            public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
+                Log.d(LOG_TAG, "Favourite btn pressed on item " + titles.get(position));
+                //отправляем название желаемого point
+                favouriteViewModel.addToFavourite(titles.get(position), favorite);
+            }
+        });
     }
 
     public interface ListItemClickListener {
@@ -140,6 +170,7 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
             }
 
             binding.setData(tthViewModel); // set tthviewmodel into layout
+
         }
 
 
@@ -148,7 +179,11 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
             int clickedPosition = getAdapterPosition();
             clickListener.OnItemClickListener(clickedPosition);
         }
+
+
+
     }
+
 
 
 }

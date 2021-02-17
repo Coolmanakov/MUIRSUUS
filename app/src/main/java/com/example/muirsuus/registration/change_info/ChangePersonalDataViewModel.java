@@ -52,8 +52,8 @@ public class ChangePersonalDataViewModel extends ViewModel {
         new AsyncTask<Void, Boolean, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                if (!registrationDB.registrationDAO().getUsersData(name.getValue()).isEmpty()) {
-                    user = registrationDB.registrationDAO().getUsersData(name.getValue()).get(0);
+                if (registrationDB.registrationDAO().getUsersData(name.getValue()) != null) {
+                    user = registrationDB.registrationDAO().getUsersData(name.getValue());
                     Log.d(LOG_TAG, "ChangePersonalDataViewModel: set privateInfo of User = " + user.getName());
                     publishProgress(true);
                 }
@@ -82,8 +82,8 @@ public class ChangePersonalDataViewModel extends ViewModel {
             @Override
             protected Void doInBackground(Void... voids) {
 
-                if (!registrationDB.registrationDAO().getUsersData(name.getValue()).isEmpty()) {
-                    user = registrationDB.registrationDAO().getUsersData(name.getValue()).get(0);
+                if (registrationDB.registrationDAO().getUsersData(name.getValue()) != null) {
+                    user = registrationDB.registrationDAO().getUsersData(name.getValue());
                     if (inputNotEmpty()) {
                         user.setNickname(nickname.getValue());
                         user.setSurname(surname.getValue());

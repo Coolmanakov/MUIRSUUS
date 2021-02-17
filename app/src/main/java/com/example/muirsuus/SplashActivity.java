@@ -48,6 +48,7 @@ public class SplashActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             binding.progress.setProgress(progress);
+                            binding.progressResult.setTextSize(15);
                             if (progress <= 20) {
                                 if (name.getValue() != null) {
                                     binding.progressResult.setText("Доброго времени суток " + name.getValue());

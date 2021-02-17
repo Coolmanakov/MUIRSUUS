@@ -5,19 +5,15 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.StringRes;
-import androidx.lifecycle.ViewModel;
 
 import com.example.muirsuus.R;
-import com.example.muirsuus.calculation.SubscriberNetwork.SubscriberNetworkViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

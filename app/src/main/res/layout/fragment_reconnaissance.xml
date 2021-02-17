@@ -6,13 +6,13 @@
         <import type="android.view.View"/>
         <variable
             name="razvedData"
-            type="com.example.muirsuus.calculation.razvedka_mvvm.RazvedkaViewModel"/>
+            type="com.example.muirsuus.main_navigation.calculation.razvedka_mvvm.RazvedkaViewModel"/>
 
     </data>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".calculation.razvedka_mvvm.Razvedka_fragment"
+        tools:context=".main_navigation.calculation.razvedka_mvvm.Razvedka_fragment"
         android:background="@color/colorWhite">
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -3,6 +3,7 @@ package com.example.muirsuus.registration.sign_in;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,8 +14,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.muirsuus.registration.RegistrationDB;
 import com.example.muirsuus.registration.privateInfo;
-
-import java.util.Objects;
+import com.example.muirsuus.registration.sign_up.SignUpActivity;
 
 @SuppressLint("StaticFieldLeak")
 public class SignInViewModel extends ViewModel {
@@ -25,7 +25,7 @@ public class SignInViewModel extends ViewModel {
     private final LiveData<String> password = _password;
     public MutableLiveData<String> _password2 = new MutableLiveData<>();
     private final LiveData<String> password2 = _password2;
-    public MutableLiveData<Boolean> _isSigned = new MutableLiveData<>(false);
+    public MutableLiveData<Boolean> _isSigned = new MutableLiveData<>(null);
     public LiveData<Boolean> isSigned = _isSigned;
     public Context context;
     private privateInfo newUser;
@@ -43,50 +43,93 @@ public class SignInViewModel extends ViewModel {
 
     // метод, отвечающий за регистрацию пользователей
     public void signIN() {
-        //проверяем совпадают ли пароли, если нет, то выводим сообщение об этом
-        if (!Objects.equals(password.getValue(), password2.getValue())) {
-            Toast.makeText(context, "Введённые пароли не совпадают", Toast.LENGTH_LONG).show();
-        } else {
-            // в другом случае создаём пользователя с этим паролем
+        RegistrationDB registrationDB = RegistrationDB.getInstance(context);
+        boolean valid = isNameValidate() && isPasswordValidate();
 
-            newUser = new privateInfo(_name.getValue(), _password.getValue());
-            RegistrationDB registrationDB = RegistrationDB.getInstance(context);
+        new AsyncTask<Void, Boolean, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
 
-            new AsyncTask<Void, Boolean, Void>() {
-                @Override
-                protected Void doInBackground(Void... voids) {
-
+                //Проверяем введенные значения
+                if(valid) {
                     //получаем из базы список Пользователей с таким именем
-                    if (registrationDB.registrationDAO().getUsersData(name.getValue()).isEmpty() && _name.getValue() != null) {
+                    if (registrationDB.registrationDAO().getUsersData(name.getValue()) == null) {
+                        newUser = new privateInfo(name.getValue(), password.getValue());
+
                         //если таких нет, то добавляем в БД
                         registrationDB.registrationDAO().insert(newUser);
-                        Log.d(LOG_TAG, "Пользователь " + _name.getValue() + " успешно зарегистрирован");
+                        Log.d(LOG_TAG, "SignInViewModel Пользователь " + name.getValue() + " успешно зарегистрирован");
                         publishProgress(true);
                     } else {
-                        // если такие все же есть, тогда выводим в сообщение о том, что не возможно создать этого пользователя
-                        Log.d(LOG_TAG, "Пользователь " + _name.getValue() + " уже зарегистрирован");
+                        // если такие все же есть, тогда выводим в сообщение о том, что невозможно создать этого пользователя
+                        Log.d(LOG_TAG, "SignInViewModel Пользователь " + name.getValue() + " уже зарегистрирован");
                         publishProgress(false);
                     }
-                    return null;
                 }
+                else {publishProgress(false);}
+                return null;
+            }
 
-                //метод, в котором мы получаем значение в течение выполнение потока
-                //мы не можем в потоке выводить Toast, поэтому делаем это по мере выполнения потока
-                @Override
-                protected void onProgressUpdate(Boolean... bool) {
-                    super.onProgressUpdate(bool);
-                    if (bool[0]) {
-                        Toast.makeText(context, "Пользователь успешно добавлен", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(context, "Пользователь уже зарегистрирован", Toast.LENGTH_LONG).show();
-                        _password.setValue("");
-                        _password2.setValue("");
-                    }
-                    _isSigned.setValue(bool[0]);
+            //метод, в котором мы получаем значение в течение выполнение потока
+            //мы не можем в потоке выводить Toast, поэтому делаем это по мере выполнения потока
+            @Override
+            protected void onProgressUpdate(Boolean... bool) {
+
+                _isSigned.setValue(bool[0]);
+            }
+
+        }.execute();
+
+    }
+    public void navigateToSignUp(){
+        Intent intent = new Intent(context, SignUpActivity.class);
+        context.startActivity(intent);
+    }
+    @SuppressLint("ShowToast")
+    public boolean isPasswordValidate(){
+        boolean valid = false;
+
+        //проверка ввёл ли пользователь пароли
+        if (password.getValue() != null && password2.getValue() != null){
+            String parol1 = password.getValue();
+            String parol2 = password2.getValue();
+
+            //проверка на идентичность паролей
+            if(parol1.equals(parol2)){
+                if (parol1.length() >= 5 && parol1.length() <= 10) {
+                    valid = true;
                 }
-
-            }.execute();
+                else {
+                    Log.d(LOG_TAG, "SignInViewModel Passwords aren't valid: length isn't correct");
+                    Toast.makeText(context,"Пароль должен состоять из более 5 символов", Toast.LENGTH_LONG);
+                }
+            }
+            else {
+                Log.d(LOG_TAG, "SignInViewModel Passwords aren't valid: passwords aren't identify");
+                Toast.makeText(context,"Пароли не совпадают", Toast.LENGTH_LONG);
+            }
         }
+        else {
+            Log.d(LOG_TAG, "SignInViewModel: Passwords aren't valid: password = " + password.getValue()
+                                                    + " password2 = " + password2.getValue());
+            Toast.makeText(context,"Введите оба пароля", Toast.LENGTH_LONG);
+        }
+        return  valid;
+    }
+    @SuppressLint("ShowToast")
+    private boolean isNameValidate(){
+        boolean valid = false;
+        if(name.getValue() != null){
+            if(name.getValue().length() >= 5 && name.getValue().length() <= 15){
+                valid = true;
+                Log.d(LOG_TAG, "SignInViewModel: Name " + name.getValue() + " is valid");
+            }
+        }
+        else {
+            Log.d(LOG_TAG, "SignInViewModel: Name isn't valid: name is null");
+            Toast.makeText(context,"Введите имя", Toast.LENGTH_LONG);
+        }
+        return valid;
     }
 
 }

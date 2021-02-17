@@ -26,8 +26,8 @@ import com.example.muirsuus.adapters.ViewPagerAdapter;
 import com.example.muirsuus.classes.Army;
 import com.example.muirsuus.classes.DataBaseHelper;
 import com.example.muirsuus.classes.IRecyclerViewClickListener;
-import com.example.muirsuus.ui.fragments.DescriptionFragment;
-import com.example.muirsuus.ui.fragments.TthFragment;
+import com.example.muirsuus.main_navigation.information_fragmnets.DescriptionFragment;
+import com.example.muirsuus.main_navigation.information_fragmnets.TthFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;

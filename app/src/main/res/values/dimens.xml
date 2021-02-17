@@ -6,4 +6,6 @@
     <dimen name="spinner_header_spacing">2dp</dimen>
     <dimen name="text_view_size">16sp</dimen>
     <dimen name="spinner_item_space">8dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>
