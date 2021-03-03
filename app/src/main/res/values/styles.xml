@@ -4,10 +4,11 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="textcolor">@color/colorPrimary</item>
         <item name="maintextcolor">@color/Black</item>
-
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorSwitchThumbNormal">@color/white</item>
 
     </style>
     <!-- Night/dark theme. -->

@@ -31,11 +31,6 @@
     <string name="title_activity_points">PointsActivity</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="title_activity_appp">MainActivity</string>
-    <string name="division_type">Тип воинского формирования</string>
-    <string name="control_point_type">Тип пункта управления</string>
-    <string name="officials_type">Категории должностных лиц</string>
-    <string name="transition_button_text">Далее</string>
-    <string name="spinner_header">Выбрать</string>
     <string name="element_1">Элемент № 1</string>
     <string name="target_area">Площадь цели</string>
     <string name="count_opened_tracks">Количество вскрытых противником аппаратных</string>
@@ -226,8 +221,25 @@
     <string name="literature_list14"> 15. Системы радиосвязи специального назначения. Радиостанции сред-ней мощности. Книга 3. Радиостанция Р-166-0,5 П. Г. Романенко, Д. В. Милый, А. М. Спирин, П. А. Викулин. – СПб.: ВАС, 2016. – 134 с.</string>
     <string name="literature_list15"> 16. Бондаренко С. А., Журавлёв Д. А., Дворовой М. О., Платонов С. Н., Сазонов М. А. Антенный модуль Р-431АМ. Учеб. пособие. – СПб: ВАС, 2014.</string>
     <string name="literature_list16"> 17. Бондаренко С. А., Журавлёв Д. А., Сальников Д. В., Сазонов М. А., Орлов Е. В., Дворовой М. О. Цифровая радиорелейная станция Р-416ГМ: Учеб. пособие для ввузов связи. – СПб.: ВАС, 2016. – 96 с.</string>
+
     <string name="subscriber_network_calculate">Расчёт абонентской сети на пункте управления</string>
-    <string name="division_type_not_choosen">Выберите тип подразделения</string>
-    <string name="division_type_is_wrong">Wrong division type</string>
+    <string name="division_type_not_chosen">Выберите тип подразделения</string>
+    <string name="division_type">Тип воинского формирования</string>
+    <string name="control_point_type">Тип пункта управления</string>
+    <string name="officials_type">Категории должностных лиц</string>
+    <string name="transition_button_text">Далее</string>
+    <string name="spinner_header">Выбрать</string>
+    <string name="unused_devices">Оставшееся оборудованиие:</string>
+    <string name="device_default_name">Device</string>
+    <string name="device_room_default_count">0</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="device_room_content_title">Устройства в комплекте:</string>
+    <string name="device_room_content_single_item">%s\t\t->\t%d</string>
+    <string name="device_room_content_double_item">%s\t\t->\t%d (требуется %d)</string>
+    <string name="official_default_name">Official</string>
+    <string name="device_room_index_default">Аппаратная №</string>
+    <string name="cable_length_default">Длина кабеля, м</string>
+    <string name="estimated_time">%f мин</string>
 
 </resources>
