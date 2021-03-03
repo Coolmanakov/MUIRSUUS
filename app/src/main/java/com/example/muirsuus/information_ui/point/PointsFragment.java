@@ -8,17 +8,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.muirsuus.MainActivity;
 import com.example.muirsuus.R;
 import com.example.muirsuus.adapters.TTHAdapter;
-import com.example.muirsuus.database.SubsectionAndPoint;
 import com.example.muirsuus.databinding.PointsFragmentBinding;
+import com.example.muirsuus.information_database.SubsectionAndPoint;
+import com.example.muirsuus.information_database.point;
 import com.example.muirsuus.information_ui.ViewModelFactory;
+import com.example.muirsuus.main_navigation.favourite.FavouriteViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +38,7 @@ public class PointsFragment extends Fragment {
     private List<String> titles;
     private List<String> descriptions;
     private List<String> images;
+    private FavouriteViewModel favouriteViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -49,6 +54,8 @@ public class PointsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //set Title for fragment
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(subsection);
         listener = new TTHAdapter.ListItemClickListener() {
             @Override
             public void OnItemClickListener(int clickItemIndex) {
@@ -65,27 +72,35 @@ public class PointsFragment extends Fragment {
     private void setupViewModel() {
         viewModelFactory = new ViewModelFactory(getContext());
         viewModelFactory.setSubsection(subsection);
-        PointViewModel pointViewModel = new PointViewModel(getContext(), subsection);
-        pointViewModel.getPoints().observe(binding.getLifecycleOwner(), new Observer<SubsectionAndPoint>() {
-            @Override
-            public void onChanged(SubsectionAndPoint points) {
-                titles = new ArrayList<>();
-                descriptions = new ArrayList<>();
-                images = new ArrayList<>();
-                for (int i = 0; i < points.getPoint().size(); i++) {
+        favouriteViewModel = new FavouriteViewModel(getContext(), MainActivity.getName(),binding.getLifecycleOwner());
+        adapter.setFavouriteViewModel(favouriteViewModel);
+        List<point> favPoints = favouriteViewModel.getPoints();
+        Log.d(LOG_TAG, " favPoints " + favPoints.get(0).getPoint() );
+        if(favPoints != null) {
+            PointViewModel pointViewModel = new PointViewModel(getContext(), subsection);
+            pointViewModel.getPoints().observe(binding.getLifecycleOwner(), new Observer<SubsectionAndPoint>() {
+                @Override
+                public void onChanged(SubsectionAndPoint points) {
+                    titles = new ArrayList<>();
+                    descriptions = new ArrayList<>();
+                    images = new ArrayList<>();
+                    for (int i = 0; i < points.getPoint().size(); i++) {
+                        if (!favPoints.contains(points.getPoint().get(i))) {
+                            titles.add(points.getPoint().get(i).getPoint());
+                            descriptions.add(points.getPoint().get(i).getPoint_description());
+                            images.add(points.getPoint().get(i).getPoint_photo());
+                        }
+                    }
 
-                    titles.add(points.getPoint().get(i).getPoint());
-                    descriptions.add(points.getPoint().get(i).getPoint_description());
-                    images.add(points.getPoint().get(i).getPoint_photo());
+                    adapter.setIsFavBtnVisible(true);
+                    adapter.setTitles(titles);
+                    adapter.setDescriptions(descriptions);
+                    adapter.setImages(images);
+                    binding.recycler.setAdapter(adapter);
+                    Log.d(LOG_TAG, "Set points to the RecyclerView");
                 }
-
-                adapter.setTitles(titles);
-                adapter.setDescriptions(descriptions);
-                adapter.setImages(images);
-                binding.recycler.setAdapter(adapter);
-                Log.d(LOG_TAG, "Set points to the RecyclerView");
-            }
-        });
+            });
+        }
 
     }
 }

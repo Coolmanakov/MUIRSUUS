@@ -3,6 +3,11 @@ package com.example.muirsuus.registration;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.muirsuus.main_navigation.favourite.FavouriteConverter;
+
+import java.util.List;
 
 @Entity
 public class privateInfo {
@@ -18,6 +23,16 @@ public class privateInfo {
     String appointment;
     String workPlace;
 
+    @TypeConverters({FavouriteConverter.class})
+    List<String> listFavourite;
+
+    public List<String> getListFavourite() {
+        return listFavourite;
+    }
+
+    public void setListFavourite(List<String> listFavourite) {
+        this.listFavourite = listFavourite;
+    }
 
     public privateInfo(String name, String password) {
         this.name = name;
@@ -99,4 +114,6 @@ public class privateInfo {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    
 }

@@ -8,4 +8,8 @@
     <dimen name="spinner_padding_space">8dp</dimen>
     <dimen name="recycler_section_header_height">65dp</dimen>
     <dimen name="spinner_item_height">45dp</dimen>
+    <dimen name="text_view_size">16sp</dimen>
+    <dimen name="spinner_item_space">8dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

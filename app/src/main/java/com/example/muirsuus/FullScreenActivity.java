@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.muirsuus.adapters.FullSizeAdapter;
+import com.example.muirsuus.classes.MyViewPager;
 
 public class FullScreenActivity extends AppCompatActivity {
 

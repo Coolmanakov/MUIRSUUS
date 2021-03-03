@@ -8,7 +8,7 @@
 
         <variable
             name="user"
-            type="com.example.muirsuus.ui.home.HomeFragmentViewModel" />
+            type="com.example.muirsuus.main_navigation.home.HomeFragmentViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,60 +17,25 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="108dp"
+            android:layout_height="104dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
             android:layout_marginTop="40dp"
             android:contentDescription="personalFoto"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.107"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:mipmap/sym_def_app_icon" />
+            app:srcCompat="@mipmap/icon" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
             android:hint="@string/inputName"
             android:padding="3dp"
             android:text="@={user._nickname}"
-            android:textColor="@color/Black"
-            android:textColorHint="@color/colorGray"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.431"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView" />
-
-        <TextView
-            android:id="@+id/surname"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/input_surname"
-            android:padding="3dp"
-            android:text="@={user._surname}"
-            android:textColor="@color/Black"
-            android:textColorHint="@color/colorGray"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/name"
-            app:layout_constraintStart_toStartOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
-
-        <TextView
-            android:id="@+id/patronymic"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/input_patronymic"
-            android:padding="3dp"
-            android:text="@={user._patronymic}"
             android:textColor="@color/Black"
             android:textColorHint="@color/colorGray"
             android:textSize="20sp"
@@ -80,6 +45,44 @@
             app:layout_constraintTop_toBottomOf="@+id/surname" />
 
         <TextView
+            android:id="@+id/surname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:gravity="center"
+            android:hint="@string/input_surname"
+            android:padding="3dp"
+            android:text="@={user._surname}"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/colorGray"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/patronymic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:hint="@string/input_patronymic"
+            android:padding="3dp"
+            android:text="@={user._patronymic}"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/colorGray"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/name"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <TextView
             android:id="@+id/rank"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -87,9 +90,9 @@
             android:padding="3dp"
 
             android:text="@string/rank"
-
+            android:gravity="center"
             android:textColor="@color/Black"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/patronymic"
             app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -97,13 +100,14 @@
 
         <TextView
             android:id="@+id/appointment"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:padding="3dp"
             android:text="@string/appointment"
+            android:gravity="center"
             android:textColor="@color/Black"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/rank"
             app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -117,7 +121,8 @@
             android:padding="3dp"
             android:text="@string/workPlace"
             android:textColor="@color/Black"
-            android:textSize="15sp"
+            android:gravity="center"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/appointment"
             app:layout_constraintStart_toStartOf="@+id/appointment"
@@ -169,18 +174,39 @@
             app:layout_constraintStart_toStartOf="@+id/appointmentValue"
             app:layout_constraintTop_toTopOf="@+id/workPlace" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/changePersonalData"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:background="@color/button_pressed"
+            android:background="@null"
             android:text="@string/changePersonalData"
-            android:textColor="@color/Black"
+            android:textColor="@color/white"
+            app:cornerRadius="8dp"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="@+id/workPlaceValue"
             app:layout_constraintStart_toStartOf="@+id/workPlace"
             app:layout_constraintTop_toBottomOf="@+id/workPlaceValue" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/line_separator"
+            app:layout_constraintBottom_toTopOf="@+id/rank"
+            app:layout_constraintEnd_toEndOf="@+id/patronymic"
+            app:layout_constraintStart_toStartOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/line_separator"
+            app:layout_constraintEnd_toEndOf="@+id/changePersonalData"
+            app:layout_constraintStart_toStartOf="@+id/changePersonalData"
+            app:layout_constraintTop_toBottomOf="@+id/changePersonalData" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

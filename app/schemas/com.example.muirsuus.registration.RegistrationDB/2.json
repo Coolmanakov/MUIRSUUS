@@ -2,22 +2,22 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "bc6f97d2566c516408f4e91fe12702e9",
+    "identityHash": "67ecc24aa1d29b2589519562f60bbcf8",
     "entities": [
       {
         "tableName": "privateInfo",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `password` TEXT, `nickname` TEXT, `surname` TEXT, `patronymic` TEXT, `rank` TEXT, `appointment` TEXT, `workPlace` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT, `password` TEXT, `nickname` TEXT, `surname` TEXT, `patronymic` TEXT, `rank` TEXT, `appointment` TEXT, `workPlace` TEXT, `listFavourite` TEXT)",
         "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": false
-          },
           {
             "fieldPath": "name",
             "columnName": "name",
             "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
             "notNull": false
           },
           {
@@ -61,6 +61,12 @@
             "columnName": "workPlace",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "listFavourite",
+            "columnName": "listFavourite",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -76,7 +82,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bc6f97d2566c516408f4e91fe12702e9')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '67ecc24aa1d29b2589519562f60bbcf8')"
     ]
   }
 }

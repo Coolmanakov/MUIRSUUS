@@ -6,14 +6,14 @@
     <data>
         <import type="android.view.View"/>
         <variable name="zhivuchestViewModel"
-                  type="com.example.muirsuus.calculation.zhivuchest_mvvm.ZhivuchestViewModel"/>
+                  type="com.example.muirsuus.main_navigation.calculation.zhivuchest_mvvm.ZhivuchestViewModel"/>
 
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".calculation.zhivuchest_mvvm.Zhivuchest"
+        tools:context=".main_navigation.calculation.zhivuchest_mvvm.Zhivuchest"
         tools:visibility="visible"
         android:background="@color/white">
         <LinearLayout

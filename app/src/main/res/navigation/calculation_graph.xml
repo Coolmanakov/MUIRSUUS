@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_host_fragment"
+    android:id="@+id/calculation_nav_fragment"
     app:startDestination="@id/choose_calc">
     <fragment
         android:id="@+id/choose_calc"
-        android:name="com.example.muirsuus.calculation.List_Calculations_Fragment"
-        android:label="Расчёт"
+        android:name="com.example.muirsuus.main_navigation.calculation.List_Calculations_Fragment"
+
         tools:layout="@layout/fragment_list_calculations">
         <action
             android:id="@+id/action_choose_calc_to_reconnaissance"
@@ -30,11 +30,6 @@
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit" />
         <action
-            android:id="@+id/action_choose_calc_to_kompas"
-            app:destination="@id/kompas"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit" />
-        <action
             android:id="@+id/choose_to_subscriber_network"
             app:destination="@id/subscriber_network_fragment_1"
             app:enterAnim="@anim/fragment_open_enter"
@@ -43,8 +38,8 @@
 
     <fragment
         android:id="@+id/reconnaissance"
-        android:name="com.example.muirsuus.calculation.razvedka_mvvm.Razvedka_fragment"
-        android:label="Расчёт разведзащищенности"
+        android:name="com.example.muirsuus.main_navigation.calculation.razvedka_mvvm.Razvedka_fragment"
+
         tools:layout="@layout/fragment_reconnaissance">
         <action
             android:id="@+id/action_reconnaissance_to_tableView2"
@@ -55,31 +50,26 @@
 
     <fragment
         android:id="@+id/vremya_Vypolneniya"
-        android:name="com.example.muirsuus.calculation.Vremya_Vypolneniya"
-        android:label="Время выполнения задач узлом связи"
+        android:name="com.example.muirsuus.main_navigation.calculation.Vremya_Vypolneniya"
+
         tools:layout="@layout/fragment_vremya__vypolneniya" />
     <fragment
         android:id="@+id/zhivuchest"
-        android:name="com.example.muirsuus.calculation.zhivuchest_mvvm.Zhivuchest"
+        android:name="com.example.muirsuus.main_navigation.calculation.zhivuchest_mvvm.Zhivuchest"
         android:label="Расчёт живучести узла связи"
         tools:layout="@layout/fragment_zhivuchest" />
     <fragment
         android:id="@+id/vremya_Razvertyvaniya_btn"
-        android:name="com.example.muirsuus.calculation.razvertyvania_mvvm.Vremya_Razvertyvaniya"
-        android:label="Расчёт времени на развёртывание много интевальной радиорелейной линии связи"
+        android:name="com.example.muirsuus.main_navigation.calculation.razvertyvania_mvvm.Vremya_Razvertyvaniya"
         tools:layout="@layout/fragment_vremya_razvertyvaniya" />
     <fragment
         android:id="@+id/tableView"
-        android:name="com.example.muirsuus.calculation.TableView"
+        android:name="com.example.muirsuus.main_navigation.calculation.TableView"
         tools:layout="@layout/fragment_table_view" />
-    <fragment
-        android:id="@+id/kompas"
-        android:name="com.example.muirsuus.calculation.kompas.Kompas"
-        android:label="Компас"
-        tools:layout="@layout/fragment_kompas" />
+
     <fragment
         android:id="@+id/subscriber_network_fragment_1"
-        android:name="com.example.muirsuus.calculation.SubscriberNetwork.SubscriberNetworkFragment1"
+        android:name="com.example.muirsuus.main_navigation.calculation.SubscriberNetwork.SubscriberNetworkFragment1"
         android:label="Подключаемые устройства">
         <action
             android:id="@+id/subscriber_network_1_to_2"
@@ -89,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/subscriber_network_fragment_2"
-        android:name="com.example.muirsuus.calculation.SubscriberNetwork.SubscriberNetworkFragment2"
+        android:name="com.example.muirsuus.main_navigation.calculation.SubscriberNetwork.SubscriberNetworkFragment2"
         android:label="Параметры устройств">
         <action
             android:id="@+id/subscriber_network_2_to_3"
@@ -99,7 +89,6 @@
     </fragment>
     <fragment
         android:id="@+id/subscriber_network_fragment_3"
-        android:name="com.example.muirsuus.calculation.SubscriberNetwork.SubscriberNetworkFragment3"
-        android:label="Расчёт абонентской сети">
-    </fragment>
+        android:name="com.example.muirsuus.main_navigation.calculation.SubscriberNetwork.SubscriberNetworkFragment3"
+        android:label="Расчёт абонентской сети" />
 </navigation>

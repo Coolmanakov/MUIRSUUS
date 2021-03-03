@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.muirsuus">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,22 +9,47 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:icon="@mipmap/icon"
+        android:icon="@mipmap/app_icon"
         android:label="МИРСУ УС"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <activity
+            android:name=".QrActivity"
+            android:label="@string/title_activity_qr"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
             android:name=".registration.change_info.ChangePersonalData"
             android:label="Данные профиля"
-            android:noHistory="true"></activity>
+            android:noHistory="true" />
         <activity
             android:name=".registration.sign_up.SignUpActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
         <activity
-            android:name=".calculation.CalculationActivity"
+            android:name=".main_navigation.calculation.CalculationActivity"
             android:label="Рассчётный блок" />
         <activity
             android:name=".InformActivity"
@@ -37,7 +63,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WebActivity" />
         <activity android:name=".FullScreenActivity" />
 
         <meta-data

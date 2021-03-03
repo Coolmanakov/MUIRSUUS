@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -18,6 +19,9 @@ public interface RegistrationDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertNewUser(privateInfo info);
 
+    @Update
+    void updateUser(privateInfo privateInfo);
+
     @Transaction
     @Query(" SELECT password FROM privateInfo WHERE name =:name")
     String getUsetPasword(String name);
@@ -28,11 +32,20 @@ public interface RegistrationDAO {
 
     @Transaction
     @Query(" SELECT * FROM privateInfo WHERE name = :name")
-    List<privateInfo> getUsersData(String name);
+    privateInfo getUsersData(String name);
 
     @Transaction
     @Query(" SELECT password FROM privateInfo WHERE name = :name")
     String userPassword(String name);
+
+    @Transaction
+    @Query("SELECT listFavourite FROM privateInfo WHERE name = :name")
+    List<String> getFavourites(String name);
+
+
+
+
+
 
     @Delete
     void delete(List<privateInfo> privateInfos);

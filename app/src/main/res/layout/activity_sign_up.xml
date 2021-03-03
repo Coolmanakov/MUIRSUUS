@@ -30,12 +30,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:cardBackgroundColor="@color/colorGray"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimary">
+                android:background="@drawable/roundrectangle">
 
                 <TextView
                     android:id="@+id/signUpToptext"
@@ -109,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:background="@color/button_pressed"
+                    android:background="@color/colorPrimary"
                     android:onClick="@{() -> user.enter()}"
                     android:padding="10dp"
                     android:text="@string/enter"
@@ -129,6 +130,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/icon_round" />
+            app:srcCompat="@mipmap/app_icon_round" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

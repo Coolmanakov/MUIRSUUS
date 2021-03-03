@@ -5,8 +5,8 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.muirsuus.database.AppDatabase;
-import com.example.muirsuus.database.SubsectionAndPoint;
+import com.example.muirsuus.information_database.AppDatabase;
+import com.example.muirsuus.information_database.SubsectionAndPoint;
 
 /*
  * ViewModel for PointsFragment,
