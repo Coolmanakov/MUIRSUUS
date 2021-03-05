@@ -14,7 +14,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Дом" />
     <string name="Портфель" />
-    <string name="settings">Настройки</string>    <string name="title_activity_calculation">CalculationActivity</string>
+    <string name="settings">Настройки</string>
+    <string name="title_activity_calculation">CalculationActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -321,4 +322,9 @@
     <string name="title_activity_qr">QrActivity</string>
     <string name="open_drawer">Добро пожаловать</string>
     <string name="close_drawer">Спасибо, что используете наше приложение</string>
+    <string name="type_of_car">Марки машин, совершающих марш</string>
+    <string name="distance">Расстояние</string>
+    <string name="count_indeed_oil">Количество необходимого топлива</string>
+    <string name="choose_car">Выберите машины, совершающие марш</string>
+    <string name="title_scanner">Сканнер</string>
 </resources>

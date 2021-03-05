@@ -1,8 +1,11 @@
 package com.example.muirsuus;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +14,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
@@ -23,17 +28,28 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.muirsuus.databinding.ActivityFirstBinding;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int PERMISSION_REQUEST_CODE = 100;
+    private static final int CAMERA_REQUEST_CODE = 101;
     private static final MutableLiveData<String> _name = new MutableLiveData<>();
     public static final LiveData<String> name = _name;
     private NavController navController;
     private ActivityFirstBinding binding;
     private ActionBarDrawerToggle toggle;
+    private final Context context;
+
+    public MainActivity() {
+        this.context = this;
+    }
+
+    public Context getContext() {
+        return context;
+    }
 
     public static String getName() {
         return name.getValue();
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -66,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding.navView.setCheckedItem(R.id.nav_main);
         /*-------------Drawer Layout--------------------*/
 
+        setupPermissions();
     }
 //----------------------Drawer Layout back pressed-----------------
     @Override
@@ -103,6 +120,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_settings:
                 navController.navigateUp();
                 navController.navigate(R.id.action_navigation_home_to_settingsFragment);
+                break;
+            case R.id.nav_scanner:
+                navController.navigateUp();
+                navController.navigate(R.id.action_navigation_home_to_qrActivity);
+
                 break;
             case R.id.nav_pointed:
                 navController.navigateUp();
@@ -151,6 +173,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             toggle.setDrawerIndicatorEnabled(true);
         }
         binding.drawerLayout.setDrawerLockMode(drawerMode);
+    }
+
+    private void setupPermissions() {
+        int permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            makeRequest();
+        }
+
+    }
+
+    private void makeRequest() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.CAMERA},
+                CAMERA_REQUEST_CODE);
     }
 
 

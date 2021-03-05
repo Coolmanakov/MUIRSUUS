@@ -91,12 +91,10 @@ public class SectionFragment extends Fragment {
 
                     titles.add(section.get(i).getSection());
                     descriptions.add(section.get(i).getSectionDescription());
-
                     images.add(section.get(i).getSectionPhoto());
                 }
                 adapter.setTitles(titles);
                 adapter.setDescriptions(descriptions);
-
                 adapter.setImages(images);
                 binding.recycler.setAdapter(adapter);
                 Log.d(LOG_TAG, "Set sections to the RecyclerView");

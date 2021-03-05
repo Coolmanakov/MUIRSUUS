@@ -54,6 +54,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_navigation_home_to_qrActivity"
+            app:destination="@id/qrActivity" />
     </fragment>
 
 
@@ -134,5 +137,13 @@
         android:name="com.example.muirsuus.main_navigation.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/qrActivity"
+        android:name="com.example.muirsuus.QrFragment"
+        android:label="QrActivity">
+        <action
+            android:id="@+id/action_qrActivity_to_informationFragment"
+            app:destination="@id/informationFragment" />
+    </fragment>
 
 </navigation>

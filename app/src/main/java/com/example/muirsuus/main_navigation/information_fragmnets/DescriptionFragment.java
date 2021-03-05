@@ -64,8 +64,10 @@ public class DescriptionFragment extends Fragment {
         informationViewModel.getInformation().observe(binding.getLifecycleOwner(), new Observer<PointAndInformation>() {
             @Override
             public void onChanged(PointAndInformation pointAndInformation) {
-                if(pointAndInformation.getInformation() != null) {
+                if (pointAndInformation != null) {
                     binding.description.setText(pointAndInformation.information.getDescription());
+                } else {
+                    binding.description.setText("Назначение отсутсвует ");
                 }
             }
         });

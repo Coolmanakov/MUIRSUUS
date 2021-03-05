@@ -5,16 +5,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.muirsuus.FullScreenActivity;
+import com.example.muirsuus.MainActivity;
 import com.example.muirsuus.R;
 import com.example.muirsuus.adapters.GalleryAdapter;
 import com.example.muirsuus.adapters.ViewPagerAdapter;
@@ -35,7 +38,7 @@ public class InformationFragment extends Fragment {
     private String point;
     private final String LOG_TAG = "mLog";
     private GalleryAdapter adapter;
-    private InformationViewModel viewModel;
+    private InformationViewModel informationViewModel;
     private String photoList;
     private List<String> photoLinks;
     private String[] photoLinksStr;
@@ -46,9 +49,11 @@ public class InformationFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.information_fragment, container, false);
+        //получили название аппаратной, про которую хотим узнать
         point = getArguments().getString("point");
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(point);
-        viewModel = new InformationViewModel(getContext(), point);
+
+
+        informationViewModel = new InformationViewModel(getContext(), point);
         binding.setLifecycleOwner(this);
 
         return binding.getRoot();
@@ -57,8 +62,17 @@ public class InformationFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        //set Home Up Btn and block the drawerLayout
+        ((MainActivity) getActivity()).resetActionBar(true,
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), 1);
-        setUpViewModel();
+        if (point != null) {
+            //в action bar поместили название аппаратной
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(point);
+            setUpViewModel();
+        }
+
     }
 
     private void setUpViewModel() {
@@ -68,7 +82,7 @@ public class InformationFragment extends Fragment {
         informationViewModel.getInformation().observe(binding.getLifecycleOwner(), new Observer<PointAndInformation>() {
             @Override
             public void onChanged(PointAndInformation information) {
-                if (information.getInformation() != null) {
+                if (information != null) {
                     photoList = information.getInformation().getGallery();
                     if (photoList != null) {
                         photoLinks = get_list_images(photoList);
@@ -96,6 +110,7 @@ public class InformationFragment extends Fragment {
                 else {
                     viewPagerAdapter.addFragment(new DescriptionFragment(point), "Назначение");
                     viewPagerAdapter.addFragment(new TthFragment(point), "TTX");
+                    Toast.makeText(getContext(), "Нам пока что ничего неизвестно про данную аппаратную", Toast.LENGTH_LONG).show();
                 }
                     binding.textPager.setAdapter(viewPagerAdapter);
                     binding.tabButtons.setupWithViewPager(binding.textPager);

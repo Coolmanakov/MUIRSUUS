@@ -11,9 +11,11 @@ import android.widget.TableLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 
+import com.example.muirsuus.MainActivity;
 import com.example.muirsuus.R;
 import com.example.muirsuus.databinding.FragmentReconnaissanceBinding;
 
@@ -48,12 +50,13 @@ public class Razvedka_fragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        ((MainActivity) getActivity()).resetActionBar(false,
+                DrawerLayout.LOCK_MODE_UNLOCKED);
+
         RazvedkaViewModel razvedkaViewModel = new RazvedkaViewModel();
         razvedkaViewModel.setContext(getContext());
         binding.setRazvedData(razvedkaViewModel);
         binding.setLifecycleOwner(this);
-
 
 
     }

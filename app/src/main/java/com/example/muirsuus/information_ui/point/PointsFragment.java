@@ -20,7 +20,6 @@ import com.example.muirsuus.R;
 import com.example.muirsuus.adapters.TTHAdapter;
 import com.example.muirsuus.databinding.PointsFragmentBinding;
 import com.example.muirsuus.information_database.SubsectionAndPoint;
-import com.example.muirsuus.information_database.point;
 import com.example.muirsuus.information_ui.ViewModelFactory;
 import com.example.muirsuus.main_navigation.favourite.FavouriteViewModel;
 
@@ -72,35 +71,30 @@ public class PointsFragment extends Fragment {
     private void setupViewModel() {
         viewModelFactory = new ViewModelFactory(getContext());
         viewModelFactory.setSubsection(subsection);
-        favouriteViewModel = new FavouriteViewModel(getContext(), MainActivity.getName(),binding.getLifecycleOwner());
+        favouriteViewModel = new FavouriteViewModel(getContext(), MainActivity.getName(), binding.getLifecycleOwner());
         adapter.setFavouriteViewModel(favouriteViewModel);
-        List<point> favPoints = favouriteViewModel.getPoints();
-        Log.d(LOG_TAG, " favPoints " + favPoints.get(0).getPoint() );
-        if(favPoints != null) {
-            PointViewModel pointViewModel = new PointViewModel(getContext(), subsection);
-            pointViewModel.getPoints().observe(binding.getLifecycleOwner(), new Observer<SubsectionAndPoint>() {
-                @Override
-                public void onChanged(SubsectionAndPoint points) {
-                    titles = new ArrayList<>();
-                    descriptions = new ArrayList<>();
-                    images = new ArrayList<>();
-                    for (int i = 0; i < points.getPoint().size(); i++) {
-                        if (!favPoints.contains(points.getPoint().get(i))) {
-                            titles.add(points.getPoint().get(i).getPoint());
-                            descriptions.add(points.getPoint().get(i).getPoint_description());
-                            images.add(points.getPoint().get(i).getPoint_photo());
-                        }
-                    }
 
-                    adapter.setIsFavBtnVisible(true);
-                    adapter.setTitles(titles);
-                    adapter.setDescriptions(descriptions);
-                    adapter.setImages(images);
-                    binding.recycler.setAdapter(adapter);
-                    Log.d(LOG_TAG, "Set points to the RecyclerView");
+        PointViewModel pointViewModel = new PointViewModel(getContext(), subsection);
+        pointViewModel.getPoints().observe(binding.getLifecycleOwner(), new Observer<SubsectionAndPoint>() {
+            @Override
+            public void onChanged(SubsectionAndPoint points) {
+                titles = new ArrayList<>();
+                descriptions = new ArrayList<>();
+                images = new ArrayList<>();
+                for (int i = 0; i < points.getPoint().size(); i++) {
+                    titles.add(points.getPoint().get(i).getPoint());
+                    descriptions.add(points.getPoint().get(i).getPoint_description());
+                    images.add(points.getPoint().get(i).getPoint_photo());
                 }
-            });
-        }
+
+                adapter.setIsFavBtnVisible(true);
+                adapter.setTitles(titles);
+                adapter.setDescriptions(descriptions);
+                adapter.setImages(images);
+                binding.recycler.setAdapter(adapter);
+                Log.d(LOG_TAG, "Set points to the RecyclerView");
+            }
+        });
 
     }
 }

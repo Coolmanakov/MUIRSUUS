@@ -53,8 +53,10 @@ public class TthFragment extends Fragment {
         informationViewModel.getInformation().observe(binding.getLifecycleOwner(), new Observer<PointAndInformation>() {
             @Override
             public void onChanged(PointAndInformation pointAndInformation) {
-                if(pointAndInformation.getInformation() != null) {
+                if (pointAndInformation != null) {
                     binding.tth.setText(pointAndInformation.information.getTth());
+                } else {
+                    binding.tth.setText("ТТХ отсутсвуют ");
                 }
             }
         });
