@@ -1,7 +1,7 @@
 package com.example.muirsuus.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,45 +9,39 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import androidx.annotation.StringRes;
-
 import com.example.muirsuus.R;
+import com.example.muirsuus.classes.LiveDataList;
+
 import org.jetbrains.annotations.NotNull;
-import java.util.ArrayList;
+
 import java.util.List;
 
-/**
- * List adapter for spinner
- * Multiple items can be selected
- * Requires second list for checked items
- */
+
 public class CheckableSpinnerAdapter extends ArrayAdapter<String> {
-
+    public List<String> itemList;
+    public LiveDataList<String> checkedItemList;
     private final Context context;
-    private final List<String> itemList;
-    @StringRes private final int spinnerTitle;
-    private final List<String> checkedItemList;
+    private final String spinnerTitle;
 
-    private static class ViewHolder {
-        private final TextView mTextView;
-        private final CheckBox mCheckBox;
-
-        private ViewHolder(TextView textView, CheckBox checkBox) {
-            mTextView = textView;
-            mCheckBox = checkBox;
-        }
+    public CheckableSpinnerAdapter(
+            Context context,
+            List<String> itemList,
+            LiveDataList<String> checkedItemList
+    ) {
+        this(context, itemList, checkedItemList, "Выбрать");
     }
 
-    public CheckableSpinnerAdapter(Context context, List<String> itemList, List<String> checkedItemList) {
-        this(context, itemList, checkedItemList, R.string.spinner_header);
-    }
-
-    public CheckableSpinnerAdapter(Context context, List<String> itemList, List<String> checkedItemList, @StringRes int spinnerTitle) {
+    public CheckableSpinnerAdapter(
+            Context context,
+            List<String> itemList,
+            LiveDataList<String> checkedItemList,
+            String spinnerTitle
+    ) {
         super(context, 0, itemList);
         this.context = context;
+        this.spinnerTitle = spinnerTitle;
         this.itemList = itemList;
         this.checkedItemList = checkedItemList;
-        this.spinnerTitle = spinnerTitle;
     }
 
     @Override
@@ -61,46 +55,53 @@ public class CheckableSpinnerAdapter extends ArrayAdapter<String> {
         return getViewWithPositionCheck(position, convertView, parent, false);
     }
 
-    private View getViewWithPositionCheck(int position, View convertView, @NotNull ViewGroup parent, boolean isDroppedDown) {
-        final ViewHolder viewHolder;
+    private View getViewWithPositionCheck(
+            int position,
+            View convertView,
+            @NotNull ViewGroup parent,
+            boolean isDroppedDown
+    ) {
+        final CheckboxViewHolder checkboxViewHolder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(
-                    R.layout.checkable_spinner_item,
-                    parent,
-                    false);
-            viewHolder = new ViewHolder(
-                    convertView.findViewById(R.id.text),
-                    convertView.findViewById(R.id.checkbox));
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
-        }
+            convertView = LayoutInflater.from(context).inflate(R.layout.checkable_spinner_item, parent, false);
+            checkboxViewHolder = new CheckboxViewHolder(
+                    convertView.findViewById(R.id.checkable_item_text),
+                    convertView.findViewById(R.id.checkable_item_checkbox));
 
-        if (position < 1) {
-            viewHolder.mCheckBox.setVisibility(View.GONE);
+            convertView.setTag(checkboxViewHolder);
+        } else
+            checkboxViewHolder = (CheckboxViewHolder) convertView.getTag();
+
+        if (position == 0) {
+            checkboxViewHolder.mCheckBox.setVisibility(View.GONE);
             if (isDroppedDown)
-                viewHolder.mTextView.setVisibility(View.GONE);
+                checkboxViewHolder.mTextView.setVisibility(View.GONE);
             else {
-                viewHolder.mTextView.setText(spinnerTitle);
-                viewHolder.mTextView.setTextColor(Color.GRAY);
+                checkboxViewHolder.mTextView.setText(spinnerTitle);
+//                checkboxViewHolder.mTextView.setBackgroundResource(R.color.colorPrimary);
+                checkboxViewHolder.mTextView.setGravity(Gravity.CENTER);
             }
         } else {
             String currentItem = itemList.get(position - 1);
 
-            viewHolder.mTextView.setVisibility(View.VISIBLE);
-            viewHolder.mTextView.setText(currentItem);
-            viewHolder.mCheckBox.setVisibility(View.VISIBLE);
-            viewHolder.mCheckBox.setOnCheckedChangeListener(null);
-            viewHolder.mCheckBox.setChecked(checkedItemList.contains(currentItem));
-            viewHolder.mCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked) {
-                    checkedItemList.add(currentItem);
-                } else {
-                    checkedItemList.remove(currentItem);
+            checkboxViewHolder.mTextView.setVisibility(View.VISIBLE);
+            checkboxViewHolder.mTextView.setText(currentItem);
+            checkboxViewHolder.mTextView.setOnClickListener(unusedView ->
+                    checkboxViewHolder.mCheckBox.toggle());
+
+            checkboxViewHolder.mCheckBox.setVisibility(View.VISIBLE);
+            checkboxViewHolder.mCheckBox.setOnCheckedChangeListener(null);
+            checkboxViewHolder.mCheckBox.setChecked(
+                    checkedItemList.getValue().contains(currentItem));
+            checkboxViewHolder.mCheckBox.setOnCheckedChangeListener((unusedView, isChecked) -> {
+                if (checkedItemList.getValue() != null) {
+                    if (isChecked)
+                        checkedItemList.add(currentItem);
+                    else
+                        checkedItemList.remove(currentItem);
                 }
             });
-            viewHolder.mTextView.setOnClickListener(view -> viewHolder.mCheckBox.toggle());
         }
 
         return convertView;
@@ -108,15 +109,23 @@ public class CheckableSpinnerAdapter extends ArrayAdapter<String> {
 
     @Override
     public String getItem(int position) {
-        if (position < 1) {
-            return null;
-        } else {
-            return itemList.get(position - 1);
-        }
+        if (position < 1) return null;
+        return itemList.get(position - 1);
     }
 
     @Override
     public int getCount() {
+        if (itemList == null) return 0;
         return itemList.size() + 1;
+    }
+
+    private static class CheckboxViewHolder {
+        private final TextView mTextView;
+        private final CheckBox mCheckBox;
+
+        private CheckboxViewHolder(TextView textView, CheckBox checkBox) {
+            mTextView = textView;
+            mCheckBox = checkBox;
+        }
     }
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/device_recycler_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/device_name"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/recycler_section_header_height"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="18dp"
+        android:text="@string/device_default_name"
+        android:textColor="@color/Black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/device_room_spinner"
+        app:layout_constraintEnd_toStartOf="@id/cable_length"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/cable_length"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint="@string/cable_length_default"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toBottomOf="@id/device_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/device_name"
+        app:layout_constraintTop_toTopOf="@id/device_name" />
+
+    <Spinner
+        android:id="@+id/device_room_spinner"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/spinner_item_height"
+        app:layout_constraintTop_toBottomOf="@id/device_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/device_room_index"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Spinner
+        android:id="@+id/device_room_index"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint="@string/device_room_index_default"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@id/device_room_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/device_room_spinner"
+        app:layout_constraintBottom_toBottomOf="@id/device_room_spinner" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

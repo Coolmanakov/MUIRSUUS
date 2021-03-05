@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".main_navigation.calculation.razvedka_mvvm.Razvedka_fragment"
-        android:background="@color/colorWhite">
+        android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/relative_razved"
