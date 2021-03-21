@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.muirsuus.information_ui.information.InformationViewModel;
 import com.example.muirsuus.information_ui.point.PointViewModel;
+import com.example.muirsuus.information_ui.presubsection.PresubsectionViewModel;
 import com.example.muirsuus.information_ui.section.SectionViewModel;
 import com.example.muirsuus.information_ui.subsection.SubsectionViewModel;
 
@@ -47,6 +48,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         } else if (modelClass.isAssignableFrom(InformationViewModel.class)) {
             Log.d(LOG_TAG, "getting model InformationViewModel");
             return (T) new InformationViewModel(context, point);
+        } else if (modelClass.isAssignableFrom(PresubsectionViewModel.class)) {
+            Log.d(LOG_TAG, "getting model PresubsectionViewModel");
+            return (T) new PresubsectionViewModel(context, section);
         }
         return null;
     }

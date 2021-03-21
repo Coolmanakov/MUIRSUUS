@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/sectionFragment"
-        android:icon="@drawable/navigation_directory"
+        android:icon="@drawable/icon_book"
         android:title="Справочник" />
 
     <item
@@ -17,13 +17,13 @@
         android:title="@string/title_home" />
     <item
         android:id="@+id/navigation_net"
-        android:icon="@drawable/navigation_net"
+        android:icon="@drawable/icon_computer"
         android:title="@string/title_net" />
 
     <item
-        android:id="@+id/litFragment"
-        android:icon="@drawable/navigation_literature"
-        android:title="Литература" />
+        android:id="@+id/qrActivity"
+        android:icon="@drawable/icon_code_scanner"
+        android:title="@string/title_scanner" />
 
 
 </menu>

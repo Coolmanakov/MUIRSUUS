@@ -64,14 +64,6 @@
                 app:layout_constraintStart_toEndOf="@+id/tth_image"
                 app:layout_constraintTop_toTopOf="@+id/tth_image" />
 
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@{data.description.toString()}"
-                app:layout_constraintEnd_toEndOf="@+id/tth"
-                app:layout_constraintStart_toStartOf="@+id/tth"
-                app:layout_constraintTop_toBottomOf="@+id/tth" />
 
             <com.github.ivbaranov.mfb.MaterialFavoriteButton
                 android:id="@+id/favorite_button"

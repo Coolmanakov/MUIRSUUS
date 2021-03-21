@@ -50,9 +50,10 @@ public class  FavouriteFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ((MainActivity)getActivity()).resetActionBar(false,
-                DrawerLayout.LOCK_MODE_UNLOCKED);
-
+        //set Home Up Btn and block the drawerLayout
+        ((MainActivity) getActivity()).resetActionBar(true,
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        getActivity().setTitle("Закладки");
         listener = new TTHAdapter.ListItemClickListener() {//по клику переходим в SubsectionFragment, передавая туда title, нажатого view
             @Override
             public void OnItemClickListener(int clickItemIndex) {
@@ -89,7 +90,6 @@ public class  FavouriteFragment extends Fragment {
 
             adapter.setIsFavBtnVisible(true);
             adapter.setTitles(titles);
-            adapter.setDescriptions(descriptions);
             adapter.setImages(images);
             binding.recycler.setAdapter(adapter);
             Log.d(LOG_TAG, "Set favourite points to the RecyclerView");

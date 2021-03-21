@@ -1,4 +1,4 @@
-package com.example.muirsuus;
+package com.example.muirsuus.main_navigation.qr_scanner;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +20,8 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.budiyev.android.codescanner.ErrorCallback;
 import com.budiyev.android.codescanner.ScanMode;
+import com.example.muirsuus.MainActivity;
+import com.example.muirsuus.R;
 import com.example.muirsuus.databinding.ActivityQrBinding;
 import com.google.zxing.Result;
 
@@ -32,7 +34,7 @@ public class QrFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.activity_qr, container, false);
-
+        getActivity().setTitle("Сканнер");
         return binding.getRoot();
     }
 

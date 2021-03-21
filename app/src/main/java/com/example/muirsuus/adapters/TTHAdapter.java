@@ -32,7 +32,6 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
     private final ListItemClickListener clickListener;
     private final Context context;
     private List<String> titles;
-    private List<String> descriptions;
     private List<String> images;
     private static final String LOG_TAG = "mLog " + TTHAdapter.class.getCanonicalName();
     private static FavouriteViewModel favouriteViewModel;
@@ -64,13 +63,6 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
         this.titles = titles;
     }
 
-    public List<String> getDescriptions() {
-        return descriptions;
-    }
-
-    public void setDescriptions(List<String> descriptions) {
-        this.descriptions = descriptions;
-    }
 
     public List<String> getImages() {
         return images;
@@ -114,7 +106,13 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         try {
-            holder.bind(titles.get(position), descriptions.get(position), images.get(position));
+            if (titles.get(position) != null && images.get(position) != null) {
+                holder.bind(titles.get(position), images.get(position));
+            } else if (titles.get(position) != null) {
+                holder.bind(titles.get(position));
+            }
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -148,19 +146,13 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
             this.context = context;
         }
 
-        private void bind(String title, String description, String image) throws IOException {
+        private void bind(String title, String image) throws IOException {
             // put title into tthviewmodel
             TthViewModel tthViewModel = new TthViewModel();
             if (title != null) {
                 tthViewModel.setTitle(title);
             } else {
                 Log.d(LOG_TAG, "title is null");
-            }
-
-            if (description != null) {
-                tthViewModel.setDescription(description);
-            } else {
-                Log.d(LOG_TAG, "description is null");
             }
 
             if (image != null) {
@@ -173,14 +165,23 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
 
         }
 
+        private void bind(String title) throws IOException {
+            // put title into tthviewmodel
+            TthViewModel tthViewModel = new TthViewModel();
+            if (title != null) {
+                tthViewModel.setTitle(title);
+            } else {
+                Log.d(LOG_TAG, "title is null");
+            }
+            binding.setData(tthViewModel); // set tthviewmodel into layout
+        }
+
 
         @Override
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
             clickListener.OnItemClickListener(clickedPosition);
         }
-
-
 
     }
 

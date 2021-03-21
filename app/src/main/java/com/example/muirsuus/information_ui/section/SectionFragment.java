@@ -56,18 +56,23 @@ public class SectionFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setSubtitle(null);
-        ((MainActivity)getActivity()).resetActionBar(false,
+        getActivity().setTitle("Справочник");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(null);
+        ((MainActivity) getActivity()).resetActionBar(false,
                 DrawerLayout.LOCK_MODE_UNLOCKED);
 
         listener = new TTHAdapter.ListItemClickListener() {//по клику переходим в SubsectionFragment, передавая туда title, нажатого view
             @Override
             public void OnItemClickListener(int clickItemIndex) {
                 Bundle bundle = new Bundle();
-                bundle.putString("section", adapter.getTitles().get(clickItemIndex));
                 NavController navController = NavHostFragment.findNavController(SectionFragment.this);
-                navController.navigate(R.id.action_sectionFragment_to_subsectionFragment, bundle);
+                bundle.putString("section", adapter.getTitles().get(clickItemIndex));
+                if (adapter.getTitles().get(clickItemIndex).equals("Средства связи")) {
+                    navController.navigate(R.id.action_sectionFragment_to_presubsectionFragment, bundle);
+                } else {
+                    navController.navigate(R.id.action_sectionFragment_to_subsectionFragment, bundle);
+                }
+
             }
         };
         adapter = new TTHAdapter(getContext(), listener);
@@ -94,7 +99,6 @@ public class SectionFragment extends Fragment {
                     images.add(section.get(i).getSectionPhoto());
                 }
                 adapter.setTitles(titles);
-                adapter.setDescriptions(descriptions);
                 adapter.setImages(images);
                 binding.recycler.setAdapter(adapter);
                 Log.d(LOG_TAG, "Set sections to the RecyclerView");

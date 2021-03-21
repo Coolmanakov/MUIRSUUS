@@ -19,6 +19,7 @@ import com.example.muirsuus.MainActivity;
 import com.example.muirsuus.R;
 import com.example.muirsuus.adapters.TTHAdapter;
 import com.example.muirsuus.databinding.PointsFragmentBinding;
+import com.example.muirsuus.information_database.PreSubsectionAndPoint;
 import com.example.muirsuus.information_database.SubsectionAndPoint;
 import com.example.muirsuus.information_ui.ViewModelFactory;
 import com.example.muirsuus.main_navigation.favourite.FavouriteViewModel;
@@ -78,21 +79,42 @@ public class PointsFragment extends Fragment {
         pointViewModel.getPoints().observe(binding.getLifecycleOwner(), new Observer<SubsectionAndPoint>() {
             @Override
             public void onChanged(SubsectionAndPoint points) {
-                titles = new ArrayList<>();
-                descriptions = new ArrayList<>();
-                images = new ArrayList<>();
-                for (int i = 0; i < points.getPoint().size(); i++) {
-                    titles.add(points.getPoint().get(i).getPoint());
-                    descriptions.add(points.getPoint().get(i).getPoint_description());
-                    images.add(points.getPoint().get(i).getPoint_photo());
+                if (points != null) {
+                    titles = new ArrayList<>();
+                    images = new ArrayList<>();
+                    for (int i = 0; i < points.getPoint().size(); i++) {
+                        titles.add(points.getPoint().get(i).getPoint());
+                        images.add(points.getPoint().get(i).getPoint_photo());
+                    }
+
+                    adapter.setIsFavBtnVisible(true);
+                    adapter.setTitles(titles);
+                    adapter.setImages(images);
+                    binding.recycler.setAdapter(adapter);
+                    Log.d(LOG_TAG, "Set points to the RecyclerView");
+                }
+            }
+        });
+
+        pointViewModel.getPoints_pre().observe(binding.getLifecycleOwner(), new Observer<PreSubsectionAndPoint>() {
+            @Override
+            public void onChanged(PreSubsectionAndPoint points) {
+                if (points != null) {
+                    titles = new ArrayList<>();
+                    images = new ArrayList<>();
+
+                    for (int i = 0; i < points.getPoints().size(); i++) {
+                        titles.add(points.getPoints().get(i).getPoint());
+                        images.add(points.getPoints().get(i).getPoint_photo());
+                    }
+
+                    adapter.setIsFavBtnVisible(true);
+                    adapter.setTitles(titles);
+                    adapter.setImages(images);
+                    binding.recycler.setAdapter(adapter);
+                    Log.d(LOG_TAG, "Set points to the RecyclerView");
                 }
 
-                adapter.setIsFavBtnVisible(true);
-                adapter.setTitles(titles);
-                adapter.setDescriptions(descriptions);
-                adapter.setImages(images);
-                binding.recycler.setAdapter(adapter);
-                Log.d(LOG_TAG, "Set points to the RecyclerView");
             }
         });
 

@@ -4,46 +4,49 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muirsuus.R;
 import com.example.muirsuus.classes.CardClass;
-import com.example.muirsuus.classes.IRecyclerViewClickListener;
+import com.example.muirsuus.databinding.ListitemLayoutBinding;
 
 import java.util.List;
-
-
 
 
 public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> {
 
 
     private final List<CardClass> mLinks;
-    IRecyclerViewClickListener clickListener;
+    private final ListItemClickListener clickListener;
+    private ListitemLayoutBinding binding;
 
-    public StartAdapter(List<CardClass> mLinks){
+    public StartAdapter(List<CardClass> mLinks, ListItemClickListener clickListener) {
         this.mLinks = mLinks;
+        this.clickListener = clickListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View v = inflater.inflate(R.layout.listitem_layout, viewGroup, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.listitem_layout, viewGroup, false);
 
-        return new ViewHolder(v);
+        return new ViewHolder(binding.getRoot(), clickListener);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.text.setText(mLinks.get(position).getTitle());
-        holder.image.setImageResource(mLinks.get(position).getImage());
+        binding.itemTitle.setText(mLinks.get(position).getTitle());
+        binding.image.setImageResource(mLinks.get(position).getImage());
+    }
+
+    public interface ListItemClickListener {
+        void OnItemClickListener(int clickItemIndex);
     }
 
     @Override
@@ -51,23 +54,21 @@ public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> 
         return mLinks.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView image;
-        public TextView text;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final ListItemClickListener clickListener;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, ListItemClickListener clickListener) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.image);
-            text = (TextView) itemView.findViewById(R.id.item_title);
-
+            this.clickListener = clickListener;
+            binding.getRoot().setOnClickListener(this);
         }
 
 
-        /*@Override
+        @Override
         public void onClick(View v) {
-
-            clickListener.onClick(v,getAdapterPosition());
-        }*/
+            int clickedPosition = getAdapterPosition();
+            clickListener.OnItemClickListener(clickedPosition);
+        }
 
     }
 
