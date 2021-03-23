@@ -1,34 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <Spinner
         android:id="@+id/division_type_spinner"
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/recycler_section_header_height" />
+        android:layout_height="@dimen/recycler_section_header_height"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/official_type_spinner"
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/recycler_section_header_height" />
+        android:layout_height="@dimen/recycler_section_header_height"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/division_type_spinner" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/official_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/backward_button_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/official_type_spinner" />
 
     <Button
-        android:id="@+id/transition_button_1"
+        android:id="@+id/backward_button_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/transition_button_text"
-        android:layout_gravity="end"/>
+        android:layout_gravity="end"
+        android:layout_margin="4dp"
+        android:text="@string/backward_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/forward_button_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:visibility="invisible"
+        android:text="@string/forward_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

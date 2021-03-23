@@ -21,8 +21,6 @@ public class CalculationActivity extends AppCompatActivity {
 
         navController = Navigation.findNavController(this, R.id.calc_fragment);
         NavigationUI.setupActionBarWithNavController(this,navController);
-
-        SubscriberNetworkViewModel subscriberNetworkViewModel = new ViewModelProvider(this).get(SubscriberNetworkViewModel.class);
     }
 
     @Override

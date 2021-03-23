@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -37,6 +38,7 @@ public class SubscriberNetworkFragment3 extends Fragment {
     private static final int LAYING_SPEED = 1;
     private static final int PERSONNEL_NUMBER = 2;
     private TextView estimatedTime;
+    private Button endButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class SubscriberNetworkFragment3 extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(SubscriberNetworkViewModel.class);
 
         estimatedTime = view.findViewById(R.id.estimated_time);
+        endButton = view.findViewById(R.id.end_button_3);
         EditText layingSpeed = view.findViewById(R.id.laying_speed);
         EditText personnelNumber = view.findViewById(R.id.personnel_number);
         Spinner reliefSpinner = view.findViewById(R.id.relief);
@@ -145,6 +148,33 @@ public class SubscriberNetworkFragment3 extends Fragment {
                 getViewLifecycleOwner(),
                 x -> estimateTime()
         );
+
+        if (viewModel.layingSpeed.getValue() != null)
+            layingSpeed.setText(formatDoubleToString(viewModel.layingSpeed.getValue()));
+
+        if (viewModel.personnelNumber.getValue() != null)
+            personnelNumber.setText(formatIntToString(viewModel.personnelNumber.getValue()));
+
+        if (viewModel.relief.getValue() != null)
+            reliefSpinner.setSelection(reliefList.indexOf(viewModel.relief.getValue()) + 1);
+
+        if (viewModel.terrain.getValue() != null)
+            terrainSpinner.setSelection(terrainList.indexOf(viewModel.terrain.getValue()) + 1);
+
+        if (viewModel.temperature.getValue() != null)
+            temperatureSpinner.setSelection(temperatureList.indexOf(viewModel.temperature.getValue()) + 1);
+
+        if (viewModel.snow.getValue() != null)
+            snowSpinner.setSelection(snowList.indexOf(viewModel.snow.getValue()) + 1);
+
+        if (viewModel.wind.getValue() != null)
+            windSpinner.setSelection(windList.indexOf(viewModel.wind.getValue()) + 1);
+
+        view.findViewById(R.id.backward_button_3).setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.subscriber_network_3_backward));
+        endButton.setOnClickListener(v -> {
+            viewModel.clear();
+            Navigation.findNavController(view).navigate(R.id.subscriber_network_3_end);
+        });
     }
 
     private class EditTextListener implements TextWatcher {
@@ -319,6 +349,7 @@ public class SubscriberNetworkFragment3 extends Fragment {
                 / personnelNumber;
 
         estimatedTime.setText(String.format(Locale.ENGLISH, "%,.2f мин", t1 + t2));
+        endButton.setVisibility(View.VISIBLE);
     }
 
     private final static List<String> reliefList = new ArrayList<String>() {{
@@ -353,4 +384,12 @@ public class SubscriberNetworkFragment3 extends Fragment {
         add("10 – 20м/с");
         add(">20м/с");
     }};
+
+    private String formatIntToString(int i) {
+        return String.format(Locale.ENGLISH, "%d", i);
+    }
+
+    private String formatDoubleToString(double i) {
+        return String.format(Locale.ENGLISH, "%.2f", i);
+    }
 }
