@@ -1,5 +1,6 @@
 package com.example.muirsuus.information_ui.information;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -60,6 +61,7 @@ public class InformationFragment extends Fragment {
     }
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         //set Home Up Btn and block the drawerLayout
@@ -70,6 +72,7 @@ public class InformationFragment extends Fragment {
         if (point != null) {
             //в action bar поместили название аппаратной
             ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(point);
+            binding.pointName.setText(point);
             setUpViewModel();
         }
 
@@ -100,26 +103,24 @@ public class InformationFragment extends Fragment {
                         adapter = new GalleryAdapter(photoLinks, listener, getContext());
                         binding.photoRecycler.setAdapter(adapter);
                     }
-                    if(information.getInformation().getDescription() != null) {
+                    if (information.getInformation().getDescription() != null) {
                         viewPagerAdapter.addFragment(new DescriptionFragment(point), "Назначение");
                     }
-                    if(information.getInformation().getTth() != null) {
+                    if (information.getInformation().getTth() != null) {
                         viewPagerAdapter.addFragment(new TthFragment(point), "TTX");
                     }
-                }
-                else {
+                } else {
                     viewPagerAdapter.addFragment(new DescriptionFragment(point), "Назначение");
                     viewPagerAdapter.addFragment(new TthFragment(point), "TTX");
                     Toast.makeText(getContext(), "Нам пока что ничего неизвестно про данную аппаратную", Toast.LENGTH_LONG).show();
                 }
-                    binding.textPager.setAdapter(viewPagerAdapter);
-                    binding.tabButtons.setupWithViewPager(binding.textPager);
+                binding.textPager.setAdapter(viewPagerAdapter);
+                binding.tabButtons.setupWithViewPager(binding.textPager);
+
 
             }
-
-
-
-
         });
     }
+
+
 }

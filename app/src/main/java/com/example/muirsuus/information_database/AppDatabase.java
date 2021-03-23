@@ -13,10 +13,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-@Database(entities = {section.class, subsection.class, point.class, information.class}, version = 3, exportSchema = false)
+@Database(entities = {section.class, subsection.class, point.class, information.class, presubsection.class}, version = 4, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String LOG_TAG = "mLog";
-    private static final String DB_NAME = "annotated_db1.db";
+    private static final String DB_NAME = "annotated_db2.db";
     private static AppDatabase mInstance;
     private static String DB_PATH = "";
 

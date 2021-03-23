@@ -17,8 +17,20 @@ public interface InformationDAO {
     LiveData<SectionAndSubsection> getSectionAndSubsection(String section);
 
     @Transaction
+    @Query("SELECT * FROM section WHERE section =:section")
+    LiveData<SectionAndPresubsection> getSectionAndPresubsection(String section);
+
+    @Transaction
+    @Query("SELECT * FROM presubsection WHERE presubsection =:presubsection")
+    LiveData<PresubectionAndSubsection> getPreSubsectionAndSubsection(String presubsection);
+
+    @Transaction
     @Query("SELECT * FROM subsection WHERE subsection =:subsection")
     LiveData<SubsectionAndPoint> getSubsectionAndPoint(String subsection);
+
+    @Transaction
+    @Query("SELECT * FROM presubsection WHERE presubsection =:presubsection")
+    LiveData<PreSubsectionAndPoint> getPreSubsectionAndPoint(String presubsection);
 
     @Transaction
     @Query("SELECT * FROM point WHERE point =:point")

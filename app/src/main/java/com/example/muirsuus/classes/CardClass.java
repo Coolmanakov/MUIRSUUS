@@ -3,16 +3,10 @@ package com.example.muirsuus.classes;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.TreeSet;
-
 public class CardClass implements Parcelable, Comparable<CardClass> {
     private int image;
     private String photo;
     public String title;
-    private int id;
 
 
 
@@ -20,7 +14,6 @@ public class CardClass implements Parcelable, Comparable<CardClass> {
     public CardClass(int image, String title,int id) {
         this.image = image;
         this.title = title;
-        this.id = id;
     }
     public CardClass(int image, String title) {
         this.image = image;
@@ -79,9 +72,6 @@ public class CardClass implements Parcelable, Comparable<CardClass> {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(image);
         dest.writeString(title);
-    }
-    public int getId(){
-        return id;
     }
 
 

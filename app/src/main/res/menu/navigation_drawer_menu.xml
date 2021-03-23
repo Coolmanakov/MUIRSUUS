@@ -2,30 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
 
-        <item android:id="@+id/nav_main"
-            android:icon="@drawable/ic_home"
-            android:title="@string/title_home">
-        </item>
-
-        <item android:id="@+id/nav_calculation"
-            android:icon="@drawable/navigation_calculate"
-            android:title="Расчёты">
-        </item>
-
-        <item android:id="@+id/nav_directory"
-            android:icon="@drawable/navigation_directory"
-            android:title="Справочник">
-        </item>
-
-        <item android:id="@+id/nav_net"
-            android:icon="@drawable/navigation_net"
-            android:title="Сеть">
-        </item>
-
-        <item android:id="@+id/nav_literature"
-            android:icon="@drawable/navigation_literature"
-            android:title="Литература">
-        </item>
+        <item
+            android:id="@+id/authors"
+            android:title="@string/authors"></item>
 
     </group>
     <item android:title="">
@@ -40,10 +19,12 @@
                     android:id="@+id/nav_settings"
                     android:icon="@drawable/settings_icon"
                     android:title="@string/settings" />
+
                 <item
-                    android:id="@+id/nav_scanner"
-                    android:icon="@drawable/icon_code_scanner"
-                    android:title="@string/title_scanner" />
+                    android:id="@+id/nav_literature"
+                    android:icon="@drawable/navigation_literature"
+                    android:title="Литература" />
+
             </group>
 
         </menu>

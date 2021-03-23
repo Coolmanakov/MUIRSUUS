@@ -4,7 +4,6 @@ package com.example.muirsuus.information_ui;
 import androidx.lifecycle.ViewModel;
 
 public class TthViewModel extends ViewModel {
-    private String description;
     private String title;
     private String image;
 
@@ -28,11 +27,4 @@ public class TthViewModel extends ViewModel {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

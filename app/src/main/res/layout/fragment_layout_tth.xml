@@ -1,32 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ScrollView
+
+        <TextView
+            android:id="@+id/tth"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
+            android:layout_height="wrap_content"
+            android:hint="ТТХ отсутствует"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/colorGray"
+            android:textSize="15sp" />
 
 
-            <TextView
-                android:id="@+id/tth"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textSize="15sp"
-                android:gravity="left"
-                android:hint="ТТХ отсутствует"
-                android:textColor="@color/Black"
-                android:textColorHint="@color/colorGray"/>
-
-
-        </ScrollView>
-
-
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

@@ -21,6 +21,7 @@ import com.example.muirsuus.MainActivity;
 import com.example.muirsuus.R;
 import com.example.muirsuus.adapters.TTHAdapter;
 import com.example.muirsuus.databinding.SubsectionFragmentBinding;
+import com.example.muirsuus.information_database.PresubectionAndSubsection;
 import com.example.muirsuus.information_database.SectionAndSubsection;
 import com.example.muirsuus.information_ui.ViewModelFactory;
 
@@ -71,6 +72,7 @@ public class SubsectionFragment extends Fragment {
             }
         };
         adapter = new TTHAdapter(getContext(), listener);
+
         setupViewModel();
 
 
@@ -85,20 +87,37 @@ public class SubsectionFragment extends Fragment {
         subsectionViewModel.getSubsections().observe(binding.getLifecycleOwner(), new Observer<SectionAndSubsection>() {
             @Override
             public void onChanged(SectionAndSubsection subsections) {
-
-                titles = new ArrayList<>();
-                descriptions = new ArrayList<>();
-                images = new ArrayList<>();
-                for (int i = 0; i < subsections.getSubsection().size(); i++) {
-                    titles.add(subsections.getSubsection().get(i).getSubsection());
-                    descriptions.add(subsections.getSubsection().get(i).getSub_description());
-                    images.add(subsections.getSubsection().get(i).getSub_photo());
+                if (subsections != null) {
+                    titles = new ArrayList<>();
+                    images = new ArrayList<>();
+                    for (int i = 0; i < subsections.getSubsection().size(); i++) {
+                        titles.add(subsections.getSubsection().get(i).getSubsection());
+                        images.add(subsections.getSubsection().get(i).getSub_photo());
+                    }
+                    adapter.setTitles(titles);
+                    adapter.setImages(images);
+                    binding.recycler.setAdapter(adapter);
+                    Log.d(LOG_TAG, "Set subsections to the RecyclerView ");
                 }
-                adapter.setTitles(titles);
-                adapter.setDescriptions(descriptions);
-                adapter.setImages(images);
-                binding.recycler.setAdapter(adapter);
-                Log.d(LOG_TAG, "Set subsections to the RecyclerView ");
+            }
+        });
+
+        subsectionViewModel.getSubsections_pre().observe(binding.getLifecycleOwner(), new Observer<PresubectionAndSubsection>() {
+            @Override
+            public void onChanged(PresubectionAndSubsection subsections) {
+                if (subsections != null) {
+                    titles = new ArrayList<>();
+                    images = new ArrayList<>();
+
+                    for (int i = 0; i < subsections.getSubsection().size(); i++) {
+                        titles.add(subsections.getSubsection().get(i).getSubsection());
+                        images.add(subsections.getSubsection().get(i).getSub_photo());
+                    }
+                    adapter.setTitles(titles);
+                    adapter.setImages(images);
+                    binding.recycler.setAdapter(adapter);
+                    Log.d(LOG_TAG, "Set subsections to the RecyclerView ");
+                }
             }
         });
     }

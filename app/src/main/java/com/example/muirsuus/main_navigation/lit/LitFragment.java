@@ -1,44 +1,50 @@
 package com.example.muirsuus.main_navigation.lit;
 
 import android.Manifest;
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.muirsuus.MainActivity;
 import com.example.muirsuus.R;
 import com.example.muirsuus.databinding.LitFragmentBinding;
+import com.example.muirsuus.databinding.PdfItemBinding;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class LitFragment extends Fragment {
 
-    private LitViewModel mViewModel;
-
-    public static LitFragment newInstance() {
-        return new LitFragment();
-    }
-
-    private static final int REQUEST_PERMISSION = 1;
-    private final ArrayList<LitViewModel> list = new ArrayList<>();
+    private static final String LOG_TAG = "mLog " + LitFragment.class.getCanonicalName();
+    private static final int EXT_STORAGE_PERMISSION_CODE = 101;
+    private LitFragmentBinding binding;
+    private PdfItemBinding pdfBinding;
+    private String tmpFolder = "";
+    private List<String> list = new ArrayList<>();
     private final BaseAdapter adapter = new BaseAdapter() {
         @Override
         public int getCount() {
@@ -46,7 +52,7 @@ public class LitFragment extends Fragment {
         }
 
         @Override
-        public LitViewModel getItem(int i) {
+        public String getItem(int i) {
             return list.get(i);
         }
 
@@ -55,20 +61,71 @@ public class LitFragment extends Fragment {
             return i;
         }
 
+        @SuppressLint("ViewHolder")
         @Override
         public View getView(int i, View view, ViewGroup parent) {
-            View v = view;
-            if (v == null) {
-                v = getLayoutInflater().inflate(R.layout.pdf_item, parent, false);
-            }
 
-            LitViewModel pdfFile = getItem(i);
-            TextView name = v.findViewById(R.id.txtFileName);
-            name.setText(pdfFile.getFileName());
-            return v;
+
+            pdfBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.pdf_item, parent, false);
+
+            pdfBinding.txtFileName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // copy the file to external storage accessible by all
+                    copyFileFromAssets(list.get(i));
+
+
+                    // PDF reader code
+                    Uri uri = null;
+                    tmpFolder = getContext().getFilesDir() + File.separator;
+                    File file = new File(tmpFolder
+                            + list.get(i));
+                    Log.d(LOG_TAG, "file " + list.get(i) + " " + file.getAbsolutePath());
+
+                    uri = FileProvider.getUriForFile(getContext(),
+                            getString(R.string.file_provider_authority),
+                            file);
+                    Log.i(LOG_TAG, "Launching viewer " + list.get(i) + " " + file.getAbsolutePath());
+
+                    //Intent intent = new Intent(Intent.ACTION_VIEW, FileProvider.getUriForFile(v.getContext(), "org.eicsanjose.quranbasic.fileprovider", file));
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    //intent.setDataAndType(Uri.fromFile(file), "application/pdf");
+                    intent.setDataAndType(uri, "application/pdf");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    try {
+                        Log.i(LOG_TAG, "Starting pdf viewer activity");
+                        startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        Log.e(LOG_TAG, e.getMessage());
+                    }
+                }
+            });
+
+
+            StringBuffer buffer = new StringBuffer(list.get(i));
+            buffer.delete(list.get(i).length() - 4, list.get(i).length()); //удаляем ".pdf" из исходной строки
+            String name = buffer.substring(0); //получаем конечное название книги
+            pdfBinding.txtFileName.setText(name.toUpperCase());
+//-----------------------------------------------------------
+            String[] arr = name.split(" ", 2);//разбиваем строку, чтобы получить первое слово из названия книги
+            arr[0] = arr[0].toLowerCase();
+            Log.d(LOG_TAG, "arr 0 = " + arr[0]);
+            //сравниваем первые слова с исходными и для каждого добавляем картинку
+            if (arr[0].equals("боевое")) {
+                pdfBinding.pdfImage.setImageResource(R.drawable.boevoe_primenenie);
+            } else if (arr[0].equals("каблирование")) {
+                pdfBinding.pdfImage.setImageResource(R.drawable.kablirovanie);
+            } else if (arr[0].equals("основы")) {
+                pdfBinding.pdfImage.setImageResource(R.drawable.osnov_postroenia);
+            } else if (arr[0].equals("техническая")) {
+                pdfBinding.pdfImage.setImageResource(R.drawable.boevoe_primenenie);
+            }
+            return pdfBinding.getRoot();
         }
     };
-    private LitFragmentBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -79,90 +136,82 @@ public class LitFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkPermission();
+        //set Title for fragment
+        getActivity().setTitle("Литература");
+
+        //set Home Up Btn and block the drawerLayout
+        ((MainActivity) getActivity()).resetActionBar(true,
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        tmpFolder = getContext().getFilesDir() + File.separator;
+        if (ContextCompat.checkSelfPermission(
+                getContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(
+                    getActivity(),
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    EXT_STORAGE_PERMISSION_CODE);
+            Log.d(LOG_TAG, "After getting permission: " + Manifest.permission.WRITE_EXTERNAL_STORAGE + " " + ContextCompat.checkSelfPermission(
+                    getContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE));
+
         } else {
-            initViews();
+            // We were granted permission already before
+            Log.d(LOG_TAG, "Already has permission to write to external storage");
         }
-    }
-
-    private void checkPermission() {
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED
-                && ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
-            initViews();
-        } else {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{
-                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
-            }, REQUEST_PERMISSION);
-        }
-    }
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_PERMISSION: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    initViews();
-                } else {
-                    // в разрешении отказано (в первый раз, когда чекбокс "Больше не спрашивать" ещё не показывается)
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                            Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                        getActivity().finish();
-                    }
-                    // в разрешении отказано (выбрано "Больше не спрашивать")
-                    else {
-                        // показываем диалог, сообщающий о важности разрешения
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setMessage(
-                                "Вы отказались предоставлять разрешение на чтение хранилища.\n\nЭто необходимо для работы приложения."
-                                        + "\n\n"
-                                        + "Нажмите \"Предоставить\", чтобы предоставить приложению разрешения.")
-                                // при согласии откроется окно настроек, в котором пользователю нужно будет вручную предоставить разрешения
-                                .setPositiveButton("Предоставить", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        getActivity().finish();
-                                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                                Uri.fromParts("package", getActivity().getPackageName(), null));
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                    }
-                                })
-                                // закрываем приложение
-                                .setNegativeButton("Отказаться", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        getActivity().finish();
-                                    }
-                                });
-                        builder.setCancelable(false);
-                        builder.create().show();
-                    }
-                }
-                break;
-            }
-        }
-    }
-
-    private void initViews() {
-        // получаем путь до внешнего хранилища
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-        initList(path);
-        // устанавливаем адаптер в ListView
+        list = getPDFFromAssets();
         binding.listView.setAdapter(adapter);
-        // когда пользователь выбирает PDF-файл из списка, открываем активность для просмотра
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(MainActivity.this, PdfActivity.class);
-                intent.putExtra("keyName", list.get(i).getFileName());
-                intent.putExtra("fileName", list.get(i).getFilePath());
-                startActivity(intent);
-            }
-        });*/
     }
 
-    private void initList(String path) {
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super
+                .onRequestPermissionsResult(requestCode,
+                        permissions,
+                        grantResults);
+
+        Log.d(LOG_TAG, "Request for write permission to external storage result:" + permissions[0] + " " + grantResults[0]);
+        // Now let us make sure our cache dir exists. This would not work if user denied. But then again
+        // in that case the whole app will not work. Add error checking
+        File tmpDir = new File(tmpFolder);
+        if (!tmpDir.exists()) {
+            Log.d(LOG_TAG, "Tmp dir to store pdf does not exist");
+            tmpDir.mkdir();
+            Log.d(LOG_TAG, "Tmpdir created " + tmpDir.exists());
+        } else {
+            Log.d(LOG_TAG, "Tmpdir already exists " + tmpDir.exists());
+        }
+
+    }
+
+
+    private List<String> getPDFFromAssets() {
+        List<String> pdfFiles = new ArrayList<>();
+        AssetManager assetManager = getContext().getAssets();
+
         try {
+            for (String name : assetManager.list("")) {
+                // include files which end with pdf only
+                if (name.toLowerCase().endsWith("pdf")) {
+
+                    pdfFiles.add(name);
+                }
+            }
+        } catch (IOException ioe) {
+            Log.e(LOG_TAG, "Could not read files from assets folder");
+            Toast.makeText(getContext(),
+                    "Could not read files from assets folder",
+                    Toast.LENGTH_LONG)
+                    .show();
+        }
+
+        return pdfFiles;
+
+       /* try {
             File file = new File(path);
             File[] fileList = file.listFiles();
             String fileName;
@@ -178,7 +227,53 @@ public class LitFragment extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }*/
+    }
+
+    private void copyFileFromAssets(String fileName) {
+
+
+        Log.i(LOG_TAG, "Copy file from asset:" + fileName);
+
+        AssetManager assetManager = getContext().getAssets();
+
+
+        // file to copy to from assets
+        File cacheFile = new File(tmpFolder + fileName);
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            Log.d(LOG_TAG, "Copying from assets folder to cache folder");
+            if (cacheFile.exists()) {
+                // already there. Do not copy
+                Log.d(LOG_TAG, "Cache file exists at:" + cacheFile.getAbsolutePath());
+                return;
+            } else {
+                Log.d(LOG_TAG, "Cache file does NOT exist at:" + cacheFile.getAbsolutePath());
+                // TODO: There should be some error catching/validation etc before proceeding
+                in = assetManager.open(fileName);
+                out = new FileOutputStream(cacheFile);
+                copyFile(in, out);
+
+            }
+
+        } catch (IOException ioe) {
+            Log.e(LOG_TAG, "Error in copying file from assets " + fileName);
+            ioe.printStackTrace();
+
         }
+
+    }
+
+    private void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while ((read = in.read(buffer)) > 0) {
+            out.write(buffer, 0, read);
+        }
+        in.close();
+        out.flush();
+        out.close();
     }
 
 }

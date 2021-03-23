@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         binding.navView.setNavigationItemSelectedListener(this);
-        binding.navView.setCheckedItem(R.id.nav_main);
         /*-------------Drawer Layout--------------------*/
 
         setupPermissions();
@@ -98,34 +97,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //*-----------------Navigation Drawer---------------------*\
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch ( item.getItemId()){
-            case R.id.nav_main:
+            case R.id.authors:
                 navController.navigateUp();
+                navController.navigate(R.id.action_navigation_home_to_authorsFragment);
                 break;
-            case R.id.nav_calculation:
-                navController.navigateUp();
-                navController.navigate(R.id.action_navigation_home_to_nav_host_fragment);
-                break;
-            case R.id.nav_literature:
-                navController.navigateUp();
-                navController.navigate(R.id.action_navigation_home_to_litFragment);
-                break;
-            case R.id.nav_directory:
-                navController.navigateUp();
-                navController.navigate(R.id.action_navigation_home_to_sectionFragment);
-                break;
-            case R.id.nav_net:
-                navController.navigateUp();
-                navController.navigate(R.id.action_navigation_home_to_navigation_net2);
-                break;
-            case R.id.nav_settings:
-                navController.navigateUp();
-                navController.navigate(R.id.action_navigation_home_to_settingsFragment);
-                break;
-            case R.id.nav_scanner:
-                navController.navigateUp();
-                navController.navigate(R.id.action_navigation_home_to_qrActivity);
 
-                break;
             case R.id.nav_pointed:
                 navController.navigateUp();
                 Bundle arg = new Bundle();

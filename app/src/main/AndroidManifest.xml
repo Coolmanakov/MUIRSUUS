@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.muirsuus">
+    package="com.example.muirsuus"
+    android:requestLegacyExternalStorage="true">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:icon="@mipmap/app_icon"
@@ -16,10 +18,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity android:name=".main_navigation.lit.PdfActivity"></activity>
-        <activity
-            android:name=".ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".SplashActivity"
             android:label=""
@@ -38,9 +36,6 @@
             android:name=".main_navigation.calculation.CalculationActivity"
             android:label="Рассчётный блок" />
         <activity
-            android:name=".InformActivity"
-            android:label="Информацинный блок" />
-        <activity
             android:name=".registration.sign_in.SignInActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -54,6 +49,15 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="@string/file_provider_authority"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
     </application>
 
 </manifest>

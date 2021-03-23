@@ -36,7 +36,8 @@ public class List_Calculations_Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((MainActivity)getActivity()).resetActionBar(false,
+        getActivity().setTitle("Расчёты");
+        ((MainActivity) getActivity()).resetActionBar(false,
                 DrawerLayout.LOCK_MODE_UNLOCKED);
 
         razvedka = view.findViewById(R.id.reconnaissance);

@@ -75,7 +75,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.MyViewHolder> 
 
             FindCarFragmnetViewModel viewModel = new FindCarFragmnetViewModel(name, image);
             loadImageFromAssets(image, binding.image, context);
-            binding.setData(viewModel);
+
 
         }
 

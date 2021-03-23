@@ -4,7 +4,7 @@
     <string name="title_home">Главная</string>
     <string name="title_lit">Литература</string>
     <string name="title_portfel">Твой портфель</string>
-    <string name="title_net">Сеть</string>
+    <string name="title_net">АСУУС</string>
     <string name="title_settings">Настройки</string>
     <string name="inf_btn">ИНФОРМАЦИОННЫЙ БЛОК</string>
     <string name="calc_btn">РАССЧЁТНЫЙ БЛОК</string>
@@ -228,6 +228,7 @@
     <string name="officials_type">Категории должностных лиц</string>
     <string name="backward_button_text">Назад</string>
     <string name="forward_button_text">Далее</string>
+    <string name="end_button_text">Закончить расчеты</string>
     <string name="spinner_header">Выбрать</string>
     <string name="unused_devices">Оставшееся оборудованиие:</string>
     <string name="device_default_name">Device</string>
@@ -340,5 +341,9 @@
     <string name="count_indeed_oil">Количество необходимого топлива</string>
     <string name="choose_car">Выберите машины, совершающие марш</string>
     <string name="title_scanner">Сканнер</string>
-    <string name="end_button_text">Закончить расчеты</string>
+    <string name="authors">Авторы</string>
+    <string name="file_provider_authority" translatable="false">com.example.muirsuus.fileprovider</string>
+    <string name="web_size">Размер Веб-страниц</string>
+    <string name="online_webPages">Online</string>
+    <string name="online_extraText">(Загружать веб-страницы из облачного хранилища)</string>
 </resources>

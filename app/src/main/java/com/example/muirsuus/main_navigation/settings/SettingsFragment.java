@@ -1,60 +1,60 @@
 package com.example.muirsuus.main_navigation.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
-import android.widget.Switch;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.muirsuus.MainActivity;
 import com.example.muirsuus.R;
+import com.example.muirsuus.databinding.FragmentSettingsBinding;
 
 public class SettingsFragment extends Fragment {
     final float start_value = 0.7f; //начальное значение размера шрифта
     final float step = 0.15f; //шаг увеличения коэффициента
-    int size_coef ; //выбранный коэффициент
-    private Switch mySwitch;
-    public Button update_db;
-
-
-
-
+    public static final String ONLINE_WEB_PAGES = "loadOnlinePage";
+    private static final String LOG_TAG = "mLog " + SettingsFragment.class.getCanonicalName();
+    public final String WEB_SIZE = "webSizeValue";
+    private final float webSizeFloat = 50;
+    int size_coef; //выбранный коэффициент
+    private SharedPreferences webSizePrefernces;
+    private SharedPreferences onlinePagePreferences;
+    private FragmentSettingsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final View root = inflater.inflate(R.layout.fragment_settings,container,false);
 
-        ((MainActivity)getActivity()).resetActionBar(false,
-                DrawerLayout.LOCK_MODE_UNLOCKED);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false);
+        //set Home Up Btn and block the drawerLayout
+        ((MainActivity) getActivity()).resetActionBar(true,
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        getActivity().setTitle("Настройки");
 
         final SharedPreferences settings = this.getActivity().getSharedPreferences("MyAppSett", Context.MODE_PRIVATE);
 
 
-        SeekBar seekBar = (SeekBar) root.findViewById(R.id.seekBar); // находим элемент seekBar
-        final TextView text_size = (TextView) root.findViewById(R.id.text_size);
-
-
         Resources resources = getResources();
         Configuration config = new Configuration(resources.getConfiguration());
-        seekBar.setProgress(Math.round((config.fontScale - start_value) / step));
+        binding.seekBar.setProgress(Math.round((config.fontScale - start_value) / step));
 
 
+        if (binding.seekBar != null) {
 
-        if (seekBar != null) {
-
-            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            binding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     size_coef = progress; //выбранный коэффициент
@@ -72,7 +72,7 @@ public class SettingsFragment extends Fragment {
                     Configuration configuration = new Configuration(res.getConfiguration());
                     configuration.fontScale = сoef;
                     res.updateConfiguration(configuration, res.getDisplayMetrics());
-                    text_size.setTextSize(сoef*14);//динамическое изменение текста, коэффициент подобран подбором
+                    binding.textSize.setTextSize(сoef * 14);//динамическое изменение текста, коэффициент подобран подбором
 
                 }
 
@@ -82,19 +82,67 @@ public class SettingsFragment extends Fragment {
                 }
 
                 @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
+                public void onStopTrackingTouch(SeekBar seekBar) {
 
-                    }
+                }
             });
         }
-        // inflate the layout using the cloned inflater, not default inflater
-        //return localInflater.inflate(R.layout.fragment_settings, (ViewGroup) root, false);// не ясно верен ли второй параметр
-        return  root;
+
+        return binding.getRoot();
     }
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        /*-----------------------------------------------------------------------------------------------*/
+        //Сохранение настроек размера веб-страницы
+        webSizePrefernces = getActivity().getSharedPreferences(WEB_SIZE, Context.MODE_PRIVATE);
+        webSizePrefernces.edit();
+        //устанавливаем сохраненноё значение на seekBar
+        if (webSizePrefernces.contains(WEB_SIZE)) {
+            binding.seekBarWeb.setProgress(Math.round(webSizePrefernces.getFloat(WEB_SIZE, 50) / 50));
+            Log.d(LOG_TAG, "WEB_SIZE " + webSizePrefernces.getFloat(WEB_SIZE, 50) / 50);
+        }
+
+
+        binding.seekBarWeb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //при прокрутке seekBar меняем размеры веб-страницы
+                SharedPreferences.Editor editor = webSizePrefernces.edit();
+                editor.putFloat(WEB_SIZE, webSizeFloat * progress);
+                Log.d(LOG_TAG, "WEB_SIZE new " + webSizeFloat * progress);
+                editor.apply();
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        /*-----------------------------------------------------------------------------------------------*/
+        //Обработка чек-бокса на загрузку веб-страниц(он/оф лайн)
+        //получаем сохраненное значение для загрузки веб-страниц
+        onlinePagePreferences = getActivity().getSharedPreferences(ONLINE_WEB_PAGES, Context.MODE_PRIVATE);
+        if (onlinePagePreferences.contains(ONLINE_WEB_PAGES)) {
+            binding.onlineCheckBox.setChecked(onlinePagePreferences.getBoolean(ONLINE_WEB_PAGES, false));
+            Log.d(LOG_TAG, "Selected " + onlinePagePreferences.getBoolean(ONLINE_WEB_PAGES, false));
+        }
+        binding.onlineCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SharedPreferences.Editor editor = onlinePagePreferences.edit();
+                editor.putBoolean(ONLINE_WEB_PAGES, isChecked);
+                Log.d(LOG_TAG, "isChecked " + isChecked);
+                editor.apply();
+            }
+        });
 
     }
 }
