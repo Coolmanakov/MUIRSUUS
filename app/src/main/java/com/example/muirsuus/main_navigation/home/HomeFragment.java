@@ -31,7 +31,7 @@ public class HomeFragment extends Fragment {
     private static final MutableLiveData<String> _name = new MutableLiveData<>();
     private static final LiveData<String> name = _name;
     private static FragmentHomeBinding binding;
-    private static final String[] titles = new String[]{"Литература", "Настройки", "Что-то ещё", "Что-то ещё", "Что-то ещё", "Что-то ещё", "Что-то ещё"};
+    private static final String[] titles = new String[]{"Литература", "Настройки", "Руководство по эксплуатации", "Что-то ещё", "Что-то ещё", "Что-то ещё", "Что-то ещё"};
     private static final int[] images = new int[]{R.drawable.kniga, R.drawable.gaechny_klyuch, R.drawable.apparatnai, R.drawable.ikonka_svyaz, R.drawable.kompyuter, R.drawable.lopata, R.drawable.palatka};
     private static StartAdapter adapter;
     private final List<CardClass> cards = new ArrayList<>();
@@ -60,8 +60,8 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ((MainActivity)getActivity()).resetActionBar(false,
-                DrawerLayout.LOCK_MODE_UNLOCKED);
+        ((MainActivity) getActivity()).resetActionBar(false,
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         binding.changePersonalData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,11 +86,14 @@ public class HomeFragment extends Fragment {
                     navController.navigate(R.id.action_navigation_home_to_litFragment);
                 } else if (clickItemIndex == 1) {
                     navController.navigate(R.id.action_navigation_home_to_settingsFragment);
+                } else if (clickItemIndex == 2) {
+                    navController.navigate(R.id.action_navigation_home_to_settingsFragment);
                 }
+
 
             }
         };
-        adapter = new StartAdapter(cards, listener);
+        adapter = new StartAdapter(cards, listener, getResources());
         binding.recycler.setAdapter(adapter);
 
     }

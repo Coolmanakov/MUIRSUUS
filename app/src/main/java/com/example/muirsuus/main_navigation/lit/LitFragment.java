@@ -1,7 +1,6 @@
 package com.example.muirsuus.main_navigation.lit;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,9 +9,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,11 +25,13 @@ import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.example.muirsuus.MainActivity;
 import com.example.muirsuus.R;
-import com.example.muirsuus.databinding.LitFragmentBinding;
-import com.example.muirsuus.databinding.PdfItemBinding;
+import com.example.muirsuus.adapters.BooksAdapter;
+import com.example.muirsuus.adapters.GridAdapter;
+import com.example.muirsuus.databinding.GridPdfItemBinding;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,103 +39,76 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class LitFragment extends Fragment {
 
     private static final String LOG_TAG = "mLog " + LitFragment.class.getCanonicalName();
     private static final int EXT_STORAGE_PERMISSION_CODE = 101;
-    private LitFragmentBinding binding;
-    private PdfItemBinding pdfBinding;
-    private String tmpFolder = "";
-    private List<String> list = new ArrayList<>();
-    private final BaseAdapter adapter = new BaseAdapter() {
+    private static final Comparator<books> ALPHABETICAL_COMPARATOR = new Comparator<books>() {
         @Override
-        public int getCount() {
-            return list.size();
-        }
-
-        @Override
-        public String getItem(int i) {
-            return list.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @SuppressLint("ViewHolder")
-        @Override
-        public View getView(int i, View view, ViewGroup parent) {
-
-
-            pdfBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.pdf_item, parent, false);
-
-            pdfBinding.txtFileName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // copy the file to external storage accessible by all
-                    copyFileFromAssets(list.get(i));
-
-
-                    // PDF reader code
-                    Uri uri = null;
-                    tmpFolder = getContext().getFilesDir() + File.separator;
-                    File file = new File(tmpFolder
-                            + list.get(i));
-                    Log.d(LOG_TAG, "file " + list.get(i) + " " + file.getAbsolutePath());
-
-                    uri = FileProvider.getUriForFile(getContext(),
-                            getString(R.string.file_provider_authority),
-                            file);
-                    Log.i(LOG_TAG, "Launching viewer " + list.get(i) + " " + file.getAbsolutePath());
-
-                    //Intent intent = new Intent(Intent.ACTION_VIEW, FileProvider.getUriForFile(v.getContext(), "org.eicsanjose.quranbasic.fileprovider", file));
-
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    //intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-                    intent.setDataAndType(uri, "application/pdf");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    try {
-                        Log.i(LOG_TAG, "Starting pdf viewer activity");
-                        startActivity(intent);
-                    } catch (ActivityNotFoundException e) {
-                        Log.e(LOG_TAG, e.getMessage());
-                    }
-                }
-            });
-
-
-            StringBuffer buffer = new StringBuffer(list.get(i));
-            buffer.delete(list.get(i).length() - 4, list.get(i).length()); //удаляем ".pdf" из исходной строки
-            String name = buffer.substring(0); //получаем конечное название книги
-            pdfBinding.txtFileName.setText(name.toUpperCase());
-//-----------------------------------------------------------
-            String[] arr = name.split(" ", 2);//разбиваем строку, чтобы получить первое слово из названия книги
-            arr[0] = arr[0].toLowerCase();
-            Log.d(LOG_TAG, "arr 0 = " + arr[0]);
-            //сравниваем первые слова с исходными и для каждого добавляем картинку
-            if (arr[0].equals("боевое")) {
-                pdfBinding.pdfImage.setImageResource(R.drawable.boevoe_primenenie);
-            } else if (arr[0].equals("каблирование")) {
-                pdfBinding.pdfImage.setImageResource(R.drawable.kablirovanie);
-            } else if (arr[0].equals("основы")) {
-                pdfBinding.pdfImage.setImageResource(R.drawable.osnov_postroenia);
-            } else if (arr[0].equals("техническая")) {
-                pdfBinding.pdfImage.setImageResource(R.drawable.boevoe_primenenie);
-            }
-            return pdfBinding.getRoot();
+        public int compare(books a, books b) {
+            return a.getBook_name().compareTo(b.getBook_name());
         }
     };
+    private String tmpFolder = "";
+    private final List<books> booksList = new ArrayList<>();
+    //private LitFragmentBinding binding;
+    //private PdfItemBinding pdfBinding;
+    private GridPdfItemBinding pdfItemBinding;
+    private List<String> booksNames = new ArrayList<>();
+    private GridAdapter gridAdapter;
+    private BooksAdapter.ListItemClickListener listener;
+    private BooksAdapter booksAdapter;
+    private LitViewModel litViewModel;
+    private List<String> booksPhotos;
+
+    private static List<books> filter(List<books> models, String query) {
+        final String lowerCaseQuery = query.toLowerCase();
+
+        final List<books> filteredModelList = new ArrayList<>();
+        for (books model : models) {
+            final String text = model.getBook_name().toLowerCase();
+            if (text.contains(lowerCaseQuery)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.lit_fragment, container, false);
-        return binding.getRoot();
+        pdfItemBinding = DataBindingUtil.inflate(inflater, R.layout.grid_pdf_item, container, false);
+        pdfItemBinding.setLifecycleOwner(this);
+        setHasOptionsMenu(true);
+        return pdfItemBinding.getRoot();
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super
+                .onRequestPermissionsResult(requestCode,
+                        permissions,
+                        grantResults);
+
+        Log.d(LOG_TAG, "Request for write permission to external storage result:" + permissions[0] + " " + grantResults[0]);
+        // Now let us make sure our cache dir exists. This would not work if user denied. But then again
+        // in that case the whole app will not work. Add error checking
+        File tmpDir = new File(tmpFolder);
+        if (!tmpDir.exists()) {
+            Log.d(LOG_TAG, "Tmp dir to store pdf does not exist");
+            tmpDir.mkdir();
+            Log.d(LOG_TAG, "Tmpdir created " + tmpDir.exists());
+        } else {
+            Log.d(LOG_TAG, "Tmpdir already exists " + tmpDir.exists());
+        }
+
     }
 
     @Override
@@ -160,74 +137,48 @@ public class LitFragment extends Fragment {
             // We were granted permission already before
             Log.d(LOG_TAG, "Already has permission to write to external storage");
         }
-        list = getPDFFromAssets();
-        binding.listView.setAdapter(adapter);
-    }
+        booksNames = getPDFFromAssets();
+
+        listener = new BooksAdapter.ListItemClickListener() {
+            @Override
+            public void OnItemClickListener(int i) {
+
+                // copy the file to external storage accessible by all
+                copyFileFromAssets("books/" + booksNames.get(i));
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super
-                .onRequestPermissionsResult(requestCode,
-                        permissions,
-                        grantResults);
+                // PDF reader code
+                Uri uri = null;
+                tmpFolder = getContext().getFilesDir() + File.separator;
+                File file = new File(tmpFolder
+                        + booksNames.get(i));
+                Log.d(LOG_TAG, "file " + booksNames.get(i) + " " + file.getAbsolutePath());
 
-        Log.d(LOG_TAG, "Request for write permission to external storage result:" + permissions[0] + " " + grantResults[0]);
-        // Now let us make sure our cache dir exists. This would not work if user denied. But then again
-        // in that case the whole app will not work. Add error checking
-        File tmpDir = new File(tmpFolder);
-        if (!tmpDir.exists()) {
-            Log.d(LOG_TAG, "Tmp dir to store pdf does not exist");
-            tmpDir.mkdir();
-            Log.d(LOG_TAG, "Tmpdir created " + tmpDir.exists());
-        } else {
-            Log.d(LOG_TAG, "Tmpdir already exists " + tmpDir.exists());
-        }
+                uri = FileProvider.getUriForFile(getContext(),
+                        getString(R.string.file_provider_authority),
+                        file);
+                Log.i(LOG_TAG, "Launching viewer " + booksNames.get(i) + " " + file.getAbsolutePath());
 
-    }
+                //Intent intent = new Intent(Intent.ACTION_VIEW, FileProvider.getUriForFile(v.getContext(), "org.eicsanjose.quranbasic.fileprovider", file));
 
-
-    private List<String> getPDFFromAssets() {
-        List<String> pdfFiles = new ArrayList<>();
-        AssetManager assetManager = getContext().getAssets();
-
-        try {
-            for (String name : assetManager.list("")) {
-                // include files which end with pdf only
-                if (name.toLowerCase().endsWith("pdf")) {
-
-                    pdfFiles.add(name);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                //intent.setDataAndType(Uri.fromFile(file), "application/pdf");
+                intent.setDataAndType(uri, "application/pdf");
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                try {
+                    Log.i(LOG_TAG, "Starting pdf viewer activity");
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    Log.e(LOG_TAG, e.getMessage());
                 }
             }
-        } catch (IOException ioe) {
-            Log.e(LOG_TAG, "Could not read files from assets folder");
-            Toast.makeText(getContext(),
-                    "Could not read files from assets folder",
-                    Toast.LENGTH_LONG)
-                    .show();
-        }
 
-        return pdfFiles;
+        };
+        setUpViewModel();
 
-       /* try {
-            File file = new File(path);
-            File[] fileList = file.listFiles();
-            String fileName;
-            for (File f : fileList) {
-                if (f.isDirectory()) {
-                    initList(f.getAbsolutePath());
-                } else {
-                    fileName = f.getName();
-                    if (fileName.endsWith(".pdf")) {
-                        list.add(new LitViewModel(fileName, f.getAbsolutePath()));
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+
     }
 
     private void copyFileFromAssets(String fileName) {
@@ -276,4 +227,96 @@ public class LitFragment extends Fragment {
         out.close();
     }
 
+    private List<String> getPDFFromAssets() {
+        List<String> pdfFiles = new ArrayList<>();
+        AssetManager assetManager = getContext().getAssets();
+
+        try {
+            for (String name : assetManager.list("books")) {
+                // include files which end with pdf only
+                if (name.toLowerCase().endsWith("pdf")) {
+
+                    pdfFiles.add(name);
+                }
+            }
+        } catch (IOException ioe) {
+            Log.e(LOG_TAG, "Could not read files from assets folder");
+            Toast.makeText(getContext(),
+                    "Could not read files from assets folder",
+                    Toast.LENGTH_LONG)
+                    .show();
+        }
+
+        return pdfFiles;
+
+       /* try {
+            File file = new File(path);
+            File[] fileList = file.listFiles();
+            String fileName;
+            for (File f : fileList) {
+                if (f.isDirectory()) {
+                    initList(f.getAbsolutePath());
+                } else {
+                    fileName = f.getName();
+                    if (fileName.endsWith(".pdf")) {
+                        list.add(new LitViewModel(fileName, f.getAbsolutePath()));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+    }
+
+    private void setUpViewModel() {
+        List<String> tmpBooks = getPDFFromAssets();
+        Collections.sort(tmpBooks);
+        for (int i = 0; i < tmpBooks.size(); i++) {
+            StringBuffer buffer = new StringBuffer(tmpBooks.get(i));
+            buffer.delete(tmpBooks.get(i).length() - 4, tmpBooks.get(i).length()); //удаляем ".pdf" из исходной строки
+            String name = buffer.substring(0); //получаем конечное название книги
+            tmpBooks.set(i, name);
+        }
+
+        litViewModel = new LitViewModel(getContext(), tmpBooks);
+        litViewModel.getPhotos().observe(pdfItemBinding.getLifecycleOwner(), new Observer<List<String>>() {
+            @Override
+            public void onChanged(List<String> strings) {
+
+
+                for (int i = 0; i < tmpBooks.size(); i++) {
+                    booksList.add(new books(tmpBooks.get(i), strings.get(i)));
+                }
+                booksAdapter = new BooksAdapter(getContext(), listener, booksList, ALPHABETICAL_COMPARATOR);
+                pdfItemBinding.recycler.setAdapter(booksAdapter);
+
+            }
+        });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+
+        final MenuItem searchItem = menu.findItem(R.id.search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                final List<books> filteredModelList = filter(booksList, query);
+                booksAdapter.replaceAll(filteredModelList);
+                booksAdapter.setBooks(filteredModelList);
+                pdfItemBinding.recycler.setAdapter(booksAdapter);
+                pdfItemBinding.recycler.scrollToPosition(0);
+                return true;
+            }
+        });
+    }
 }

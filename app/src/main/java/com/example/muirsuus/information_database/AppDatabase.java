@@ -7,13 +7,15 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.muirsuus.main_navigation.lit.books;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-@Database(entities = {section.class, subsection.class, point.class, information.class, presubsection.class}, version = 4, exportSchema = false)
+@Database(entities = {section.class, subsection.class, point.class, information.class, presubsection.class, books.class}, version = 5, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static final String LOG_TAG = "mLog";
     private static final String DB_NAME = "annotated_db2.db";

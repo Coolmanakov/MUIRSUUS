@@ -40,7 +40,9 @@ public interface InformationDAO {
     @Query("SELECT * FROM point WHERE point = :point")
     point getPoint(String point);
 
-
+    @Transaction
+    @Query("SELECT book_photo FROM books WHERE book_name = :bookName")
+    String getBookPhoto(String bookName);
 
 
 }
