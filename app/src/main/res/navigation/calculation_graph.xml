@@ -72,7 +72,12 @@
         android:name="com.example.muirsuus.main_navigation.calculation.SubscriberNetwork.SubscriberNetworkFragment1"
         android:label="Подключаемые устройства">
         <action
-            android:id="@+id/subscriber_network_1_to_2"
+            android:id="@+id/subscriber_network_1_backward"
+            app:destination="@id/choose_calc"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
+        <action
+            android:id="@+id/subscriber_network_1_forward"
             app:destination="@id/subscriber_network_fragment_2"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit" />
@@ -82,7 +87,12 @@
         android:name="com.example.muirsuus.main_navigation.calculation.SubscriberNetwork.SubscriberNetworkFragment2"
         android:label="Параметры устройств">
         <action
-            android:id="@+id/subscriber_network_2_to_3"
+            android:id="@+id/subscriber_network_2_backward"
+            app:destination="@id/subscriber_network_fragment_1"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
+        <action
+            android:id="@+id/subscriber_network_2_forward"
             app:destination="@id/subscriber_network_fragment_3"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit" />
@@ -90,5 +100,16 @@
     <fragment
         android:id="@+id/subscriber_network_fragment_3"
         android:name="com.example.muirsuus.main_navigation.calculation.SubscriberNetwork.SubscriberNetworkFragment3"
-        android:label="Расчёт абонентской сети" />
+        android:label="Расчёт абонентской сети">
+        <action
+            android:id="@+id/subscriber_network_3_backward"
+            app:destination="@id/subscriber_network_fragment_2"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
+        <action
+            android:id="@+id/subscriber_network_3_end"
+            app:destination="@id/choose_calc"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
+    </fragment>
 </navigation>

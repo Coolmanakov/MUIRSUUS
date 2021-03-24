@@ -24,23 +24,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.muirsuus.R;
 import com.example.muirsuus.adapters.CommonSpinnerAdapter;
-import com.example.muirsuus.classes.LiveDataList;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class SubscriberNetworkFragment2 extends Fragment {
     SubscriberNetworkViewModel viewModel;
+    List<DeviceRoomInfo> deviceRoomList = new LinkedList<>();
+    View forwardButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +50,9 @@ public class SubscriberNetworkFragment2 extends Fragment {
 
         viewModel = new ViewModelProvider(requireActivity()).get(SubscriberNetworkViewModel.class);
 
+        forwardButton = view.findViewById(R.id.forward_button_2);
+
+        // Setting Recyclers View
         RecyclerView deviceRecyclerView = view.findViewById(R.id.device_recycler_view);
         deviceRecyclerView.setLayoutManager(new LinearLayoutManager(
                 requireContext(),
@@ -60,16 +61,15 @@ public class SubscriberNetworkFragment2 extends Fragment {
         deviceRecyclerView.addItemDecoration(new DividerItemDecoration(
                 requireContext(),
                 RecyclerView.VERTICAL));
-
         DeviceRecyclerAdapter deviceRecyclerAdapter =
                 new DeviceRecyclerAdapter(requireContext(), getViewLifecycleOwner());
         deviceRecyclerView.setAdapter(deviceRecyclerAdapter);
-
         viewModel.deviceRecyclerList.observe(
                 getViewLifecycleOwner(),
-                list -> deviceRecyclerAdapter.notifyDataSetChanged()
+                deviceRecyclerList -> deviceRecyclerAdapter.notifyDataSetChanged()
         );
 
+        // Updating Recyclers list
         viewModel.deviceMap.observe(
                 getViewLifecycleOwner(),
                 deviceMap -> {
@@ -121,115 +121,112 @@ public class SubscriberNetworkFragment2 extends Fragment {
                     viewModel.deviceRecyclerList.setValue(deviceRecyclerList);
                 }
         );
-
-        view.findViewById(R.id.transition_button_2).setOnClickListener(v -> {
-                    Navigation.findNavController(view).navigate(R.id.subscriber_network_2_to_3);
-                }
+        viewModel.deviceRecyclerList.observe(
+                getViewLifecycleOwner(),
+                list -> deviceRecyclerAdapter.notifyDataSetChanged()
         );
+
+        forwardButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.subscriber_network_2_forward));
+        view.findViewById(R.id.backward_button_2).setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.subscriber_network_2_backward));
     }
 
     private class DeviceRecyclerAdapter extends RecyclerView.Adapter<DeviceRecyclerAdapter.DeviceItemViewHolder> {
         Context context;
-        LifecycleOwner lifecycleOwner;
 
         public DeviceRecyclerAdapter(Context context, LifecycleOwner lifecycleOwner) {
             this.context = context;
-            this.lifecycleOwner = lifecycleOwner;
         }
 
         @NonNull
         @Override
         public DeviceItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new DeviceItemViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.device_recycler_item, parent, false)) {{
-                setIsRecyclable(false);
-            }};
+                    .inflate(R.layout.device_recycler_item, parent, false));
         }
 
         @Override
         public void onBindViewHolder(@NonNull DeviceItemViewHolder holder, int position) {
             DeviceInfo deviceInfo = viewModel.deviceRecyclerList.get(position);
-            String title = deviceInfo.title;
-            holder.deviceName.setText(title);
+            holder.deviceName.setText(deviceInfo.title);
 
             if (deviceInfo.isHeader) {
                 holder.layout.setBackgroundResource(R.color.highlight);
-
                 holder.cableLength.setVisibility(View.GONE);
                 holder.deviceRoomSpinner.setVisibility(View.GONE);
                 holder.deviceRoomIndex.setVisibility(View.GONE);
             } else {
-                holder.editTextListener.setEditText(position);
+                holder.layout.setBackgroundResource(R.color.white);
+                holder.cableLength.setVisibility(View.VISIBLE);
+                holder.deviceRoomSpinner.setVisibility(View.VISIBLE);
+                holder.deviceRoomIndex.setVisibility(View.VISIBLE);
 
+                holder.editTextListener.setEditText(position);
                 if (deviceInfo.cableLength != null && deviceInfo.cableLength != 0)
                     holder.cableLength.setText(formatIntToString(deviceInfo.cableLength));
 
-                List<String> deviceRooms =
-                        SubscriberNetworkRepository.deviceRoomMap.entrySet().stream()
-                                .filter(x -> x.getValue().containsKey(title))
-                                .map(Map.Entry::getKey)
-                                .collect(Collectors.toList());
-
+                List<String> deviceRooms = viewModel.getDeviceRoomListWithDevice(deviceInfo.title);
                 holder.deviceRoomSpinner.setAdapter(new CommonSpinnerAdapter(
                         context,
                         deviceRooms,
                         "Аппаратная"
                 ));
-
+                if (deviceInfo.deviceRoom != null)
+                    holder.deviceRoomSpinner.setSelection(
+                            deviceRooms.indexOf(deviceInfo.deviceRoom) + 1);
                 holder.deviceRoomSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int var3, long var4) {
-                        if (adapterView.getSelectedItem() == null) return;
+                        if (adapterView.getSelectedItem() == null) {
+                            holder.deviceRoomIndex.setVisibility(View.INVISIBLE);
+                            return;
+                        }
 
+                        AtomicBoolean onBind = new AtomicBoolean(false);
+
+                        holder.deviceRoomIndex.setVisibility(View.VISIBLE);
                         deviceInfo.deviceRoom = adapterView.getSelectedItem().toString();
-
-                        List<String> deviceRoomIndices = createIndicesList(deviceInfo);
-
+                        deviceInfo.updateAvailableDeviceRooms();
                         CommonSpinnerAdapter adapter = new CommonSpinnerAdapter(
                                 context,
-                                deviceRoomIndices,
+                                deviceInfo.availableDeviceRooms,
                                 "Номер аппаратной");
                         holder.deviceRoomIndex.setAdapter(adapter);
-
                         holder.deviceRoomIndex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int var3, long var4) {
+                                if (onBind.get()) return;
                                 if (holder.deviceRoomIndex.getSelectedItem() == null) return;
 
                                 String[] selectedIndex = holder.deviceRoomIndex.getSelectedItem()
                                         .toString()
                                         .split(" ");
 
+                                if (selectedIndex.length == 3)
+                                    deviceRoomList.add(new DeviceRoomInfo(deviceInfo.deviceRoom, selectedIndex[0]));
+
+                                Stream<DeviceRoomInfo> aaa = deviceRoomList.stream()
+                                        .filter(x -> {
+                                            Log.d("SN_2", x.name.equals(deviceInfo.deviceRoom) + "");
+                                            Log.d("SN_2", x.index.equals(selectedIndex[0]) + "");
+                                            return x.name.equals(deviceInfo.deviceRoom) && x.index.equals(selectedIndex[0]);
+                                        });
+                                DeviceRoomInfo deviceRoom = deviceRoomList.stream()
+                                        .filter(x -> x.name.equals(deviceInfo.deviceRoom)
+                                                && x.index.equals(selectedIndex[0]))
+                                        .findAny()
+                                        .orElse(null);
+
+                                if (deviceRoom == null
+                                        || deviceInfo.deviceRoomInfo != null
+                                        && deviceInfo.deviceRoomInfo.equals(deviceRoom))
+                                    return;
+
                                 if (deviceInfo.deviceRoomInfo != null)
                                     deviceInfo.deviceRoomInfo.disconnectDevice(deviceInfo);
+                                deviceRoom.connectDevice(deviceInfo);
+                                updateDeviceRoomList();
 
-                                if (selectedIndex.length != 1) {
-                                    int newIndex = findNewIndex(deviceInfo.deviceRoom);
-
-                                    deviceInfo.deviceRoomInfo = new DeviceRoomInfo(
-                                            deviceInfo.deviceRoom,
-                                            selectedIndex[0]);
-                                    viewModel.deviceRoomList.add(
-                                            newIndex - 1,
-                                            deviceInfo.deviceRoomInfo);
-
-                                    deviceRoomIndices.clear();
-                                    deviceRoomIndices.addAll(createIndicesList(deviceInfo));
-                                    adapter.notifyDataSetChanged();
-
-                                    holder.deviceRoomIndex.setSelection(
-                                            deviceRoomIndices.indexOf(selectedIndex[0]) + 1);
-                                } else {
-                                    deviceInfo.deviceRoomInfo = viewModel.deviceRoomList.getValue().stream()
-                                            .filter(x ->
-                                                    x.name.equals(deviceInfo.deviceRoom)
-                                                            && x.index.equals(selectedIndex[0]))
-                                            .findFirst()
-                                            .orElse(null);
-                                }
-
-                                if (deviceInfo.deviceRoomInfo != null)
-                                    deviceInfo.deviceRoomInfo.connectDevice(deviceInfo);
+                                checkRecycler();
                             }
 
                             @Override
@@ -240,21 +237,17 @@ public class SubscriberNetworkFragment2 extends Fragment {
 
                         viewModel.deviceRoomList.observe(
                                 getViewLifecycleOwner(),
-                                deviceRoomList -> {
-                                    int selectedPosition = holder.deviceRoomIndex.getSelectedItemPosition();
-                                    String selectedIndex = (String) holder.deviceRoomIndex.getSelectedItem();
-                                    if (selectedIndex == null) return;
-                                    deviceRoomIndices.clear();
-                                    deviceRoomIndices.addAll(createIndicesList(deviceInfo));
+                                deviceRoomInfoList -> {
+                                    onBind.set(true);
+                                    deviceInfo.updateAvailableDeviceRooms();
                                     adapter.notifyDataSetChanged();
-                                    if (selectedPosition != 0)
-                                        selectedPosition = deviceRoomIndices.indexOf(selectedIndex);
-                                    holder.deviceRoomIndex.setSelection(selectedPosition + 1);
-                                });
-
-                        if (deviceInfo.deviceRoomInfo != null)
-                            holder.deviceRoomIndex.setSelection(
-                                    deviceRoomIndices.indexOf(deviceInfo.deviceRoomInfo.index) + 1);
+                                    if (deviceInfo.deviceRoomInfo != null)
+                                        holder.deviceRoomIndex.setSelection(
+                                                deviceInfo.availableDeviceRooms
+                                                        .indexOf(deviceInfo.deviceRoomInfo.index) + 1);
+                                    onBind.set(false);
+                                }
+                        );
                     }
 
                     @Override
@@ -262,10 +255,6 @@ public class SubscriberNetworkFragment2 extends Fragment {
                         //DO NOTHING
                     }
                 });
-
-                if (deviceInfo.deviceRoom != null)
-                    holder.deviceRoomSpinner.setSelection(
-                            deviceRooms.indexOf(deviceInfo.deviceRoom) + 1);
             }
         }
 
@@ -308,6 +297,7 @@ public class SubscriberNetworkFragment2 extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
                 DeviceInfo itemInfo = viewModel.deviceRecyclerList.get(position);
                 itemInfo.cableLength = Integer.parseInt(charSequence.toString());
+                checkRecycler();
             }
 
             @Override
@@ -327,101 +317,95 @@ public class SubscriberNetworkFragment2 extends Fragment {
         String title;
         Integer cableLength;
         String deviceRoom;
+        List<String> availableDeviceRooms = new LinkedList<>();
         DeviceRoomInfo deviceRoomInfo;
 
         DeviceInfo(String title, boolean isHeader) {
             this.title = title;
             this.isHeader = isHeader;
         }
+
+        public void updateAvailableDeviceRooms() {
+            if (deviceRoom == null) return;
+            availableDeviceRooms.clear();
+            List<DeviceRoomInfo> deviceRooms =
+                    viewModel.deviceRoomList.getValue().stream()
+                            .filter(x -> x.name.equals(deviceRoom))
+                            .collect(Collectors.toList());
+            for (DeviceRoomInfo d : deviceRooms)
+                if (d.availableDevices.get(title) > d.usedDevices.get(title)
+                        || d.connectedDevices.contains(this))
+                    availableDeviceRooms.add(d.index);
+
+            Integer newIndex = 1;
+            List<String> indices = viewModel.deviceRoomList.getValue().stream()
+                    .filter(x -> x.name.equals(deviceRoom))
+                    .map(x -> x.index)
+                    .collect(Collectors.toList());
+            while (indices.contains(newIndex.toString()))
+                newIndex++;
+            availableDeviceRooms.add(newIndex + " (Новая сеть)");
+        }
     }
 
     public class DeviceRoomInfo {
         String name;
         String index;
+
+        List<DeviceInfo> connectedDevices = new LinkedList<>();
         Map<String, Integer> availableDevices;
         Map<String, Integer> usedDevices;
 
         DeviceRoomInfo(String name, String index) {
             this.name = name;
             this.index = index;
-            availableDevices = SubscriberNetworkRepository.deviceRoomMap.get(name);
-            usedDevices = availableDevices.keySet().stream().collect(Collectors.toMap(e -> e, e -> 0));
+            availableDevices = viewModel.getDeviceEntryByDeviceRoom(name);
+            usedDevices =
+                    availableDevices.keySet().stream().collect(Collectors.toMap(e -> e, e -> 0));
         }
 
         public void connectDevice(DeviceInfo deviceInfo) {
+            connectedDevices.add(deviceInfo);
             int connectedDevices = usedDevices.get(deviceInfo.title);
             usedDevices.put(deviceInfo.title, connectedDevices + 1);
-            if (usedDevices.entrySet().stream()
-                    .anyMatch(x -> x.getValue() >= availableDevices.get(x.getKey())))
-                viewModel.deviceRoomList.setValue(viewModel.deviceRoomList.getValue());
             deviceInfo.deviceRoomInfo = this;
         }
 
         public void disconnectDevice(DeviceInfo deviceInfo) {
+            connectedDevices.remove(deviceInfo);
             int connectedDevices = usedDevices.get(deviceInfo.title);
-            usedDevices.put(deviceInfo.title, Integer.max(0, connectedDevices - 1));
-            if (deviceInfo.deviceRoomInfo.usedDevices.entrySet().stream()
-                    .allMatch(x -> x.getValue() <= 0))
-                viewModel.deviceRoomList.remove(deviceInfo.deviceRoomInfo);
+            usedDevices.put(deviceInfo.title, connectedDevices - 1);
             deviceInfo.deviceRoomInfo = null;
         }
     }
 
+    private void updateDeviceRoomList() {
+        viewModel.deviceRoomList.setValue(deviceRoomList.stream()
+                .filter(x -> x.usedDevices.entrySet().stream()
+                        .anyMatch(y -> y.getValue() > 0))
+                .collect(Collectors.toList()));
+        deviceRoomList = viewModel.deviceRoomList.getValue();
+    }
+
+    private void checkRecycler() {
+        List<DeviceInfo> deviceRecyclerList = viewModel.deviceRecyclerList.getValue();
+
+        if (deviceRecyclerList == null) return;
+
+        if (!deviceRecyclerList.isEmpty()
+                && deviceRecyclerList
+                .stream()
+                .filter(x -> !x.isHeader)
+                .noneMatch(
+                        x -> x.deviceRoom == null
+                                || x.cableLength == null
+                                || x.deviceRoomInfo == null))
+            forwardButton.setVisibility(View.VISIBLE);
+        else
+            forwardButton.setVisibility(View.INVISIBLE);
+    }
+
     private String formatIntToString(int i) {
         return String.format(Locale.ENGLISH, "%d", i);
-    }
-
-    private int findNewIndex(String deviceRoom) {
-        int newIndex = 1;
-
-        List<String> indices = viewModel.deviceRoomList.getValue().stream()
-                .filter(x -> x.name.equals(deviceRoom))
-                .map(x -> x.index)
-                .collect(Collectors.toList());
-
-        for (String index : indices) {
-            if (newIndex < Integer.parseInt(index))
-                return newIndex;
-            else
-                newIndex++;
-        }
-
-        return newIndex;
-    }
-
-    private List<DeviceRoomInfo> getSuitableDeviceRooms(DeviceInfo deviceInfo) {
-        return viewModel.deviceRoomList.getValue().stream()
-                .filter(x -> {
-                    Integer a = x.availableDevices.get(deviceInfo.title);
-                    return a != null
-                            && (a > x.usedDevices.get(deviceInfo.title)
-                            || x.equals(deviceInfo.deviceRoomInfo));
-                })
-                .collect(Collectors.toList());
-    }
-
-    private List<String> createIndicesList(DeviceInfo deviceInfo) {
-        List<String> indices = getSuitableDeviceRooms(deviceInfo).stream()
-                .map(x -> x.index)
-                .sorted(Comparator.comparingInt(Integer::parseInt))
-                .collect(Collectors.toList());
-
-        int newIndex = 1;
-        for (String index : viewModel.deviceRoomList.getValue().stream()
-                .filter(x -> x.availableDevices.containsKey(deviceInfo.title))
-                .map(x -> x.index)
-                .collect(Collectors.toList()))
-            if (newIndex < Integer.parseInt(index))
-                break;
-            else
-                newIndex++;
-
-            int i = 0;
-            while (i < indices.size()) {
-                if (Integer.parseInt(indices.get(i++)) < newIndex) break;
-            }
-        indices.add(i, newIndex + " (Новая сеть)");
-
-        return indices;
     }
 }

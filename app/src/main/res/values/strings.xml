@@ -226,7 +226,9 @@
     <string name="division_type">Тип воинского формирования</string>
     <string name="control_point_type">Тип пункта управления</string>
     <string name="officials_type">Категории должностных лиц</string>
-    <string name="transition_button_text">Далее</string>
+    <string name="backward_button_text">Назад</string>
+    <string name="forward_button_text">Далее</string>
+    <string name="end_button_text">Закончить расчеты</string>
     <string name="spinner_header">Выбрать</string>
     <string name="unused_devices">Оставшееся оборудованиие:</string>
     <string name="device_default_name">Device</string>
@@ -240,7 +242,6 @@
     <string name="device_room_index_default">Аппаратная №</string>
     <string name="cable_length_default">Длина кабеля, м</string>
     <string name="estimated_time">%f мин</string>
-
 
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">

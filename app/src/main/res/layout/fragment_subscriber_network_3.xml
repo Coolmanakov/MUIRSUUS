@@ -1,65 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Рассчетное время:"
-        android:textSize="28sp"/>
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/estimated_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="40dp"
+        android:gravity="center"
         android:text="--"
         android:textColor="@color/Black"
-        android:gravity="center"
-        android:textSize="65sp"/>
+        android:textSize="65sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/laying_speed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Скорость прокладки, м/мин"
+        android:importantForAutofill="no"
         android:inputType="number"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/estimated_time"
+        tools:layout_editor_absoluteX="0dp" />
 
     <EditText
         android:id="@+id/personnel_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Количество личного состава"
+        android:importantForAutofill="no"
         android:inputType="numberDecimal"
-        android:importantForAutofill="no" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/laying_speed" />
 
     <Spinner
         android:id="@+id/relief"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/spinner_item_height" />
+        android:layout_height="@dimen/spinner_item_height"
+        app:layout_constraintTop_toBottomOf="@+id/personnel_number"
+        tools:layout_editor_absoluteX="-16dp" />
 
     <Spinner
         android:id="@+id/terrain"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/spinner_item_height" />
+        android:layout_height="@dimen/spinner_item_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relief" />
 
     <Spinner
         android:id="@+id/temperature"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/spinner_item_height" />
+        android:layout_height="@dimen/spinner_item_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/terrain" />
 
     <Spinner
         android:id="@+id/snow"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/spinner_item_height" />
+        android:layout_height="@dimen/spinner_item_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/temperature" />
 
     <Spinner
         android:id="@+id/wind"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/spinner_item_height" />
+        android:layout_height="@dimen/spinner_item_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/snow" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/backward_button_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/backward_button_text"
+        android:layout_margin="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/end_button_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:text="@string/end_button_text"
+        android:layout_margin="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

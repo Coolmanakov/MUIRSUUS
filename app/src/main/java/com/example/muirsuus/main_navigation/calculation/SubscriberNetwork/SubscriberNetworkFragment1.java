@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
@@ -27,14 +28,14 @@ import com.example.muirsuus.classes.OnlyOnItemSelectedListener;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SubscriberNetworkFragment1 extends Fragment {
     SubscriberNetworkViewModel viewModel;
+    Spinner divisionTypeSpinner;
+    Spinner officialsTypeSpinner;
+    View forwardButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,29 +47,41 @@ public class SubscriberNetworkFragment1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(requireActivity()).get(SubscriberNetworkViewModel.class);
+        viewModel.initDatabase(getContext());
 
-        Spinner divisionTypeSpinner = view.findViewById(R.id.division_type_spinner);
-        Spinner officialsTypeSpinner = view.findViewById(R.id.official_type_spinner);
-        RecyclerView officialRecyclerView = view.findViewById(R.id.official_recycler_view);
+        forwardButton = view.findViewById(R.id.forward_button_1);
 
-        List<String> divisionTypeList = SubscriberNetworkRepository.divisionList;
-
+        // Setting Division Spinner
+        divisionTypeSpinner = view.findViewById(R.id.division_type_spinner);
         divisionTypeSpinner.setAdapter(new CommonSpinnerAdapter(
                 requireContext(),
-                divisionTypeList,
+                viewModel.getDivisionList(),
                 "Категория командного пункта"));
-
         divisionTypeSpinner.setOnItemSelectedListener(new OnlyOnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                viewModel.divisionType.setValue((String) adapterView.getSelectedItem());
+                viewModel.setDivision((String) adapterView.getSelectedItem());
             }
         });
 
-        if (viewModel.getDivisionType() != null)
-            divisionTypeSpinner.setSelection(
-                    divisionTypeList.indexOf(viewModel.getDivisionType()) + 1);
+        // Setting Official Spinner
+        officialsTypeSpinner = view.findViewById(R.id.official_type_spinner);
+        viewModel.divisionType.observe(
+                getViewLifecycleOwner(),
+                divisionType -> {
+                    if (divisionType != null) {
+                        officialsTypeSpinner.setVisibility(View.VISIBLE);
+                        officialsTypeSpinner.setAdapter(new CheckableSpinnerAdapter(
+                                requireContext(),
+                                viewModel.getOfficialListByDivision(),
+                                viewModel.officialType,
+                                "Категории должностных лиц"));
+                    } else
+                        officialsTypeSpinner.setVisibility(View.INVISIBLE);
+                });
 
+        // Setting Official -> Devices Recycler
+        RecyclerView officialRecyclerView = view.findViewById(R.id.official_recycler_view);
         officialRecyclerView.setLayoutManager(new LinearLayoutManager(
                 requireContext(),
                 RecyclerView.VERTICAL,
@@ -79,23 +92,6 @@ public class SubscriberNetworkFragment1 extends Fragment {
         OfficialRecyclerAdapter officialRecyclerAdapter =
                 new OfficialRecyclerAdapter(requireContext(), getViewLifecycleOwner());
         officialRecyclerView.setAdapter(officialRecyclerAdapter);
-
-        viewModel.divisionType.observe(
-                getViewLifecycleOwner(),
-                divisionType -> {
-                    viewModel.officialRecyclerList.clear();
-
-                    if (divisionType != null) {
-                        officialsTypeSpinner.setVisibility(View.VISIBLE);
-                        officialsTypeSpinner.setAdapter(new CheckableSpinnerAdapter(
-                                requireContext(),
-                                SubscriberNetworkRepository.officialMap.get(divisionType),
-                                viewModel.officialType,
-                                "Категории должностных лиц"));
-                    } else
-                        officialsTypeSpinner.setVisibility(View.INVISIBLE);
-                });
-
         viewModel.officialType.observe(
                 getViewLifecycleOwner(),
                 officialType -> {
@@ -121,10 +117,22 @@ public class SubscriberNetworkFragment1 extends Fragment {
 
                     officialRecyclerAdapter.notifyDataSetChanged();
                 });
-
-        view.findViewById(R.id.transition_button_1).setOnClickListener(v ->
-                Navigation.findNavController(view).navigate(R.id.subscriber_network_1_to_2)
+        viewModel.officialRecyclerList.observe(
+                getViewLifecycleOwner(),
+                list -> checkRecycler()
         );
+
+        forwardButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.subscriber_network_1_forward));
+        view.findViewById(R.id.backward_button_1).setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.subscriber_network_1_backward));
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (viewModel.divisionType.getValue() != null)
+            divisionTypeSpinner.setSelection(
+                    viewModel.getDivisionList().indexOf(viewModel.divisionType.getValue()) + 1);
     }
 
     private class OfficialRecyclerAdapter extends RecyclerView.Adapter<OfficialRecyclerAdapter.OfficialItemViewHolder> {
@@ -173,7 +181,7 @@ public class SubscriberNetworkFragment1 extends Fragment {
 
                 deviceSpinner.setAdapter(new CheckableSpinnerAdapter(
                         context,
-                        SubscriberNetworkRepository.deviceList,
+                        viewModel.getDeviceList(),
                         officialInfo.deviceList,
                         "Устройства"));
                 officialInfo.deviceList.observe(
@@ -187,6 +195,8 @@ public class SubscriberNetworkFragment1 extends Fragment {
                                 else
                                     deviceMap.put(officialInfo.title, deviceList);
                             }
+
+                            checkRecycler();
                         }
                 );
             }
@@ -213,4 +223,17 @@ public class SubscriberNetworkFragment1 extends Fragment {
         }
     }
 
+    private void checkRecycler() {
+        List<OfficialInfo> officialRecyclerList = viewModel.officialRecyclerList.getValue();
+
+        if (officialRecyclerList == null) return;
+
+        if (!officialRecyclerList.isEmpty()
+                && officialRecyclerList
+                .stream()
+                .noneMatch(x -> x.deviceList.isEmpty()))
+            forwardButton.setVisibility(View.VISIBLE);
+        else
+            forwardButton.setVisibility(View.INVISIBLE);
+    }
 }
