@@ -10,7 +10,7 @@
         android:id="@+id/official_name"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="5"
+        android:layout_weight="3"
         android:gravity="center_vertical"
         android:paddingHorizontal="10dp"
         android:text="@string/official_default_name"
@@ -21,5 +21,8 @@
         android:id="@+id/device_spinner"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="4" />
+        android:layout_weight="4"
+        android:layout_marginEnd="10dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/button_inf_style" />
 </LinearLayout>

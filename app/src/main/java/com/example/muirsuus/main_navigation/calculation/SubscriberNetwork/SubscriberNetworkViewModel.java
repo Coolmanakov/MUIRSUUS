@@ -73,6 +73,10 @@ public class SubscriberNetworkViewModel extends ViewModel {
         return nonNullListIOThread(() -> databaseInstance.dao().getAllDivisions());
     }
 
+    public String getDivisionByOfficial(String official) {
+        return nullableIOThread(() -> databaseInstance.dao().getDivisionByOfficial(official));
+    }
+
     public List<String> getOfficialListByDivision() {
         return nonNullListIOThread(() -> databaseInstance.dao().getOfficialByDivision(divisionType.getValue()));
     }

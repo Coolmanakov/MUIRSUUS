@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'androidx.navigation.safeargs'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         // Required when setting minSdkVersion to 20 or lower
         multiDexEnabled true
@@ -28,7 +28,7 @@ android {
     defaultConfig {
         applicationId "com.example.muirsuus"
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -105,6 +105,6 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.1'
     implementation 'org.jetbrains:annotations:13.0'
 
-
+    implementation 'org.apache.poi:poi:5.0.0'
 
 }

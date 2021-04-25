@@ -1,6 +1,13 @@
 package com.example.muirsuus.main_navigation.calculation.SubscriberNetwork;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -8,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +24,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
@@ -23,13 +32,22 @@ import androidx.navigation.Navigation;
 import com.example.muirsuus.R;
 import com.example.muirsuus.adapters.CommonSpinnerAdapter;
 import com.example.muirsuus.classes.OnlyOnItemSelectedListener;
+import com.google.android.material.snackbar.Snackbar;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 public class SubscriberNetworkFragment3 extends Fragment {
@@ -62,6 +80,13 @@ public class SubscriberNetworkFragment3 extends Fragment {
 
         layingSpeed.addTextChangedListener(new EditTextListener(LAYING_SPEED));
         personnelNumber.addTextChangedListener(new EditTextListener(PERSONNEL_NUMBER));
+
+        personnelNumber.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                personnelNumber.clearFocus();
+            }
+            return false;
+        });
 
         reliefSpinner.setAdapter(new CommonSpinnerAdapter(
                 requireContext(),
@@ -170,7 +195,128 @@ public class SubscriberNetworkFragment3 extends Fragment {
         if (viewModel.wind.getValue() != null)
             windSpinner.setSelection(windList.indexOf(viewModel.wind.getValue()) + 1);
 
+        view.findViewById(R.id.save_button_3).setOnClickListener(v -> {
+            layingSpeed.clearFocus();
+            personnelNumber.clearFocus();
+
+            View saveReportView = LayoutInflater.from(requireContext()).inflate(R.layout.popup_save_report, null);
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(requireContext());
+
+            dialogBuilder.setView(saveReportView);
+
+            dialogBuilder
+                    .setCancelable(false)
+                    .setTitle("Укажите название файла")
+                    .setPositiveButton("Сохранить", (dialog, id) -> {
+
+                        ActivityCompat.requestPermissions(
+                                requireActivity(),
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                PackageManager.PERMISSION_GRANTED);
+
+                        HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
+
+                        HSSFSheet deviceListSheet = hssfWorkbook.createSheet();
+                        hssfWorkbook.setSheetName(hssfWorkbook.getSheetIndex(deviceListSheet), "Список устройств");
+
+                        deviceListSheet.setColumnWidth(0, 8000);
+                        deviceListSheet.setColumnWidth(1, 8000);
+                        deviceListSheet.setColumnWidth(2, 4000);
+                        deviceListSheet.setColumnWidth(3, 4000);
+                        deviceListSheet.setColumnWidth(4, 4000);
+                        deviceListSheet.setColumnWidth(5, 4000);
+
+                        HSSFRow titleRow = deviceListSheet.createRow(0);
+                        titleRow.createCell(0).setCellValue("Должностное лицо");
+                        titleRow.createCell(1).setCellValue("Подразделение");
+                        titleRow.createCell(2).setCellValue("Устройство");
+                        titleRow.createCell(3).setCellValue("Аппаратная");
+                        titleRow.createCell(4).setCellValue("№ Аппаратной");
+                        titleRow.createCell(5).setCellValue("Длина кабеля");
+
+                        int i = 1;
+                        for (SubscriberNetworkFragment2.DeviceRoomInfo deviceRoom : viewModel.deviceRoomList.getValue()) {
+                            for (SubscriberNetworkFragment2.DeviceInfo device : deviceRoom.connectedDevices) {
+                                String official = device.official;
+
+                                HSSFRow deviceRow = deviceListSheet.createRow(i++);
+                                deviceRow.createCell(0).setCellValue(official);
+                                deviceRow.createCell(1).setCellValue(viewModel.getDivisionByOfficial(official));
+                                deviceRow.createCell(2).setCellValue(device.title);
+                                deviceRow.createCell(3).setCellValue(deviceRoom.name);
+                                deviceRow.createCell(4).setCellValue(Integer.parseInt(deviceRoom.index));
+                                deviceRow.createCell(5).setCellValue(device.cableLength);
+                            }
+                        }
+
+                        HSSFSheet calculationSheet = hssfWorkbook.createSheet();
+                        hssfWorkbook.setSheetName(hssfWorkbook.getSheetIndex(calculationSheet), "Результаты вычислений");
+
+                        calculationSheet.setColumnWidth(0, 8000);
+                        calculationSheet.setColumnWidth(1, 12000);
+
+                        HSSFRow layingSpeedRow = calculationSheet.createRow(0);
+                        layingSpeedRow.createCell(0).setCellValue("Скорость прокладки, м/мин");
+                        layingSpeedRow.createCell(1).setCellValue(layingSpeed.getText().toString());
+
+                        HSSFRow personnelNumberRow = calculationSheet.createRow(1);
+                        personnelNumberRow.createCell(0).setCellValue("Количество личного состава");
+                        personnelNumberRow.createCell(1).setCellValue(personnelNumber.getText().toString());
+
+                        HSSFRow reliefRow = calculationSheet.createRow(2);
+                        reliefRow.createCell(0).setCellValue("Рельеф местности");
+                        reliefRow.createCell(1).setCellValue(viewModel.relief.getValue());
+
+                        HSSFRow terrainRow = calculationSheet.createRow(3);
+                        terrainRow.createCell(0).setCellValue("Характер местности");
+                        terrainRow.createCell(1).setCellValue(viewModel.terrain.getValue());
+
+                        HSSFRow temperatureRow = calculationSheet.createRow(4);
+                        temperatureRow.createCell(0).setCellValue("Температура воздуха");
+                        temperatureRow.createCell(1).setCellValue(viewModel.temperature.getValue());
+
+                        HSSFRow snowRow = calculationSheet.createRow(5);
+                        snowRow.createCell(0).setCellValue("Наличие снега");
+                        snowRow.createCell(1).setCellValue(viewModel.snow.getValue());
+
+                        HSSFRow windRow = calculationSheet.createRow(6);
+                        windRow.createCell(0).setCellValue("Скорость ветра");
+                        windRow.createCell(1).setCellValue(viewModel.wind.getValue());
+
+                        String fileName = ((EditText) saveReportView
+                                .findViewById(R.id.file_name))
+                                .getText()
+                                .toString();
+
+                        if (fileName.equals("")) fileName = "MUIRSUUS_" + UUID.randomUUID().toString();
+
+                        File filePath;
+
+                        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+                            filePath = new File(Environment.getExternalStorageDirectory() + "/" + fileName + ".xls");
+                        } else {
+                            filePath = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "/" + fileName + ".xls");
+                        }
+
+                        try {
+                            if (!filePath.exists()) filePath.createNewFile();
+                            FileOutputStream outputStream = new FileOutputStream(filePath);
+                            hssfWorkbook.write(outputStream);
+                            outputStream.flush();
+                            outputStream.close();
+                            Snackbar.make(view, "Файл сохранен в " + filePath.getParent(), Snackbar.LENGTH_LONG).show();
+                        } catch (IOException e) {
+                            Snackbar.make(view, e.toString(), Snackbar.LENGTH_LONG).show();
+                        }
+                    })
+                    .setNegativeButton("Отмена", (dialog, id) -> dialog.dismiss());
+
+            dialogBuilder.create().show();
+        });
+
         view.findViewById(R.id.backward_button_3).setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.subscriber_network_3_backward));
+
         endButton.setOnClickListener(v -> {
             viewModel.clear();
             Navigation.findNavController(view).navigate(R.id.subscriber_network_3_end);
@@ -189,10 +335,22 @@ public class SubscriberNetworkFragment3 extends Fragment {
             String str = charSequence.toString();
             switch (mode) {
                 case LAYING_SPEED:
-                    viewModel.layingSpeed.setValue(Double.parseDouble(str));
+                    Double layingSpeed;
+                    try {
+                        layingSpeed = Double.parseDouble(str);
+                    } catch (NumberFormatException e) {
+                        layingSpeed = null;
+                    }
+                    viewModel.layingSpeed.setValue(layingSpeed);
                     break;
                 case PERSONNEL_NUMBER:
-                    viewModel.personnelNumber.setValue(Integer.parseInt(str));
+                    Integer personnelNumber;
+                    try {
+                        personnelNumber = Integer.parseInt(str);
+                    } catch (NumberFormatException e) {
+                        personnelNumber = null;
+                    }
+                    viewModel.personnelNumber.setValue(personnelNumber);
                     break;
             }
         }

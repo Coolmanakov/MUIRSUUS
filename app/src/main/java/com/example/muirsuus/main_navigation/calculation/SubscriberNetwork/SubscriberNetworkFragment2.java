@@ -1,13 +1,19 @@
 package com.example.muirsuus.main_navigation.calculation.SubscriberNetwork;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -31,14 +37,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class SubscriberNetworkFragment2 extends Fragment {
     SubscriberNetworkViewModel viewModel;
-    List<DeviceRoomInfo> deviceRoomList = new LinkedList<>();
+    List<DeviceRoomInfo> deviceRoomList;
     View forwardButton;
+    boolean nextClicked = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +57,7 @@ public class SubscriberNetworkFragment2 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(requireActivity()).get(SubscriberNetworkViewModel.class);
+        deviceRoomList = viewModel.deviceRoomList.getValue();
 
         forwardButton = view.findViewById(R.id.forward_button_2);
 
@@ -62,8 +71,16 @@ public class SubscriberNetworkFragment2 extends Fragment {
                 requireContext(),
                 RecyclerView.VERTICAL));
         DeviceRecyclerAdapter deviceRecyclerAdapter =
-                new DeviceRecyclerAdapter(requireContext(), getViewLifecycleOwner());
+                new DeviceRecyclerAdapter(requireContext());
         deviceRecyclerView.setAdapter(deviceRecyclerAdapter);
+        deviceRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if (Math.abs(dy) == 0 || nextClicked) return;
+                hideKeyboardFrom(requireContext(), recyclerView);
+                recyclerView.clearFocus();
+            }
+        });
         viewModel.deviceRecyclerList.observe(
                 getViewLifecycleOwner(),
                 deviceRecyclerList -> deviceRecyclerAdapter.notifyDataSetChanged()
@@ -82,7 +99,8 @@ public class SubscriberNetworkFragment2 extends Fragment {
 
                         if (!item.isHeader) continue;
 
-                        officials.add(item.title);
+                        String official = item.title;
+                        officials.add(official);
 
                         if (deviceMap.containsKey(item.title)) {
                             deviceRecyclerList.add(item);
@@ -102,7 +120,7 @@ public class SubscriberNetworkFragment2 extends Fragment {
                             }
 
                             for (String device : devices) {
-                                deviceRecyclerList.add(new DeviceInfo(device, false));
+                                deviceRecyclerList.add(new DeviceInfo(device, official));
                             }
                         } else
                             while (!item.isHeader) i++;
@@ -113,9 +131,9 @@ public class SubscriberNetworkFragment2 extends Fragment {
 
                         if (officials.contains(official)) continue;
 
-                        deviceRecyclerList.add(new DeviceInfo(official, true));
+                        deviceRecyclerList.add(new DeviceInfo(official));
                         for (String device : entry.getValue())
-                            deviceRecyclerList.add(new DeviceInfo(device, false));
+                            deviceRecyclerList.add(new DeviceInfo(device, official));
                     }
 
                     viewModel.deviceRecyclerList.setValue(deviceRecyclerList);
@@ -133,7 +151,7 @@ public class SubscriberNetworkFragment2 extends Fragment {
     private class DeviceRecyclerAdapter extends RecyclerView.Adapter<DeviceRecyclerAdapter.DeviceItemViewHolder> {
         Context context;
 
-        public DeviceRecyclerAdapter(Context context, LifecycleOwner lifecycleOwner) {
+        public DeviceRecyclerAdapter(Context context) {
             this.context = context;
         }
 
@@ -154,15 +172,20 @@ public class SubscriberNetworkFragment2 extends Fragment {
                 holder.cableLength.setVisibility(View.GONE);
                 holder.deviceRoomSpinner.setVisibility(View.GONE);
                 holder.deviceRoomIndex.setVisibility(View.GONE);
+                holder.deviceName.setTextColor(Color.WHITE);
+                holder.editTextListener.setEnable(false);
             } else {
                 holder.layout.setBackgroundResource(R.color.white);
                 holder.cableLength.setVisibility(View.VISIBLE);
                 holder.deviceRoomSpinner.setVisibility(View.VISIBLE);
-                holder.deviceRoomIndex.setVisibility(View.VISIBLE);
-
-                holder.editTextListener.setEditText(position);
+                holder.deviceRoomIndex.setVisibility(View.INVISIBLE);
+                holder.deviceName.setTextColor(Color.BLACK);
+                holder.editTextListener.setEnable(false);
+                holder.cableLength.setText("");
                 if (deviceInfo.cableLength != null && deviceInfo.cableLength != 0)
                     holder.cableLength.setText(formatIntToString(deviceInfo.cableLength));
+                holder.editTextListener.setEditText(position);
+                holder.editTextListener.setEnable(true);
 
                 List<String> deviceRooms = viewModel.getDeviceRoomListWithDevice(deviceInfo.title);
                 holder.deviceRoomSpinner.setAdapter(new CommonSpinnerAdapter(
@@ -204,12 +227,6 @@ public class SubscriberNetworkFragment2 extends Fragment {
                                 if (selectedIndex.length == 3)
                                     deviceRoomList.add(new DeviceRoomInfo(deviceInfo.deviceRoom, selectedIndex[0]));
 
-                                Stream<DeviceRoomInfo> aaa = deviceRoomList.stream()
-                                        .filter(x -> {
-                                            Log.d("SN_2", x.name.equals(deviceInfo.deviceRoom) + "");
-                                            Log.d("SN_2", x.index.equals(selectedIndex[0]) + "");
-                                            return x.name.equals(deviceInfo.deviceRoom) && x.index.equals(selectedIndex[0]);
-                                        });
                                 DeviceRoomInfo deviceRoom = deviceRoomList.stream()
                                         .filter(x -> x.name.equals(deviceInfo.deviceRoom)
                                                 && x.index.equals(selectedIndex[0]))
@@ -234,6 +251,10 @@ public class SubscriberNetworkFragment2 extends Fragment {
                                 //DO NOTHING
                             }
                         });
+
+                        if (deviceInfo.deviceRoomInfo != null) {
+                            holder.deviceRoomIndex.setSelection(deviceInfo.availableDeviceRooms.indexOf(deviceInfo.deviceRoomInfo.index) + 1);
+                        }
 
                         viewModel.deviceRoomList.observe(
                                 getViewLifecycleOwner(),
@@ -283,21 +304,44 @@ public class SubscriberNetworkFragment2 extends Fragment {
 
                 editTextListener = new EditTextListener();
                 cableLength.addTextChangedListener(editTextListener);
+                cableLength.setOnEditorActionListener((v, actionId, event) -> {
+                    if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                        new Thread(new OnNextClicked()).start();
+                    }
+                    return false;
+                });
+            }
+        }
+
+        private class OnNextClicked implements Runnable {
+            public void run() {
+                nextClicked = true;
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    nextClicked = false;
+                }
             }
         }
 
         private class EditTextListener implements TextWatcher {
             private int position;
+            private boolean enable = true;
 
             public void setEditText(int position) {
                 this.position = position;
             }
 
+            public void setEnable(boolean value) {
+                enable= value;
+            }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-                DeviceInfo itemInfo = viewModel.deviceRecyclerList.get(position);
-                itemInfo.cableLength = Integer.parseInt(charSequence.toString());
-                checkRecycler();
+                // DO NOTHING
+
             }
 
             @Override
@@ -307,7 +351,21 @@ public class SubscriberNetworkFragment2 extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                // DO NOTHING
+                if (!enable) return;
+                DeviceInfo itemInfo = viewModel.deviceRecyclerList.get(position);
+                if (editable.toString().equals("")) {
+                    itemInfo.cableLength = null;
+                    return;
+                }
+                try {
+                    itemInfo.cableLength = Integer.parseInt(editable.toString());
+                } catch (NumberFormatException e) {
+                    String oldValue = "";
+                    if (itemInfo.cableLength != null)
+                        oldValue = itemInfo.cableLength.toString();
+                    editable.replace(0, editable.length(), oldValue);
+                }
+                checkRecycler();
             }
         }
     }
@@ -319,10 +377,17 @@ public class SubscriberNetworkFragment2 extends Fragment {
         String deviceRoom;
         List<String> availableDeviceRooms = new LinkedList<>();
         DeviceRoomInfo deviceRoomInfo;
+        String official;
 
-        DeviceInfo(String title, boolean isHeader) {
+        DeviceInfo(String title) {
             this.title = title;
-            this.isHeader = isHeader;
+            this.isHeader = true;
+        }
+
+        DeviceInfo(String title, String official) {
+            this.title = title;
+            this.official = official;
+            isHeader = false;
         }
 
         public void updateAvailableDeviceRooms() {
@@ -407,5 +472,10 @@ public class SubscriberNetworkFragment2 extends Fragment {
 
     private String formatIntToString(int i) {
         return String.format(Locale.ENGLISH, "%d", i);
+    }
+
+    private static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

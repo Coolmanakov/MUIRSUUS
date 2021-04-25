@@ -9,7 +9,9 @@
         android:id="@+id/division_type_spinner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/recycler_section_header_height"
-        android:background="@color/colorPrimary"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button_inf_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,7 +20,9 @@
         android:id="@+id/official_type_spinner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/recycler_section_header_height"
-        android:background="@color/colorPrimary"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button_inf_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/division_type_spinner" />
@@ -28,20 +32,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:layout_constraintBottom_toTopOf="@+id/backward_button_1"
+        app:layout_constraintBottom_toTopOf="@id/forward_button_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/official_type_spinner" />
-
-    <Button
-        android:id="@+id/backward_button_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_margin="4dp"
-        android:text="@string/backward_button_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/forward_button_1"

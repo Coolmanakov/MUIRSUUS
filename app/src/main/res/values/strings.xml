@@ -228,7 +228,7 @@
     <string name="officials_type">Категории должностных лиц</string>
     <string name="backward_button_text">Назад</string>
     <string name="forward_button_text">Далее</string>
-    <string name="end_button_text">Закончить расчеты</string>
+    <string name="end_button_text">Закончить</string>
     <string name="spinner_header">Выбрать</string>
     <string name="unused_devices">Оставшееся оборудованиие:</string>
     <string name="device_default_name">Device</string>
@@ -346,4 +346,8 @@
     <string name="web_size">Размер Веб-страниц</string>
     <string name="online_webPages">Online</string>
     <string name="online_extraText">(Загружать веб-страницы из облачного хранилища)</string>
+    <string name="save_button_text">Сохранить отчет</string>
+    <string name="file_name_hint">Название файла</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
 </resources>

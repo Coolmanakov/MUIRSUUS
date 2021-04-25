@@ -145,6 +145,10 @@ public abstract class SubscriberNetworkDatabase extends RoomDatabase {
         @Query("SELECT name FROM division")
         List<String> getAllDivisions();
 
+        @Query("SELECT name FROM division " +
+                "WHERE id IN (SELECT division_id FROM official WHERE name = :official)")
+        String getDivisionByOfficial(String official);
+
         @Query("SELECT name FROM official " +
                 "WHERE division_id IN (SELECT id FROM division WHERE name = :division)")
         List<String> getOfficialByDivision(String division);

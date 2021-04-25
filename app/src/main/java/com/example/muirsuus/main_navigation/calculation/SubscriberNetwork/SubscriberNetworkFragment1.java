@@ -69,6 +69,7 @@ public class SubscriberNetworkFragment1 extends Fragment {
         viewModel.divisionType.observe(
                 getViewLifecycleOwner(),
                 divisionType -> {
+                    viewModel.officialRecyclerList.clear();
                     if (divisionType != null) {
                         officialsTypeSpinner.setVisibility(View.VISIBLE);
                         officialsTypeSpinner.setAdapter(new CheckableSpinnerAdapter(
@@ -123,7 +124,6 @@ public class SubscriberNetworkFragment1 extends Fragment {
         );
 
         forwardButton.setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.subscriber_network_1_forward));
-        view.findViewById(R.id.backward_button_1).setOnClickListener(v -> Navigation.findNavController(view).navigate(R.id.subscriber_network_1_backward));
     }
 
     @Override
