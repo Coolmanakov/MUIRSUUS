@@ -12,6 +12,9 @@ import com.example.muirsuus.information_ui.point.PointViewModel;
 import com.example.muirsuus.information_ui.presubsection.PresubsectionViewModel;
 import com.example.muirsuus.information_ui.section.SectionViewModel;
 import com.example.muirsuus.information_ui.subsection.SubsectionViewModel;
+import com.example.muirsuus.main_navigation.lit.LitViewModel;
+
+import java.util.List;
 
 /*
     Фабрика ViewModel, которая отвественна за то, что будет получена верная ViewModel
@@ -23,6 +26,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     private final String LOG_TAG = "mLog " + ViewModelFactory.class.getCanonicalName();
     private String point;
     private String userName;
+    private List<String> booksNames;
 
 
     public ViewModelFactory(Context context) {
@@ -51,6 +55,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         } else if (modelClass.isAssignableFrom(PresubsectionViewModel.class)) {
             Log.d(LOG_TAG, "getting model PresubsectionViewModel");
             return (T) new PresubsectionViewModel(context, section);
+        } else if (modelClass.isAssignableFrom(LitViewModel.class)) {
+            Log.d(LOG_TAG, "getting model LitViewModel");
+            return (T) new LitViewModel(context, booksNames);
         }
         return null;
     }
@@ -69,5 +76,9 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setBooksNames(List<String> booksNames) {
+        this.booksNames = booksNames;
     }
 }

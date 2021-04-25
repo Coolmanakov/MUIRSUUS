@@ -1,5 +1,6 @@
 package com.example.muirsuus.adapters;
 
+import android.content.res.Resources;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +24,12 @@ public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> 
     private final List<CardClass> mLinks;
     private final ListItemClickListener clickListener;
     private ListitemLayoutBinding binding;
+    private final Resources resources;
 
-    public StartAdapter(List<CardClass> mLinks, ListItemClickListener clickListener) {
+    public StartAdapter(List<CardClass> mLinks, ListItemClickListener clickListener, Resources resources) {
         this.mLinks = mLinks;
         this.clickListener = clickListener;
+        this.resources = resources;
     }
 
     @NonNull
@@ -42,6 +45,9 @@ public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         binding.itemTitle.setText(mLinks.get(position).getTitle());
+        /*Bitmap bitmapOriginal = BitmapFactory.decodeResource(resources, mLinks.get(position).getImage());
+        Bitmap imageBitmap = Bitmap.createScaledBitmap(bitmapOriginal, bitmapOriginal.getWidth()/2, bitmapOriginal.getHeight()/2, false);
+        binding.image.setImageBitmap(imageBitmap);*/
         binding.image.setImageResource(mLinks.get(position).getImage());
     }
 

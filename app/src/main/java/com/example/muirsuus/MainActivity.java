@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -74,11 +73,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         /*-------------Drawer Layout--------------------*/
         binding.navView.bringToFront();
-        toggle = new ActionBarDrawerToggle(getParent(),binding.drawerLayout,binding.toolbar,
-                                                                    R.string.open_drawer,R.string.close_drawer);
-        binding.drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        binding.navView.setNavigationItemSelectedListener(this);
+        toggle = new ActionBarDrawerToggle(getParent(), binding.drawerLayout, binding.toolbar,
+                R.string.open_drawer, R.string.close_drawer);
+        //binding.drawerLayout.addDrawerListener(toggle);
+        //toggle.syncState();
+        //binding.navView.setNavigationItemSelectedListener(this);
         /*-------------Drawer Layout--------------------*/
 
         setupPermissions();
@@ -114,12 +113,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return  true;
     }
     //*-----------------Navigation Drawer---------------------*\
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+
         return true;
     }
+    /*
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -128,8 +130,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
 
-        return true;
-    }
+        return super.onOptionsItemSelected(item);
+    }*/
     //метод, который при вызове меняет hamburger icon на arrow
     public void resetActionBar(boolean childAction, int drawerMode)
     {
@@ -146,9 +148,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             getSupportActionBar().setSubtitle(null);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            toggle.setDrawerIndicatorEnabled(true);
+            //toggle.setDrawerIndicatorEnabled(true);
         }
-        binding.drawerLayout.setDrawerLockMode(drawerMode);
+        //binding.drawerLayout.setDrawerLockMode(drawerMode);
     }
 
     private void setupPermissions() {

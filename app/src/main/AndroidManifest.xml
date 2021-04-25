@@ -18,7 +18,6 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".main_navigation.lit.PdfActivity"></activity>
         <activity
             android:name=".SplashActivity"
             android:label=""
