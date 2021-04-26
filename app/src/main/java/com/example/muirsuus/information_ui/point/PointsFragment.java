@@ -87,7 +87,7 @@ public class PointsFragment extends Fragment {
                         images.add(points.getPoint().get(i).getPoint_photo());
                     }
 
-                    adapter.setIsFavBtnVisible(true);
+                    //adapter.setIsFavBtnVisible(true);
                     adapter.setTitles(titles);
                     adapter.setImages(images);
                     binding.recycler.setAdapter(adapter);

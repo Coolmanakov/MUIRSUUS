@@ -61,6 +61,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:enabled="@{zhivuchestViewModel.isVisible ? false : true}"
+                    android:background="@drawable/edit_background"
                     app:layout_constraintTop_toBottomOf="@+id/title_zhivuchest"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,9 +108,8 @@
                 <TextView
                     android:id="@+id/element"
                     android:layout_width="0dp"
-                    android:layout_height="15dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
                     android:text="@{zhivuchestViewModel.element_current_number.toString()}"
                     android:textColor="@color/Red"
                     app:layout_constraintBottom_toBottomOf="@+id/element_curr_number"
@@ -263,8 +263,8 @@
 
                 <TextView
                     android:id="@+id/result"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="21dp"
                     android:layout_marginTop="8dp"
                     android:text="@{zhivuchestViewModel.result.toString()}"
                     android:textColor="@color/Red"
@@ -295,6 +295,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/result_text"
                     app:layout_constraintEnd_toEndOf="@+id/calculate_zhivuchest"
                     app:layout_constraintStart_toEndOf="@+id/result_text"
+                    android:textColor="@color/Red"
                     app:layout_constraintTop_toTopOf="@+id/result_text" />
 
                 <TextView

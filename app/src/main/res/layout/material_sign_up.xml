@@ -13,9 +13,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainConstraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorGray"
+        android:background="@color/Gray"
         tools:context=".registration.sign_up.SignUpActivity">
 
         <androidx.cardview.widget.CardView
@@ -26,7 +27,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            app:cardBackgroundColor="@color/colorGray"
+            app:cardBackgroundColor="@color/Gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,8 +88,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName|text"
-
-
                         android:maxLines="1"
                         android:text="@={user._name}"
                         android:textColor="@color/Black" />
@@ -134,11 +133,10 @@
                     android:layout_height="wrap_content"
 
 
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
 
 
-                    android:onClick="@{() -> user.enter()}"
+                    android:onClick="@{() -> user.sentDataToServer()}"
                     android:padding="10dp"
                     android:text="@string/enter"
 
@@ -148,6 +146,17 @@
                     android:textStyle="normal"
                     app:cornerRadius="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/password_text_layout"
+                    app:layout_constraintStart_toStartOf="@+id/password_text_layout"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:visibility="@{user.visiblity ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="@+id/password_text_layout"
                     app:layout_constraintStart_toStartOf="@+id/password_text_layout"
                     app:layout_constraintTop_toBottomOf="@+id/password_text_layout" />

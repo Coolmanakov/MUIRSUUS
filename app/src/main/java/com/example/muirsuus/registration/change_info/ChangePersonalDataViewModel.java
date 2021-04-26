@@ -110,6 +110,7 @@ public class ChangePersonalDataViewModel extends ViewModel {
             protected void onPostExecute(Void aVoids) {
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra("name", name.getValue());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
 
             }

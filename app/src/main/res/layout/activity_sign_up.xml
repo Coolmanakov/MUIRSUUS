@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorGray"
+        android:background="@color/Gray"
         tools:context=".registration.sign_up.SignUpActivity">
 
         <androidx.cardview.widget.CardView
@@ -30,7 +30,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:cardBackgroundColor="@color/colorGray"
+            app:cardBackgroundColor="@color/Gray"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -111,7 +111,6 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:background="@color/colorPrimary"
-                    android:onClick="@{() -> user.enter()}"
                     android:padding="10dp"
                     android:text="@string/enter"
                     android:textSize="19sp"

@@ -1,19 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <TextView
+                    style="@style/TeableTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/gray_whiter"
+                    android:padding="2dp"
+                    android:text="@string/spendWorkDay" />
+
+                <TextView
+                    android:id="@+id/spendWorkDay"
+                    style="@style/TeableTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="7.5"
+                    android:background="@color/gray_whiter"
+                    android:gravity="center"
+                    android:text="@string/noneText" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <TextView
+                    style="@style/TeableTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:text="@string/spendWorkNight" />
+
+
+                <TextView
+                    android:id="@+id/spendWorkNight"
+                    style="@style/TeableTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/noneText" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <TextView
+                    style="@style/TeableTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/gray_whiter"
+                    android:padding="2dp"
+                    android:text="@string/workers" />
+
+
+                <TextView
+                    android:id="@+id/workers"
+                    style="@style/TeableTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/gray_whiter"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:text="@string/noneText" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <TextView
+                    style="@style/TeableTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:text="@string/timeOpeningAndConnect" />
+
+                <TextView
+                    android:id="@+id/timeOpenAndConect"
+                    style="@style/TeableTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:text="@string/noneText" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <TextView
+                    style="@style/TeableTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/gray_whiter"
+                    android:padding="2dp"
+                    android:text="@string/kabels" />
+
+
+                <TextView
+                    android:id="@+id/kabels"
+                    style="@style/TeableTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/gray_whiter"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:text="@string/noneText" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="2dp">
+
+                <TextView
+                    style="@style/TeableTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="2dp"
+                    android:text="@string/apparatura" />
+
+                <TextView
+                    android:id="@+id/apparatura"
+                    style="@style/TeableTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="2dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="2dp"
+                    android:text="@string/noneText" />
+            </TableRow>
+
+
+        </TableLayout>
+
 
         <TextView
             android:id="@+id/tth"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/TeableTextView"
             android:hint="ТТХ отсутствует"
-            android:textColor="@color/Black"
-            android:textColorHint="@color/colorGray"
+            android:layout_margin="4dp"
+            android:layout_marginTop="4dp"
             android:textSize="15sp" />
 
 

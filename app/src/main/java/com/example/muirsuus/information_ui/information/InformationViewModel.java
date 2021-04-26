@@ -6,7 +6,7 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.muirsuus.information_database.AppDatabase;
+import com.example.muirsuus.information_database.InformationDatabase;
 import com.example.muirsuus.information_database.PointAndInformation;
 
 @SuppressLint("StaticFieldLeak")
@@ -15,8 +15,8 @@ public class InformationViewModel extends ViewModel {
     private final LiveData<PointAndInformation> information;
 
     public InformationViewModel(Context context, String point) {
-        AppDatabase appDatabase = AppDatabase.getInstance(context);
-        information = appDatabase.informationDAO().getPointAndInformation(point);
+        InformationDatabase informationDatabase = InformationDatabase.getInstance(context);
+        information = informationDatabase.informationDAO().getPointAndInformation(point);
     }
 
 

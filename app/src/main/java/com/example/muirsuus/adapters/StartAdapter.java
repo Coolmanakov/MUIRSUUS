@@ -1,6 +1,7 @@
 package com.example.muirsuus.adapters;
 
-import android.content.res.Resources;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,12 +25,12 @@ public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> 
     private final List<CardClass> mLinks;
     private final ListItemClickListener clickListener;
     private ListitemLayoutBinding binding;
-    private final Resources resources;
+    private final Activity activity;
 
-    public StartAdapter(List<CardClass> mLinks, ListItemClickListener clickListener, Resources resources) {
+    public StartAdapter(List<CardClass> mLinks, ListItemClickListener clickListener, Activity activity) {
         this.mLinks = mLinks;
         this.clickListener = clickListener;
-        this.resources = resources;
+        this.activity = activity;
     }
 
     @NonNull
@@ -41,6 +42,7 @@ public class StartAdapter extends RecyclerView.Adapter<StartAdapter.ViewHolder> 
         return new ViewHolder(binding.getRoot(), clickListener);
     }
 
+    @SuppressLint("ResourceType")
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {

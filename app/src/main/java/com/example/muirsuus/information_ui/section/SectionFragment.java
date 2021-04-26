@@ -22,7 +22,7 @@ import com.example.muirsuus.MainActivity;
 import com.example.muirsuus.R;
 import com.example.muirsuus.adapters.TTHAdapter;
 import com.example.muirsuus.databinding.SectionFragmentBinding;
-import com.example.muirsuus.information_database.AppDatabase;
+import com.example.muirsuus.information_database.InformationDatabase;
 import com.example.muirsuus.information_database.section;
 import com.example.muirsuus.information_ui.ViewModelFactory;
 
@@ -35,7 +35,7 @@ public class SectionFragment extends Fragment {
     private TTHAdapter adapter;
     private ViewModelFactory viewModelFactory;
     private TTHAdapter.ListItemClickListener listener;
-    private AppDatabase appDatabase;
+    private InformationDatabase informationDatabase;
     private List<String> titles;
     private List<String> descriptions;
     private List<String> images;

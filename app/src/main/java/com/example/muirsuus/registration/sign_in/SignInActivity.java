@@ -11,6 +11,10 @@ import com.example.muirsuus.R;
 import com.example.muirsuus.SplashActivity;
 import com.example.muirsuus.databinding.MaterialSignInBinding;
 
+/**
+ * С переходом на клиент-сервер, регистрация утратила смысл,
+ * т.к. предполагается, что пользователю будет выдан пароль и логин
+ */
 public class SignInActivity extends AppCompatActivity {
     private MaterialSignInBinding binding;
     private SignInViewModel newUser;
@@ -48,8 +52,6 @@ public class SignInActivity extends AppCompatActivity {
                 }
             }
         });
-
-
 
 
     }

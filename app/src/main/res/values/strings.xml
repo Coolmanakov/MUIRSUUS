@@ -350,4 +350,11 @@
     <string name="file_name_hint">Название файла</string>
     <string name="cancel">Отмена</string>
     <string name="save">Сохранить</string>
+    <string name="spendWorkDay">Трудозатраты в День</string>
+    <string name="noneText">-</string>
+    <string name="spendWorkNight">Трудозатраты в День</string>
+    <string name="workers">Количество л/c в аппаратной</string>
+    <string name="timeOpeningAndConnect">Время развертывания аппаратной с утановлением связи</string>
+    <string name="kabels">Кабели</string>
+    <string name="apparatura">Аппаратура</string>
 </resources>

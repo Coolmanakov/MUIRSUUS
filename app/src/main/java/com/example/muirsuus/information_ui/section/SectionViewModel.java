@@ -7,10 +7,17 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.muirsuus.information_database.AppDatabase;
+import com.example.muirsuus.information_database.InformationDatabase;
 import com.example.muirsuus.information_database.section;
+import com.example.muirsuus.restApi.ClientServerWorker;
+import com.example.muirsuus.restApi.JsonPlaceHolderApi;
 
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /*
  * ViewModel for SectionFragment,
@@ -18,14 +25,34 @@ import java.util.List;
  * */
 public class SectionViewModel extends ViewModel {
     private static final String LOG_TAG = "mLog";
-    private final LiveData<List<section>> sections;
+    private LiveData<List<section>> sections;
 
 
     public SectionViewModel(@NonNull Context context) {
 
-        AppDatabase appDatabase = AppDatabase.getInstance(context);
+        InformationDatabase informationDatabase = InformationDatabase.getInstance(context);
         Log.d(LOG_TAG, "SectionViewModel: getSections from DB");
-        sections = appDatabase.informationDAO().getSections();
+        sections = informationDatabase.informationDAO().getSections();
+    }
+
+    public SectionViewModel(String url) {
+        JsonPlaceHolderApi jsonPlaceHolderApi = new ClientServerWorker(url).getInstance();
+        Call<ResponseBody> call = jsonPlaceHolderApi.downloadImage();
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (!response.isSuccessful()) {
+                    return;
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
 

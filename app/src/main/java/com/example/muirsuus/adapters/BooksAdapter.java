@@ -20,6 +20,7 @@ import com.example.muirsuus.main_navigation.lit.books;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -28,21 +29,20 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     private final Context context;
     private final ListItemClickListener clickListener;
     private final Comparator<books> mComparator;
+    private final List<books> exSortedList = new ArrayList<>(); //список исходных книг
     private final SortedList<books> sortedList = new SortedList<>(books.class, new SortedList.Callback<books>() {
         @Override
         public int compare(books o1, books o2) {
             return mComparator.compare(o1, o2);
-
         }
 
         @Override
         public void onChanged(int position, int count) {
-
             notifyItemChanged(position, count);
         }
 
         //Цель этого метода - определить, изменилось ли содержимое модели.
-        // В SortedListиспользует это , чтобы определить ,
+        // В SortedList использует это , чтобы определить ,
         // нуждается ли вызываться событие изменения
         @Override
         public boolean areContentsTheSame(books oldItem, books newItem) {
@@ -51,7 +51,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
 
         @Override
         public boolean areItemsTheSame(books item1, books item2) {
-            return item1.getBook_name() == item2.getBook_name();
+            return item2.getBook_name().equals(item1.getBook_name());
         }
 
         @Override
@@ -70,15 +70,19 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
             notifyItemMoved(fromPosition, toPosition);
         }
     });
-    /*-----------------------------------------Поля класса---------------------------------------------------------*/
-    private List<books> books;
-    /*-----------------------------------------Поля класса---------------------------------------------------------*/
 
-    public BooksAdapter(Context context, ListItemClickListener clickListener, List<books> books, Comparator<books> mComparator) {
+
+    public BooksAdapter(Context context, ListItemClickListener clickListener, Comparator<books> mComparator) {
         this.context = context;
-        this.books = books;
         this.clickListener = clickListener;
         this.mComparator = mComparator;
+    }
+
+    /*-----------------------------------------Поля класса---------------------------------------------------------*/
+    //private List<books> books = new ArrayList<>();
+
+    public List<books> getExSortedList() {
+        return exSortedList;
     }
 
     public static void loadImageFromAssets(String namePhoto, ImageView imageView1, Context context) throws IOException {
@@ -99,21 +103,54 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     public void add(List<books> models) {
         sortedList.addAll(models);
     }
+    //удаляем те элементы,
+    // которые не соответсвуют запросу пользователя
 
     public void replaceAll(List<books> models) {
         sortedList.beginBatchedUpdates();
-        for (int i = sortedList.size() - 1; i >= 0; i--) {
+        int size = sortedList.size();
+        for (int i = 0; i < size; i++) {
             final books model = sortedList.get(i);
             if (!models.contains(model)) {
                 sortedList.remove(model);
+                //так как мы удаляем объекты из списка, то его размер меняется,
+                // поэтому важно уменьшить итератор и размер списка,
+                // чтобы не выйти за размер списка
+                size--;
+                i--;
             }
         }
         sortedList.addAll(models);
         sortedList.endBatchedUpdates();
     }
 
-    public void setBooks(List<com.example.muirsuus.main_navigation.lit.books> books) {
-        this.books = books;
+    /*public void setBooks(List<books> books) {
+        for(int i = 0; i < books.size(); i++) {
+            String pdf_name = books.get(i).getBook_name();
+
+            StringBuffer buffer = new StringBuffer(pdf_name);
+            buffer.delete(pdf_name.length() - 4, pdf_name.length()); //удаляем ".pdf" из исходной строки
+            String name = buffer.substring(0); //получаем конечное название книги
+            //this.books.get(i).setBook_name(name);
+        }
+
+    }
+
+   public List<books> getBooks() {
+        return so;
+    }*/
+    public void setBook(books book) {
+        String pdfName = book.getBook_name();
+        StringBuffer buffer = new StringBuffer(pdfName);
+        buffer.delete(pdfName.length() - 4, pdfName.length()); //удаляем ".pdf" из исходной строки
+        String name = buffer.substring(0); //получаем конечное название книги
+        book.setBook_name(name);
+        sortedList.add(book);
+        exSortedList.add(book); //дублируем список книг
+    }
+
+    public SortedList<books> getSortedList() {
+        return sortedList;
     }
 
     @NonNull
@@ -127,7 +164,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         try {
-            holder.bind(position);
+            holder.bind(position, sortedList);
         } catch (IOException exception) {
             exception.printStackTrace();
         }
@@ -135,7 +172,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return books.size();
+        return sortedList.size();
     }
 
     public interface ListItemClickListener {
@@ -153,9 +190,9 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.MyViewHolder
             this.clickListener = listener;
         }
 
-        private void bind(int position) throws IOException {
-            loadImageFromAssets(books.get(position).getBook_photo(), binding.pdfImage, context);
-            binding.bookName.setText(books.get(position).getBook_name());
+        private void bind(int position, SortedList<books> sortedList) throws IOException {
+            loadImageFromAssets(sortedList.get(position).getBook_photo(), binding.pdfImage, context);
+            binding.bookName.setText(sortedList.get(position).getBook_name());
         }
 
         @Override

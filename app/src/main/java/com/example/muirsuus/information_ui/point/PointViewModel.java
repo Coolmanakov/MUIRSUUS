@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.muirsuus.information_database.AppDatabase;
+import com.example.muirsuus.information_database.InformationDatabase;
 import com.example.muirsuus.information_database.PreSubsectionAndPoint;
 import com.example.muirsuus.information_database.SubsectionAndPoint;
 
@@ -19,9 +19,9 @@ public class PointViewModel extends ViewModel {
 
     public PointViewModel(Context context, String subsection) {
 
-        AppDatabase appDatabase = AppDatabase.getInstance(context);
-        points = appDatabase.informationDAO().getSubsectionAndPoint(subsection);
-        points_pre = appDatabase.informationDAO().getPreSubsectionAndPoint(subsection);
+        InformationDatabase informationDatabase = InformationDatabase.getInstance(context);
+        points = informationDatabase.informationDAO().getSubsectionAndPoint(subsection);
+        points_pre = informationDatabase.informationDAO().getPreSubsectionAndPoint(subsection);
     }
 
     public LiveData<SubsectionAndPoint> getPoints() {

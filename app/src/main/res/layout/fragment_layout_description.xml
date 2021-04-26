@@ -14,7 +14,7 @@
             android:layout_gravity="center"
             android:hint="Описание отсутствует"
             android:textColor="@color/Black"
-            android:textColorHint="@color/colorGray"
+            android:textColorHint="@color/Gray"
             android:textSize="15sp" />
 
 

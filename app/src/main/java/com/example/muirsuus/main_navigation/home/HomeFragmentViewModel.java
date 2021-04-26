@@ -1,21 +1,73 @@
 package com.example.muirsuus.main_navigation.home;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.muirsuus.registration.RegistrationDB;
-import com.example.muirsuus.registration.privateInfo;
+import com.example.muirsuus.restApi.ClientServerWorker;
+import com.example.muirsuus.restApi.JsonPlaceHolderApi;
+import com.example.muirsuus.restApi.User;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @SuppressLint("StaticFieldLeak")
 public class HomeFragmentViewModel extends ViewModel {
     private final String LOG_TAG = "mLog";
+    private final String url;
+    public String token;
+    private JsonPlaceHolderApi jsonPlaceHolderApi;
+
     public MutableLiveData<String> _nickname = new MutableLiveData<>();
+    private final LiveData<String> nickname = _nickname;
+    public MutableLiveData<String> _surname = new MutableLiveData<>();
+    private final LiveData<String> surname = _surname;
+    public MutableLiveData<String> _patronymic = new MutableLiveData<>();
+    private final LiveData<String> patronymic = _patronymic;
+    public MutableLiveData<String> _rank = new MutableLiveData<>();
+    private final LiveData<String> rank = _rank;
+    public MutableLiveData<String> _appointment = new MutableLiveData<>();
+    private final LiveData<String> appointment = _appointment;
+    public MutableLiveData<String> _workPlace = new MutableLiveData<>();
+    private final LiveData<String> workPlace = _workPlace;
+
+
+    public HomeFragmentViewModel(String url, String token) {
+        this.url = url;
+        this.token = token;
+    }
+
+    public void loadUserInfo() {
+        JsonPlaceHolderApi jsonPlaceHolderApi = new ClientServerWorker(url).getInstance();
+        Call<User> userInfo = jsonPlaceHolderApi.clientInfo(token);
+
+        userInfo.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (!response.isSuccessful()) {
+                    return;
+                }
+                User user = response.body();
+                _nickname.setValue(user.getFirst_name());
+                _surname.setValue(user.getLast_name());
+                _patronymic.setValue(user.getMiddle_name());
+                _rank.setValue(user.getRank());
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e(LOG_TAG, "" + t.getMessage());
+            }
+        });
+    }
+
+
+    //использовалось  при работе с локальной БД
+    /*public MutableLiveData<String> _nickname = new MutableLiveData<>();
     private final LiveData<String> nickname = _nickname;
     public MutableLiveData<String> _surname = new MutableLiveData<>();
     private final LiveData<String> surname = _surname;
@@ -68,11 +120,7 @@ public class HomeFragmentViewModel extends ViewModel {
         }.execute();
 
 
-    }
-
-    public void changePrivateInfo() {
-
-    }
+    }*/
 
 
 }

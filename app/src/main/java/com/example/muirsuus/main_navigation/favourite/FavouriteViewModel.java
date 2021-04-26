@@ -11,7 +11,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.muirsuus.adapters.TTHAdapter;
-import com.example.muirsuus.information_database.AppDatabase;
+import com.example.muirsuus.information_database.InformationDatabase;
 import com.example.muirsuus.information_database.point;
 import com.example.muirsuus.registration.RegistrationDB;
 import com.example.muirsuus.registration.privateInfo;
@@ -27,7 +27,7 @@ public class FavouriteViewModel extends ViewModel {
     private static final String LOG_TAG = "mLog " + TTHAdapter.class.getCanonicalName();
     private final MutableLiveData<List<String>> _listFavourites = new MutableLiveData<>();
     private final RegistrationDB registrationDB;
-    private final AppDatabase appDatabase;
+    private final InformationDatabase informationDatabase;
     private final LifecycleOwner lifecycleOwner;
     public LiveData<List<String>> listFavourites = _listFavourites; //храним список понравившихся point
     public Boolean alreadyFavourite = false; //для тех элементов, которые уже в Закладках
@@ -39,7 +39,7 @@ public class FavouriteViewModel extends ViewModel {
         this.lifecycleOwner = lifecycleOwner;
         this.userName = userName;
         registrationDB = RegistrationDB.getInstance(context);
-        appDatabase = AppDatabase.getInstance(context);
+        informationDatabase = InformationDatabase.getInstance(context);
 
 
     }
@@ -131,7 +131,7 @@ public class FavouriteViewModel extends ViewModel {
             if(oldList != null && !oldList.isEmpty()){
                 String[] words = oldList.get(0).split(",");
                 for(int i = 0; i < words.length; i++){
-                    point point = appDatabase.informationDAO().getPoint(words[i]);
+                    point point = informationDatabase.informationDAO().getPoint(words[i]);
                     if(point != null) {
                         points.add(point);
                     }

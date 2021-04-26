@@ -150,7 +150,7 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
             // put title into tthviewmodel
             TthViewModel tthViewModel = new TthViewModel();
             if (title != null) {
-                tthViewModel.setTitle(title);
+                binding.tth.setText(title);
             } else {
                 Log.d(LOG_TAG, "title is null");
             }
@@ -160,8 +160,6 @@ public class TTHAdapter extends RecyclerView.Adapter<TTHAdapter.MyViewHolder> {
             } else {
                 Log.d(LOG_TAG, "image is null");
             }
-
-            binding.setData(tthViewModel); // set tthviewmodel into layout
 
         }
 

@@ -38,7 +38,7 @@ public class WebFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getActivity().setTitle("Сеть");
+        getActivity().setTitle("АСУУС");
         webSizePreferences = getActivity().getSharedPreferences(WEB_SIZE, Context.MODE_PRIVATE);
         webSizePreferences.edit();
         //получаем сохранённое значение размера веб-страницы

@@ -44,5 +44,9 @@ public interface InformationDAO {
     @Query("SELECT book_photo FROM books WHERE book_name = :bookName")
     String getBookPhoto(String bookName);
 
+    @Transaction
+    @Query("SELECT *  FROM information WHERE informId = :id")
+    LiveData<information> getTableInfo(Integer id);
+
 
 }

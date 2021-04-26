@@ -153,7 +153,7 @@ public class ZhivuchestViewModel extends BaseObservable {
 
                 // менняем предыдущее значение на текущее
                 _element_previous_number.setValue(_element_current_number.getValue());
-                //увеличим текущее на 1
+                //увеличим текущее на 1, если оно не больше максимального числа элементов
                 _element_current_number.setValue(String.valueOf(Integer.parseInt(_element_previous_number.getValue()) + 1));
 
                 _isVisible.setValue(true);
